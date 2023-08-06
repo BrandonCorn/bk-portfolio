@@ -35,3 +35,11 @@ body{
   background-color: #000;
   color: #fff;
 }
+
+.tilt-left {
+  transform: rotate(-5deg);
+}
+
+.tilt-right {
+  transform: rotate(5deg)
+}

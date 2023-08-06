@@ -35,8 +35,7 @@ export function ModeToggle() {
 
   function toggleMode() {
     disableTransitionsTemporarily();
-    const setter = theme === "light" ? "dark" : "light";
-    setTheme(setter);
+    setTheme(theme === "light" ? "dark" : "light");
   }
 
   return (
@@ -46,8 +45,11 @@ export function ModeToggle() {
       aria-label="Toggle dark mode"
       onClick={toggleMode}
     >
-      <SunIcon className="w-9 h-9 stroke-zinc-500 dark:hidden fill-zinc-100 transition group-hover:fill-zinc-200 group-hover:stroke-zinc-700 [@media(prefers-color-scheme:dark)]:fill-teal-50 [@media(prefers-color-scheme:dark)]:stroke-teal-500 [@media(prefers-color-scheme:dark)]:group-hover:fill-teal-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-teal-600" />
-      <MoonIcon className="hidden w-9 h-9 fill-zinc-700 stroke-zinc-700 transition dark:block [@media(prefers-color-scheme:dark)]:group-hover-stroke-zinc-400 [@media_not_(prefers-color-scheme:dark)]:fill-teal-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-teal-500" />
+      <SunIcon className="w-9 h-9 stroke-teal-500 dark:hidden fill-teal-50 transition group-hover:fill-teal-50 group-hover:stroke-teal-600" />
+      <MoonIcon className="hidden w-9 h-9 fill-zinc-100 stroke-zinc-200 transition dark:block " />
     </button>
   );
 }
+
+// @media(prefers-color-scheme:dark)]:fill-teal-50 [@media(prefers-color-scheme:dark)]:stroke-teal-500 [@media(prefers-color-scheme:dark)]:group-hover:fill-teal-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-teal-600
+// [@media(prefers-color-scheme:dark)]:group-hover-stroke-zinc-400  [@media_not_(prefers-color-scheme:dark)]:fill-teal-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-teal-500
