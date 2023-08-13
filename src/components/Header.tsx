@@ -44,16 +44,16 @@ const headerNavigation = [
     label: "About",
   },
   {
-    path: "/projects",
-    label: "Projects",
+    path: "/experience",
+    label: "Experience",
   },
   {
-    path: "/contact",
-    label: "Contact",
+    path: "/interview",
+    label: "Interview",
   },
   {
-    path: "/something",
-    label: "Something",
+    path: "/one-does-not-simply-login-to-mordor",
+    label: "Login",
   },
 ];
 

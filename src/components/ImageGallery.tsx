@@ -1,14 +1,20 @@
+"use client";
+
 import { motion } from "framer-motion";
 import Image, { StaticImageData } from "next/image";
 import clsx from "clsx";
-
-//
 
 const ImageGallery = ({ images }: { images: StaticImageData[] }) => {
   const evenOdd = (index: number) => (index % 2 === 0 ? 0 : 1);
 
   return (
-    <div className="flex flex-row items-center justify-center overflow-visible">
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.6 }}
+      className="flex flex-row items-center justify-center overflow-visible"
+    >
       <div className="flex flex-row">
         {images.map((image, index) => (
           <div className="w-56 h-56 md:w-72 md:h-72 mx-4 ">
@@ -27,7 +33,7 @@ const ImageGallery = ({ images }: { images: StaticImageData[] }) => {
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

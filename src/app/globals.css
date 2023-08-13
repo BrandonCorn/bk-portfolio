@@ -16,15 +16,6 @@
   }
 }
 
-/* body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
 
 body{
   color: #000;
@@ -37,9 +28,24 @@ body{
 }
 
 .tilt-left {
-  transform: rotate(-5deg);
+  transform: rotate(-3deg);
 }
 
 .tilt-right {
-  transform: rotate(5deg)
+  transform: rotate(3deg)
+}
+
+/* Technology image pop-up effect */
+.spider-tech-image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+  opacity: 0;
+  z-index: 10;
+}
+
+.spider-tech-image.visible {
+  opacity: 1;
 }
