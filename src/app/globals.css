@@ -16,12 +16,13 @@
   }
 }
 
-body {
+
+body{
   color: #000;
   background-color: #ffff;
 }
 
-[data-theme="dark"] body {
+[data-theme='dark'] body {
   background-color: #000;
   color: #fff;
 }
@@ -31,7 +32,7 @@ body {
 }
 
 .tilt-right {
-  transform: rotate(3deg);
+  transform: rotate(3deg)
 }
 
 /* Technology image pop-up effect */
