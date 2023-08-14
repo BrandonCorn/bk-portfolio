@@ -50,6 +50,3 @@ export function ModeToggle() {
     </button>
   );
 }
-
-// @media(prefers-color-scheme:dark)]:fill-teal-50 [@media(prefers-color-scheme:dark)]:stroke-teal-500 [@media(prefers-color-scheme:dark)]:group-hover:fill-teal-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-teal-600
-// [@media(prefers-color-scheme:dark)]:group-hover-stroke-zinc-400  [@media_not_(prefers-color-scheme:dark)]:fill-teal-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-teal-500

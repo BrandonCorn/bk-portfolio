@@ -3,11 +3,11 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import ImageGallery from "@/components/ImageGallery";
-import Disneyland from "../../public/about-me/brandon-kat-disneyland-2.jpg";
-import MeowWolf from "../../public/about-me/meow-wolf-1.jpeg";
-import MeowWolf2 from "../../public/about-me/meow-wolf-2.jpeg";
-import TwilioSpeaker from "../../public/about-me/twilio-speaker.jpeg";
-import Mom from "../../public/about-me/brandon-mom.jpeg";
+import Disneyland from "/public/about-me/brandon-kat-disneyland-2.jpg";
+import MeowWolf from "/public/about-me/meow-wolf-1.jpeg";
+import MeowWolf2 from "/public/about-me/meow-wolf-2.jpeg";
+import TwilioSpeaker from "/public/about-me/twilio-speaker.jpeg";
+import Mom from "/public/about-me/brandon-mom.jpeg";
 import Testimonials from "@/components/Testimonials";
 import MovieGallery from "@/components/MovieGallery";
 import HomeIntro from "@/components/HomeIntro";

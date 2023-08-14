@@ -27,15 +27,15 @@ const LoginForm = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.6 }}
-      className="max-w-md w-full space-y-8 bg-black rounded-lg border border-gray-600 p-24"
+      className=" max-w-sm space-y-8 bg-white shadow-lg rounded-lg border p-24"
     >
       <div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
+        <h2 className="mt-3 text-center text-3xl font-bold text-grey-800">
           Sign in to your account
         </h2>
       </div>
       <form className="mt-8 space-y-6">
-        <div className="rounded-md shadow-sm -space-y-px">
+        <div className="rounded-md md:rounded-lg shadow-lg -space-y-px">
           <div>
             <label htmlFor="username" className="sr-only">
               Username
@@ -46,7 +46,7 @@ const LoginForm = () => {
               type="text"
               autoComplete="username"
               required
-              className="appearance-none rounded-t-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none rounded-t-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-zinc-800 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Username"
             />
           </div>
@@ -60,7 +60,7 @@ const LoginForm = () => {
               type="password"
               autoComplete="current-password"
               required
-              className="appearance-none rounded-b-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none rounded-b-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-zinc-800 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Password"
             />
           </div>
@@ -76,6 +76,14 @@ const LoginForm = () => {
               Sign in
             </button>
           </Link>
+        </div>
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="text-md text-blue-500 hover:text-blue-600">
+            <Link href="/sign-up"> Sign Up </Link>
+          </div>
+          <div className="text-md text-blue-500 hover:text-blue-600">
+            <Link href="/forgot-password"> Forgot Password </Link>
+          </div>
         </div>
       </form>
     </motion.div>

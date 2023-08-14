@@ -52,7 +52,7 @@ const headerNavigation = [
     label: "Interview",
   },
   {
-    path: "/one-does-not-simply-login-to-mordor",
+    path: "/auth",
     label: "Login",
   },
 ];
