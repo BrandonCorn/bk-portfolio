@@ -50,4 +50,4 @@ const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
 
-//add logic for callbacks
+//add logic for callbacks https://next-auth.js.org/configuration/options#callbacks
