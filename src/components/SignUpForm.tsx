@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 import { SendVerificationBody } from "@/app/api/send-verification/route";
 
-const LoginForm = () => {
+const SignUpForm = () => {
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
@@ -23,7 +24,7 @@ const LoginForm = () => {
         <div className="rounded-md md:rounded-lg shadow-lg -space-y-px">
           <div>
             <label htmlFor="username" className="sr-only">
-              Username
+              Email
             </label>
             <input
               id="username"
@@ -54,7 +55,7 @@ const LoginForm = () => {
         <div>
           <Link href="/two-factor">
             <button
-              // onClick={}
+              //   onClick={sendVerification}
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
@@ -64,10 +65,7 @@ const LoginForm = () => {
         </div>
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="text-md text-blue-500 hover:text-blue-600">
-            <Link href="/sign-up"> Sign Up </Link>
-          </div>
-          <div className="text-md text-blue-500 hover:text-blue-600">
-            <Link href="/forgot-password"> Forgot Password </Link>
+            <Link href="/sign-up"> Have an account? </Link>
           </div>
         </div>
       </form>
@@ -75,4 +73,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignUpForm;
