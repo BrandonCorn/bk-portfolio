@@ -9,26 +9,26 @@ import { Session, DefaultSession } from "next-auth";
 export const authOptions: NextAuthOptions = {
   //configure one or more auth providers
   providers: [
-    // GitHubProvider({
-    //   clientId: process.env.GITHUB_ID || "",
-    //   clientSecret: process.env.GITHUB_SECRET || "",
-    // }),
-    // DiscordProvider({
-    //   clientId: process.env.DISCORD_CLIENT_ID || "",
-    //   clientSecret: process.env.DISCORD_CLIENT_SECRET || "",
-    // }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID || "",
+      clientSecret: process.env.GITHUB_SECRET || "",
+    }),
+    DiscordProvider({
+      clientId: process.env.DISCORD_CLIENT_ID || "",
+      clientSecret: process.env.DISCORD_CLIENT_SECRET || "",
+    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        id: { label: 'id', type: 'number', placeholder: 'id'},
+        // id: { label: 'id', type: 'number', placeholder: 'id'},
         email: { label: "email", type: "text", placeholder: "username" },
         password: {
           label: "password",
           type: "password",
           placeholder: "password",
         },
-        role: { label: 'role', type: 'text', placeholder: 'role'},
-        skills: { label: 'skills', type: 'skills', placeholder: 'skills'}
+        // role: { label: 'role', type: 'text', placeholder: 'role'},
+        // skills: { label: 'skills', type: 'skills', placeholder: 'skills'}
       },
       async authorize(credentials, req) {
         const res = await fetch("http://localhost:3000/auth/signin", {
@@ -48,10 +48,14 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  secret: process.env.SECRET,
   callbacks: {
-    session({session}: {session: Session}){
+    async session({session}: {session: Session}){
       return session;
-    }
+    },
+  }, 
+  session: {
+    strategy: 'jwt'
   }
 };
 

@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/node": "20.4.4",
     "@types/react": "18.2.16",
     "@types/react-dom": "18.2.7",
     "chart.js": "^4.3.3",
@@ -23,12 +22,15 @@
     "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
-    "twilio": "^4.14.1",
-    "typescript": "5.1.6"
+    "twilio": "^4.14.1"
   },
   "devDependencies": {
+    "@types/node": "^20.5.0",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.27",
-    "tailwindcss": "^3.3.3"
+    "prisma": "^5.1.1",
+    "tailwindcss": "^3.3.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
   }
 }

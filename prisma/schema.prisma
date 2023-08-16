@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int          @id @default(autoincrement())
+  createdAt  DateTime     @default(now())
+  email      String       @unique
+  name       String?
+  password   String
+  skills     Skill[]
+  preference Preference[]
+  role       Role[]
+  selectedAnswer SelectedAnswer[]
+}
+
+model QuestionCategory {
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
+  name      String
+  Question  Question[]
+}
+
+model Question {
+  id         Int              @id @default(autoincrement())
+  createdAt  DateTime         @default(now())
+  categoryId Int
+  text       String           @db.VarChar(300)
+  category   QuestionCategory @relation(fields: [categoryId], references: [id])
+  question   SelectedAnswer[]
+}
+
+model SelectedAnswer {
+  id         Int      @id @default(autoincrement())
+  questionId Int
+  answer     String   @db.VarChar(300)
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  question   Question @relation(fields: [questionId], references: [id])
+}
+
+model Skill {
+  id               Int      @id @default(autoincrement())
+  createdAt        DateTime @default(now())
+  name             String
+  proficiencyLevel String?  @db.VarChar(120)
+  yearsExperience  Int
+  userId           Int
+  user             User     @relation(fields: [userId], references: [id])
+}
+
+model Preference {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name      String
+  weight    Int
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Role {
+  id              Int    @id @default(autoincrement())
+  name            String
+  description     String @db.VarChar(300)
+  yearsExperience String
+  userId          Int
+  user            User   @relation(fields: [userId], references: [id])
+}

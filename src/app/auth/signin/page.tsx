@@ -16,10 +16,8 @@ const Auth = async () => {
             </div>
           </div>
         </div>
-        <div className="w-full md:w-1/2 lg:w-2/5 flex flex-col justify-center items-center bg-black mx-auto">
-          <div className="flex flex-shrink">
-            <LoginForm />
-          </div>
+        <div className="w-full md:w-1/2 lg:w-2/5 flex flex-col justify-center items-center bg-white mx-auto">
+          <div className="flex flex-shrink">{/* <LoginForm />{" "} */}</div>
         </div>
       </div>
     </>
