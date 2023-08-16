@@ -3,6 +3,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import DiscordProvider from "next-auth/providers/discord";
 import GitHubProvider from "next-auth/providers/github";
+import { Session, DefaultSession } from "next-auth";
 
 //custom providers described here https://next-auth.js.org/configuration/providers/credentials
 export const authOptions: NextAuthOptions = {
@@ -19,12 +20,15 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "email", type: "text", placeholder: "username" },
+        id: { label: 'id', type: 'number', placeholder: 'id'},
+        email: { label: "email", type: "text", placeholder: "username" },
         password: {
           label: "password",
           type: "password",
           placeholder: "password",
         },
+        role: { label: 'role', type: 'text', placeholder: 'role'},
+        skills: { label: 'skills', type: 'skills', placeholder: 'skills'}
       },
       async authorize(credentials, req) {
         const res = await fetch("http://localhost:3000/auth/signin", {
@@ -44,6 +48,11 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    session({session}: {session: Session}){
+      return session;
+    }
+  }
 };
 
 const handler = NextAuth(authOptions);
