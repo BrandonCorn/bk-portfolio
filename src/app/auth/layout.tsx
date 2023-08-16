@@ -6,7 +6,6 @@
 
 import "../globals.css";
 import type { Metadata } from "next";
-import { SessionProvider } from "next-auth/react";
 
 export default function LoginLayout({
   children,
@@ -16,13 +15,11 @@ export default function LoginLayout({
   return (
     <html>
       <body>
-        <SessionProvider>
-          <div className=" min-h-screen justify-center items-center">
-            <div className="w-1/2 bg-zinc-800"></div>
-            {children}
-            <div className="w-1/2 bg-white"></div>
-          </div>
-        </SessionProvider>
+        <div className=" min-h-screen justify-center items-center">
+          <div className="w-1/2 bg-zinc-800"></div>
+          {children}
+          <div className="w-1/2 bg-white"></div>
+        </div>
       </body>
     </html>
   );
