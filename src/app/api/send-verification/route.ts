@@ -8,12 +8,10 @@ export type SendVerificationBody = {
 }
 
 export async function POST(req: NextRequest){
-    console.log('inside the api');
     const data: SendVerificationBody = await req.json();
     const verify = await client.verify.v2.services(process.env.TWILIO_VERIFY_SERVICE_ID || '')
         .verifications
         .create({ to: data.phoneNumber, channel: 'sms' })
         .then(verification => verification);
-    console.log('verify', verify);
     return NextResponse.json(verify);
 }   

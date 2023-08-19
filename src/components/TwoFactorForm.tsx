@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import clsx from "clsx";
 import { CheckVerificationBody } from "@/app/api/check-verification/route";
+import useSWR from "swr";
+import { fetcher } from "@/lib/prismaDb/fetcher";
 
 const TwoFactorForm = () => {
   const [success, setSuccess] = useState("message");
@@ -27,8 +29,6 @@ const TwoFactorForm = () => {
     });
 
     const data = await res.json();
-    console.log("got some data", data);
-    // return data;
     if (data.tokenStatus === "approved") setSuccess("Great, you got it right!");
     else setSuccess("Invalid code provided");
   };

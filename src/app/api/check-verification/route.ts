@@ -14,7 +14,6 @@ export async function POST(req: NextRequest){
         .verificationChecks
         .create({ to: data.phoneNumber, code: data.code })
         .then(response => {
-            console.log('response', response);
             if (response.status === 'approved'){
                 return NextResponse.json({ tokenStatus: response.status})
             }

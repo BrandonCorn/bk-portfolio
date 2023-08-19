@@ -42,10 +42,7 @@ const TestimonialCard = ({
       key={index}
       className="rounded-lg shadow-xl py-6 pr-6 pl-0 mb-8 mr-8 text-zinc-600 dark:text-zinc-400 "
     >
-      <p className="text-white text-xl font-bold mb-2">
-        {" "}
-        "{testimonial.quote}"{" "}
-      </p>
+      <p className="text-white text-xl font-bold mb-2">"{testimonial.quote}"</p>
       <p className="text-lg mb-1"> {testimonial.name} </p>
       <p className="text-sm mb-1">
         {testimonial.jobTitle} at {testimonial.company}
@@ -67,7 +64,13 @@ const Testimonials = () => {
         Testimonials
       </h1>
       {testimonials.map((testimonial, index) => {
-        return <TestimonialCard testimonial={testimonial} index={index} />;
+        return (
+          <TestimonialCard
+            key={index}
+            testimonial={testimonial}
+            index={index}
+          />
+        );
       })}
     </motion.div>
   );

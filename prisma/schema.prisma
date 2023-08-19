@@ -10,41 +10,82 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model User {
-  id         Int          @id @default(autoincrement())
-  createdAt  DateTime     @default(now())
-  email      String       @unique
-  name       String?
-  password   String
-  skills     Skill[]
-  preference Preference[]
-  role       Role[]
-  selectedAnswer SelectedAnswer[]
+  id              String           @id @default(cuid())
+  name            String?
+  email           String?          @unique
+  emailVerified   DateTime?
+  password        String?
+  image           String?
+  accounts        Account[]
+  sessions        Session[]
+  questions       Question[]
+  selectedAnswers SelectedAnswer[]
+  skills          Skill[]
+  preferences     Preference[]
+  roles           Role[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
 model QuestionCategory {
   id        Int        @id @default(autoincrement())
   createdAt DateTime   @default(now())
   name      String
-  Question  Question[]
+  question  Question[]
 }
 
 model Question {
   id         Int              @id @default(autoincrement())
   createdAt  DateTime         @default(now())
   categoryId Int
-  text       String           @db.VarChar(300)
+  text       String           @db.Text
   category   QuestionCategory @relation(fields: [categoryId], references: [id])
   question   SelectedAnswer[]
+  userId     String
+  user       User             @relation(fields: [userId], references: [id])
 }
 
 model SelectedAnswer {
   id         Int      @id @default(autoincrement())
   questionId Int
-  answer     String   @db.VarChar(300)
-  userId     Int
-  user       User     @relation(fields: [userId], references: [id])
+  answer     String   @db.Text
   question   Question @relation(fields: [questionId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
 }
 
 model Skill {
@@ -53,7 +94,7 @@ model Skill {
   name             String
   proficiencyLevel String?  @db.VarChar(120)
   yearsExperience  Int
-  userId           Int
+  userId           String
   user             User     @relation(fields: [userId], references: [id])
 }
 
@@ -62,15 +103,15 @@ model Preference {
   createdAt DateTime @default(now())
   name      String
   weight    Int
-  userId    Int
+  userId    String
   user      User     @relation(fields: [userId], references: [id])
 }
 
 model Role {
   id              Int    @id @default(autoincrement())
   name            String
-  description     String @db.VarChar(300)
-  yearsExperience String
-  userId          Int
+  description     String @db.Text
+  yearsExperience Int
+  userId          String
   user            User   @relation(fields: [userId], references: [id])
 }
