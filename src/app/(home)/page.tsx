@@ -73,14 +73,3 @@ export default function Home() {
     </main>
   );
 }
-
-//separate into 3 rows of different sizes
-//two columns in the last row
-//middle row can be smallest in height
-//always start content at the same spot/margin from the nav bar
-
-//1st row, title with image above it, explaination of who I am
-
-//2nd row, cool images from teams I've worked with or things I've done
-
-//3rd row, 2 columns

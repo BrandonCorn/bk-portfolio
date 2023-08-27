@@ -1,3 +1,4 @@
+import { PasswordManager } from "@/services/authService/auth";
 import { createUser } from "@/services/usersService/user";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -9,13 +10,14 @@ type CreateUserBody = {
 }
 
 export async function POST(req: NextRequest){
-  const data = await req.json();
+  const data: CreateUserBody = await req.json();
+  const encryptedPassword = await PasswordManager.toHash(data.password);
   const user = await createUser({
     name: data.name,
     email: data.email,
-    password: data.password
+    password: encryptedPassword
   });
-  console.log('user', user);
+  
   if(!user) {
     return NextResponse.json({message: 'Failed to create user'}, {status: 400});
   }
