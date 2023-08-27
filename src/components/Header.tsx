@@ -8,9 +8,6 @@ import clsx from "clsx";
 import { ModeToggle } from "@/components";
 import { usePathname } from "next/navigation";
 import PersonalLogo from "../../public/personal-logo.jpeg";
-import { useSession } from "next-auth/react";
-import { Session } from "next-auth";
-import SessionProviderWrapper from "./SessionProvider";
 
 interface NavLink {
   key: number | string;
@@ -79,7 +76,6 @@ function NavigationGroup() {
 export function Header() {
   const [mounted, setHasMounted] = useState(false);
   const path = usePathname();
-  // const session = useSession();
 
   useEffect(() => {
     setHasMounted(true);

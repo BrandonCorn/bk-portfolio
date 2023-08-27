@@ -3,15 +3,15 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Provider } from "@/components";
 const inter = Inter({ subsets: ["latin"] });
-import SessionWrapper from "@/components/SessionProvider";
+import { Header } from "@/components";
 
 export const metadata: Metadata = {
   title: "Brandon Corn Portfolio",
-  description: "Brandon Corn Experience software",
+  description:
+    "The greatest portfolio in all the land. Feast your eyes as this mighty software engineer seeks to make the greatest contributions he knows how. Through high impact work on projects, to collaborating with his teammates to grow, this guy is on his way somewhere",
 };
 
 export default function RootLayout({
-  // function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -23,7 +23,10 @@ export default function RootLayout({
         <Provider>
           <div className="min-h-screen flex justify-center items-center">
             <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5 max-w-screen-xl p-4 transition-width">
-              <div className="min-h-screen">{children}</div>
+              <div className="min-h-screen">
+                <Header />
+                {children}
+              </div>
             </div>
           </div>
         </Provider>

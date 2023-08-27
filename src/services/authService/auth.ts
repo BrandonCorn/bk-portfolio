@@ -1,4 +1,5 @@
 import { scrypt, randomBytes } from 'crypto';
+import { Session } from 'next-auth';
 import { promisify } from 'util';
 
 
@@ -19,3 +20,8 @@ export class PasswordManager {
         return buf.toString('hex') === hashedPassword;
     }
 }
+
+// export const isAuthenticated = (session: Session) => {
+//     if (session.status === 'authenticated') return true;
+//     else return false;
+// }

@@ -65,7 +65,6 @@ export default function Home() {
             </div>
             <div className="p-4 flex-1 sm:flex ">
               {/* Content of the third row, second column */}
-              {/* <MovieGallery movies={testMovies} /> */}
             </div>
           </div>
         </div>

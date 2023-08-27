@@ -2,9 +2,9 @@ import "../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header, Provider } from "@/components";
-const inter = Inter({ subsets: ["latin"] });
+import { SessionProvider } from "@/components/SessionProvider";
 
-import { SessionProvider } from "next-auth/react";
+const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata: Metadata = {
 //   title: "Brandon Corn Portfolio",
@@ -21,18 +21,18 @@ export default function RootLayout({
     <html lang="en">
       <head></head>
       <body className={"bg-white text-black dark:bg-black dark:text-white"}>
-        {/* <SessionProvider> */}
-        <Provider>
-          <div className="min-h-screen flex justify-center items-center">
-            <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5 max-w-screen-xl p-4 transition-width">
-              <div className="min-h-screen">
-                <Header />
-                {children}
+        <SessionProvider>
+          <Provider>
+            <div className="min-h-screen flex justify-center items-center">
+              <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5 max-w-screen-xl p-4 transition-width">
+                <div className="min-h-screen">
+                  <Header />
+                  {children}
+                </div>
               </div>
             </div>
-          </div>
-        </Provider>
-        {/* </SessionProvider> */}
+          </Provider>
+        </SessionProvider>
       </body>
     </html>
   );
