@@ -1,5 +1,6 @@
 import { Session } from 'next-auth';
 import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 export enum AuthStatus {
   authenticated = 'authenticated',
@@ -30,7 +31,10 @@ export function useCustomSession(){
 
 export function useProtectedSession(){
   const session: CustomSession = useSession({
-    required: true
+    required:true,
+    onUnauthenticated(){
+      redirect('/api/auth/signin')
+    }
   });
   return session;
 }
