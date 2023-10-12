@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import ImageGallery from "@/components/ImageGallery";
+import ImageGallery from "@/components/molecules/ImageGallery";
 import Disneyland from "/public/about-me/brandon-kat-disneyland-2.jpg";
 import MeowWolf from "/public/about-me/meow-wolf-1.jpeg";
 import MeowWolf2 from "/public/about-me/meow-wolf-2.jpeg";
 import TwilioSpeaker from "/public/about-me/twilio-speaker.jpeg";
 import Mom from "/public/about-me/brandon-mom.jpeg";
-import Testimonials from "@/components/Testimonials";
-import HomeIntro from "@/components/HomeIntro";
+import Testimonials from "@/components/organisms/Testimonials";
+import HomeIntro from "@/components/atoms/HomeIntro";
 import { useSession } from "next-auth/react";
 import { Header } from "@/components";
 

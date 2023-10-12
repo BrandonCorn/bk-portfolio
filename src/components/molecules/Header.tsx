@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import clsx from "clsx";
 import { ModeToggle } from "@/components";
 import { usePathname } from "next/navigation";
-import PersonalLogo from "../../public/personal-logo.jpeg";
+import PersonalLogo from "../../../public/personal-logo.jpeg";
 
 interface NavLink {
   key: number | string;

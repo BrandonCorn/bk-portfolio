@@ -1,4 +1,4 @@
-import TwoFactorForm from "@/components/TwoFactorForm";
+import TwoFactorForm from "@/components/molecules/TwoFactorForm";
 
 const TwoFactorAuth = async (phoneNumber: string, otp: string) => {
   return (

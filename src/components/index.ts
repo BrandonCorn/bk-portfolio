@@ -1,6 +1,6 @@
-import { Header } from './Header';
-import { ModeToggle } from './ModeToggle';
-import { Provider } from './Provider';
+import { Header } from './molecules/Header';
+import { ModeToggle } from './atoms/ModeToggle';
+import { Provider } from './atoms/Provider';
 
 export {
     Header,

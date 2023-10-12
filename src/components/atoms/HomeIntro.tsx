@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import PersonalLogo from "../../public/personal-logo.jpeg";
+import PersonalLogo from "../../../public/personal-logo.jpeg";
 
 const HomeIntro = () => {
   return (
