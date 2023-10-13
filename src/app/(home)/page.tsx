@@ -8,40 +8,12 @@ import MeowWolf from "/public/about-me/meow-wolf-1.jpeg";
 import MeowWolf2 from "/public/about-me/meow-wolf-2.jpeg";
 import TwilioSpeaker from "/public/about-me/twilio-speaker.jpeg";
 import Mom from "/public/about-me/brandon-mom.jpeg";
-import Testimonials from "@/components/organisms/Testimonials";
+import Testimonials from "@/components/atoms/Testimonials";
 import HomeIntro from "@/components/atoms/HomeIntro";
 import { useSession } from "next-auth/react";
 import { Header } from "@/components";
 
 const homeImages = [MeowWolf, Disneyland, MeowWolf2, TwilioSpeaker, Mom];
-
-const testMovies = [
-  {
-    title: "alsdjf",
-    releaseDate: "alsdjf",
-    image: MeowWolf,
-  },
-  {
-    title: "alsdjf",
-    releaseDate: "alsdjf",
-    image: MeowWolf,
-  },
-  {
-    title: "alsdjf",
-    releaseDate: "alsdjf",
-    image: MeowWolf,
-  },
-  {
-    title: "alsdjf",
-    releaseDate: "alsdjf",
-    image: MeowWolf,
-  },
-  {
-    title: "alsdjf",
-    releaseDate: "alsdjf",
-    image: MeowWolf,
-  },
-];
 
 export default function Home() {
   return (
