@@ -17,7 +17,7 @@ const ImageGallery = ({ images }: { images: StaticImageData[] }) => {
     >
       <div className="flex flex-row">
         {images.map((image, index) => (
-          <div className="w-56 h-56 md:w-72 md:h-72 mx-4 ">
+          <div className="w-56 h-56 md:w-72 md:h-72 mx-4 " key={index}>
             <Image
               key={index}
               className={clsx(

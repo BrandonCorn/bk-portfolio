@@ -80,9 +80,7 @@ const SkillRows = () => {
       transition={{ duration: 0.8 }}
       className="w-full flex flex-col justify-center items-center"
     >
-      <h1 className="text-4xl md:text-5xl font-bold my-4 mb-8">
-        Skills & Experience
-      </h1>
+      <h1 className="text-4xl md:text-5xl font-bold my-4 mb-8">Skills</h1>
       <div className="w-full sm:w-3/4 border-rose-200 border-2 rounded-xl bg-gray-800 dark:bg-gray-200">
         <SkillsRow images={iconList} />
       </div>

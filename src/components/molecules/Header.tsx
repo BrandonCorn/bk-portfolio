@@ -10,17 +10,16 @@ import { usePathname } from "next/navigation";
 import PersonalLogo from "../../../public/personal-logo.jpeg";
 
 interface NavLink {
-  key: number | string;
+  // index: number | string;
   href: string;
   isAnchorLink?: boolean;
   children?: ReactNode;
 }
 
-function NavLink({ key, href, isAnchorLink = false, children }: NavLink) {
+function NavLink({ href, isAnchorLink = false, children }: NavLink) {
   return (
     <motion.button whileHover={{ scale: 1.1 }}>
       <Link
-        key={key}
         href={href}
         aria-current={"page"}
         className={clsx(
