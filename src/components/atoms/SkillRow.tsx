@@ -13,6 +13,7 @@ const iconVariants = {
 export type IconProps = {
   src: string;
   label: string;
+  href: string;
 };
 
 type SkillsRowProps = {
@@ -21,19 +22,27 @@ type SkillsRowProps = {
 
 const SkillsRow: React.FC<SkillsRowProps> = ({ images }) => {
   return (
-    <div className="my-12">
+    <div className="flex my-16">
       <div className="flex flex-wrap justify-center items-center">
         {images.map((img: IconProps, index: number) => (
           <motion.div
+            whileHover={{
+              scale: 1.4,
+              transition: {
+                duration: 0.8,
+              },
+            }}
             initial={{ opacity: 1, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col w-1/2 h-32 sm:w-1/3 sm:h-32 md:h-40 md:w-1/3 lg:w-1/4 justify-center items-center"
+            className="flex flex-col w-1/2 h-32 sm:w-1/3 sm:h-32 md:h-40 md:w-1/3 lg:w-1/4 justify-center items-center text-center"
             key={index}
           >
-            <Image src={img.src} alt={img.label} width={40} height={40} />
-            <p className="text-white dark:text-cyan-600 mt-4"> {img.label} </p>
+            <a href={img.href}>
+              <Image src={img.src} alt={img.label} width={70} height={40} />
+              <p className="text-white dark:text-cyan-600"> {img.label} </p>
+            </a>
           </motion.div>
         ))}
       </div>
