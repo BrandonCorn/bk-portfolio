@@ -1,4 +1,6 @@
-import ExperienceRow, { IconProps } from "@/components/atoms/ExperienceRow";
+"use client";
+import SkillsRow, { IconProps } from "@/components/atoms/SkillRow";
+import { motion } from "framer-motion";
 
 const iconList: IconProps[] = [
   {
@@ -58,15 +60,20 @@ const iconList: IconProps[] = [
 
 const SkillRows = () => {
   return (
-    <div className="w-full flex flex-col justify-center items-center">
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.8 }}
+      className="w-full flex flex-col justify-center items-center"
+    >
       <h1 className="text-4xl md:text-5xl font-bold my-4 mb-8">
-        {" "}
-        Skills & Experience{" "}
+        Skills & Experience
       </h1>
-      <div className="w-full sm:w-3/4 border-rose-200 border-2 rounded-lg bg-gray-800 dark:bg-gray-200">
-        <ExperienceRow images={iconList} />
+      <div className="w-full sm:w-3/4 border-rose-200 border-2 rounded-xl bg-gray-800 dark:bg-gray-200">
+        <SkillsRow images={iconList} />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

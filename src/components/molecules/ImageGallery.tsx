@@ -12,7 +12,7 @@ const ImageGallery = ({ images }: { images: StaticImageData[] }) => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.8 }}
       className="flex flex-row items-center justify-center overflow-visible"
     >
       <div className="flex flex-row">

@@ -21,23 +21,17 @@ export default function Home() {
       <Header />
       <div className="z-10 w-full max-w-5xl items-center justify-center font-mono text-sm lg:flex">
         <div className="flex flex-col w-full">
-          {/* first row */}
           <HomeIntro />
 
-          {/* Second row */}
           <div className="p-4 md:p-8">
             <ImageGallery images={homeImages} />
           </div>
 
-          {/* Third row */}
           <div className="flex flex-col lg:flex-row py-16">
             <div className="bg-transparent p-4 flex-1 flex-col sm:flex">
-              {/* Content of the third row, first column */}
               <Testimonials />
             </div>
-            <div className="p-4 flex-1 sm:flex ">
-              {/* Content of the third row, second column */}
-            </div>
+            <div className="p-4 flex-1 sm:flex "></div>
           </div>
         </div>
       </div>
