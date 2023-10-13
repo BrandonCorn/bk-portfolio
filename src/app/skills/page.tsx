@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import SkillsTemplate from "@/components/organisms/SkillsTemplate";
+import GradientBackground from "@/components/atoms/GradientBackground";
+import ExperienceTemplate from "@/components/organisms/ExperienceTemplate";
 
 const Experience = () => {
   return (
@@ -8,13 +10,12 @@ const Experience = () => {
       <div className="flex flex-row items-center justify-center">
         <SkillsTemplate />
       </div>
-      {/* <div className="flex flex-row items-center justify-center h-1/3">
-        <div>Not a whole lot</div>
-      </div>
-      <div className="flex flex-row items-center justify-center h-1/3">
-        <div>What's up fool</div>
-        <p> </p>
+      {/* <div className="flex flex-row items-center justify-center">
+        <GradientBackground />
       </div> */}
+      <div className="flex flex-row">
+        <ExperienceTemplate />
+      </div>
     </div>
   );
 };

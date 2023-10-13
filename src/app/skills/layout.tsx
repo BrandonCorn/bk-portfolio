@@ -19,10 +19,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head></head>
-      <body className={"bg-white text-black dark:bg-black dark:text-white"}>
+      <body
+        className={
+          "bg-white text-black dark:bg-black dark:text-white overflow-x-hidden"
+        }
+      >
         <Provider>
           <div className="min-h-screen flex justify-center items-center">
-            <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5 max-w-screen-xl p-4 transition-width">
+            <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5  max-w-screen-2xl p-4 transition-width">
               <div className="min-h-screen">
                 <Header />
                 {children}
