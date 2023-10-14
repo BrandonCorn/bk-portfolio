@@ -26,10 +26,11 @@ const HomeIntro = () => {
           Engineer, mentor, and imagineer
         </h1>
         <p className="my-6 leading-loose text-lg text-zinc-600 dark:text-zinc-400">
-          I’m Brandon, a software engineer and entrepreneur based in Colorado
-          Springs. I'm a lover of learning and imagining, whether that's at
-          Disneyworld, DragonCon, or on the job! I have great pride my
-          contributions, and am always excited for more! Let's work together!
+          I&apos;m Brandon, a software engineer and entrepreneur based in
+          Colorado Springs. I&apos;m a lover of learning and imagining, whether
+          that&apos;s at Disneyworld, DragonCon, or on the job! I have great
+          pride my contributions, and am always excited for more! Let&apos;s
+          work together!
         </p>
       </div>
     </motion.div>
