@@ -4,7 +4,7 @@ const About = () => {
   return (
     <div>
       <Link className="text-4xl " href="/">
-        About Me{" "}
+        Page in construction, coming soon!
       </Link>
     </div>
   );
