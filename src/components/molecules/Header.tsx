@@ -13,10 +13,10 @@ interface NavLink {
   // index: number | string;
   href: string;
   isAnchorLink?: boolean;
-  children?: ReactNode;
+  label?: string;
 }
 
-function NavLink({ href, isAnchorLink = false, children }: NavLink) {
+function NavLink({ href, isAnchorLink = false, label }: NavLink) {
   return (
     <motion.button whileHover={{ scale: 1.1 }}>
       <Link
@@ -27,7 +27,7 @@ function NavLink({ href, isAnchorLink = false, children }: NavLink) {
           isAnchorLink ? "pl-7" : "pl-4"
         )}
       >
-        <span className="truncate"> {children} </span>
+        <span className="truncate"> {label} </span>
       </Link>
     </motion.button>
   );
@@ -62,9 +62,7 @@ function NavigationGroup() {
       <div className="hidden md:flex rounded-full bg-white/90 px-2 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
         <nav className="flex items-center justify-center px-2">
           {headerNavigation.map((link, index) => {
-            return (
-              <NavLink key={index} href={link.path} children={link.label} />
-            );
+            return <NavLink key={index} href={link.path} label={link.label} />;
           })}
         </nav>
       </div>

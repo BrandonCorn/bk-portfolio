@@ -17,7 +17,7 @@ const ExperienceRow: React.FC<ExperienceRowProps> = ({
   description,
 }) => {
   return (
-    <div className="flex flex-col md:flex-row my-12 w-5/6 justify-start">
+    <div className="flex flex-col md:flex-row my-12 w-full justify-start">
       <div className="flex w-1/2 md:w-1/3 justify-start md:justify-center p-4">
         <p className="text-sm text-zinc-400">
           {startDate} - {endDate}
