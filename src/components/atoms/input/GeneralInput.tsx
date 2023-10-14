@@ -5,6 +5,7 @@ export type GeneralInputProps = {
   value: string;
   type?: string;
   ariaLabel?: string;
+  required?: boolean;
   onChange: ChangeEventHandler<HTMLInputElement>;
   style?: string;
 };
@@ -14,6 +15,7 @@ export const GeneralInput: React.FC<GeneralInputProps> = ({
   value,
   type,
   ariaLabel,
+  required,
   onChange,
   style,
 }) => {
@@ -28,6 +30,7 @@ export const GeneralInput: React.FC<GeneralInputProps> = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      required={required || false}
     ></input>
   );
 };
