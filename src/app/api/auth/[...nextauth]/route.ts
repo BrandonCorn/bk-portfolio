@@ -9,7 +9,7 @@ import prisma from "@/lib/prismaDb";
 
 
 //custom providers described here https://next-auth.js.org/configuration/providers/credentials
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   //configure one or more auth providers
   providers: [
