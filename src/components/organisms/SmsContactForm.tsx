@@ -9,6 +9,7 @@ import GeneralButton, {
   GeneralButtonProps,
 } from "@/components/atoms/buttons/GeneralButton";
 import { useState, ChangeEventHandler } from "react";
+import { motion } from "framer-motion";
 
 const formDescription =
   "Are you looking for a developer? Let's chat and see how we can succeed.";
@@ -35,7 +36,13 @@ const SmsContactForm = () => {
   };
 
   return (
-    <div className="p-12 border-2 border-solid border-gray-300 dark:border-white rounded-xl">
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.8 }}
+      className="p-12 border-2 border-solid border-gray-300 dark:border-white rounded-xl"
+    >
       <GeneralForm
         Description={<DescriptionText text={formDescription} />}
         FormInput={
@@ -54,7 +61,7 @@ const SmsContactForm = () => {
         }
       />
       <p className="mt-8"> Message about texting permission</p>
-    </div>
+    </motion.div>
   );
 };
 

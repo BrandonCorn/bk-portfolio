@@ -13,29 +13,32 @@ import HomeIntro from "@/components/atoms/HomeIntro";
 import { useSession } from "next-auth/react";
 import { Header } from "@/components";
 import SmsContactForm from "@/components/organisms/SmsContactForm";
+import { LayoutGroup } from "framer-motion";
 
 const homeImages = [MeowWolf, Disneyland, MeowWolf2, TwilioSpeaker, Mom];
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
-      <Header />
-      <div className="z-10 w-full max-w-5xl items-center justify-center font-mono text-sm lg:flex">
-        <div className="flex flex-col w-full">
-          <HomeIntro />
+    <LayoutGroup>
+      <main className="flex min-h-screen flex-col items-center justify-between">
+        <Header />
+        <div className="z-10 w-full max-w-5xl items-center justify-center font-mono text-sm lg:flex">
+          <div className="flex flex-col w-full">
+            <HomeIntro />
 
-          <div className="p-4 md:p-8">
-            <ImageGallery images={homeImages} />
-          </div>
-
-          <div className="flex flex-col lg:flex-row py-16">
-            <div className="bg-transparent p-4 flex-1 flex-col sm:flex">
-              <SmsContactForm />
+            <div className="p-4 md:p-8">
+              <ImageGallery images={homeImages} />
             </div>
-            <div className="p-4 flex-1 sm:flex "></div>
+
+            <div className="flex flex-col lg:flex-row py-16">
+              <div className="bg-transparent p-4 flex-1 flex-col sm:flex">
+                <SmsContactForm />
+              </div>
+              <div className="p-4 flex-1 sm:flex "></div>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </LayoutGroup>
   );
 }
