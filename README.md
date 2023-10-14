@@ -1,34 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# BK's Boundless Curiosity
+
+> features to come including new about me page, personal projects page (need some touchups), and cool interactive ideas I can't give away just yet!
+
+Welcome to my personal portfolio website! This dynamic and user-friendly site is designed to showcase my skills, experiences, and projects. It's built with a cutting-edge tech stack and features various tools and technologies. Here's what you need to know to get started:
+
+## Technologies Used
+
+- **Next.js**: The foundation of this project, Next.js provides fast and reliable server-rendered React applications.
+- **Typescript**: Bringing strong typing to your JavaScript, enhancing code quality.
+- **React**: The popular JavaScript library for building user interfaces.
+- **TailwindCSS**: A utility-first CSS framework for rapid development.
+- **Prisma**: A modern database toolkit that simplifies database access with a type-safe query builder.
+- **NextAuth**: Next.js authentication library with support for multiple providers.
+
+## Features
+
+- **Dynamic Content**: Easily update and manage your portfolio content with Next.js's dynamic routing.
+- **User Authentication**: Securely log in and authenticate using NextAuth, ensuring the privacy of admin features.
+- **Database Integration**: Leverage Prisma for seamless database interaction, allowing you to manage your data effortlessly.
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone this repository**: Get your own copy of the project using `git clone`.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+2. **Install dependencies**: Run `npm install` to install all the project dependencies.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Configure Environment Variables**: Make sure to set up environment variables for your project. Refer to the `.env.example` file for required variables.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. **Run the Development Server**: Use `npm run dev` to launch the Next.js development server.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+5. **Explore and Customize**: Access your portfolio website at `http://localhost:3000`. Customize it to showcase your own projects and experiences.
 
-## Learn More
+## Contributions
 
-To learn more about Next.js, take a look at the following resources:
+If you'd like to contribute or provide feedback, please feel free to open an issue or submit a pull request. Your input is highly appreciated!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Author
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- [Brandon Corn](https://your-portfolio-website.com)
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is licensed under the [MIT License](LICENSE), which means you can use and modify the code freely, but please provide attribution.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+I hope you enjoy exploring my personal portfolio website. If you have any questions or suggestions, don't hesitate to reach out. Thank you for your interest!
