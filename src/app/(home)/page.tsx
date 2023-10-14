@@ -28,7 +28,8 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col lg:flex-row py-16">
-            <div className="bg-transparent p-4 flex-1 flex-col sm:flex">
+            <div className="opacity-0 bg-transparent p-4 flex-1 flex-col sm:flex">
+              {/* temporarily hide component and replace */}
               <Testimonials />
             </div>
             <div className="p-4 flex-1 sm:flex "></div>
