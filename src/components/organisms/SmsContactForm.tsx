@@ -42,9 +42,9 @@ const SmsContactForm = () => {
     setMessage("");
   };
 
-  const handleSubmit: FormEventHandler<HTMLFormElement | HTMLButtonElement> = (
-    e
-  ) => {
+  const handleSubmit: FormEventHandler<
+    HTMLFormElement | HTMLButtonElement
+  > = async (e) => {
     e.preventDefault();
     const data = {
       name,
@@ -52,11 +52,24 @@ const SmsContactForm = () => {
       phoneNumber,
       message,
     };
-    console.log("we have data ", data);
-    if (!phoneNumber && !email)
+    if (!phoneNumber && !email) {
       alert(
         "I need a way to contact you. Please provide an email or phone number"
       );
+    }
+    const res = await fetch("/api/sms/send-sms", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Allow-Content-Type": "application/json",
+      },
+    });
+    if (res.ok) {
+      alert("Message sent");
+    } else {
+      alert("Message not sent");
+    }
+
     resetAllData();
   };
 
