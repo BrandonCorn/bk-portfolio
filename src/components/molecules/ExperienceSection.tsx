@@ -38,10 +38,7 @@ const bcornExperience: ExperienceRowProps[] = [
 const ExperienceSection = () => {
   return (
     <div className="flex flex-row">
-      {/* <div className="flex flex-col ">
-        <div className="divide-y-8 divide-white border-solid"></div>
-      </div> */}
-      <div className="flex flex-col w-screen">
+      <div className="flex flex-col w-full">
         {bcornExperience.map((job, index) => {
           return <ExperienceRow key={index} {...job} />;
         })}
