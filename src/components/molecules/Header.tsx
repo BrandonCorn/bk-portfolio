@@ -7,20 +7,19 @@ import { motion } from "framer-motion";
 import clsx from "clsx";
 import { ModeToggle } from "@/components";
 import { usePathname } from "next/navigation";
-import PersonalLogo from "../../public/personal-logo.jpeg";
+import PersonalLogo from "../../../public/personal-logo.jpeg";
 
 interface NavLink {
-  key: number | string;
+  // index: number | string;
   href: string;
   isAnchorLink?: boolean;
   children?: ReactNode;
 }
 
-function NavLink({ key, href, isAnchorLink = false, children }: NavLink) {
+function NavLink({ href, isAnchorLink = false, children }: NavLink) {
   return (
     <motion.button whileHover={{ scale: 1.1 }}>
       <Link
-        key={key}
         href={href}
         aria-current={"page"}
         className={clsx(
@@ -44,17 +43,17 @@ const headerNavigation = [
     label: "About",
   },
   {
-    path: "/experience",
-    label: "Experience",
+    path: "/skills",
+    label: "Skills",
   },
   {
     path: "/interview",
     label: "Interview",
   },
-  {
-    path: "/admin",
-    label: "Admin",
-  },
+  // {
+  //   path: "/admin",
+  //   label: "Admin",
+  // },
 ];
 
 function NavigationGroup() {

@@ -12,12 +12,12 @@ const ImageGallery = ({ images }: { images: StaticImageData[] }) => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.8 }}
       className="flex flex-row items-center justify-center overflow-visible"
     >
       <div className="flex flex-row">
         {images.map((image, index) => (
-          <div className="w-56 h-56 md:w-72 md:h-72 mx-4 ">
+          <div className="w-56 h-56 md:w-72 md:h-72 mx-4 " key={index}>
             <Image
               key={index}
               className={clsx(
