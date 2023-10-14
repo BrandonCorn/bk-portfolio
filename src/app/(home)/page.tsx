@@ -12,6 +12,7 @@ import Testimonials from "@/components/atoms/Testimonials";
 import HomeIntro from "@/components/atoms/HomeIntro";
 import { useSession } from "next-auth/react";
 import { Header } from "@/components";
+import SmsContactForm from "@/components/organisms/SmsContactForm";
 
 const homeImages = [MeowWolf, Disneyland, MeowWolf2, TwilioSpeaker, Mom];
 
@@ -28,9 +29,8 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col lg:flex-row py-16">
-            <div className="opacity-0 bg-transparent p-4 flex-1 flex-col sm:flex">
-              {/* temporarily hide component and replace */}
-              <Testimonials />
+            <div className="bg-transparent p-4 flex-1 flex-col sm:flex">
+              <SmsContactForm />
             </div>
             <div className="p-4 flex-1 sm:flex "></div>
           </div>
