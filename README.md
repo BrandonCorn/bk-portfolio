@@ -1,8 +1,10 @@
 # BK's Boundless Curiosity
 
-> features to come including new about me page, personal projects page (need some touchups), and cool interactive ideas I can't give away just yet!
+> Site is a work in progress with ideas coming to mind for additional features and the possible use for many!
 
 Welcome to my personal portfolio website! This dynamic and user-friendly site is designed to showcase my skills, experiences, and projects. It's built with a cutting-edge tech stack and features various tools and technologies. Here's what you need to know to get started:
+
+[See it here!](https://bk-portfolio-nu.vercel.app/)
 
 ## Technologies Used
 
@@ -37,7 +39,7 @@ If you'd like to contribute or provide feedback, please feel free to open an iss
 
 ## Author
 
-- [Brandon Corn](https://your-portfolio-website.com)
+- [Brandon Corn](https://bk-portfolio-nu.vercel.app/)
 
 ## License
 
