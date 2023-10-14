@@ -43,7 +43,7 @@ const ExperienceSection = () => {
       </div> */}
       <div className="flex flex-col w-screen">
         {bcornExperience.map((job, index) => {
-          return <ExperienceRow {...job} />;
+          return <ExperienceRow key={index} {...job} />;
         })}
       </div>
     </div>
