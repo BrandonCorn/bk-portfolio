@@ -87,9 +87,10 @@ export function Header() {
     <header className="grid grid-cols-3 items-center justify-between p-6 bg-black-500 text-white">
       <div className="flex items-center justify-start">
         <Image
-          src={PersonalLogo}
+          src={"/personal-logo.jpeg"}
           alt="Personal Logo"
           width={50}
+          height={50}
           className={clsx(
             "object-fill rounded-full",
             path !== "/" ? "visible" : "hidden"

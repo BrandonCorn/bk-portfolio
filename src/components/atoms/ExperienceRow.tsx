@@ -23,7 +23,7 @@ const ExperienceRow: React.FC<ExperienceRowProps> = ({
           {startDate} - {endDate}
         </p>
       </div>
-      <div className="flex flex-col group/item hover:bg-zinc-800 rounded-lg p-4 w-full md:w-1/2 space-y-2">
+      <div className="flex flex-col group/item hover:bg-zinc-800 rounded-lg p-4 w-full sm:w-1/2 space-y-2">
         <h2 className="text-xl font-bold"> {company} </h2>
         <p className="text-md"> {title} </p>
         <p className="text-sm"> {description} </p>
