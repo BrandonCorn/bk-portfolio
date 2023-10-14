@@ -46,10 +46,7 @@ const headerNavigation = [
     path: "/skills",
     label: "Skills",
   },
-  {
-    path: "/interview",
-    label: "Interview",
-  },
+  //
   // {
   //   path: "/admin",
   //   label: "Admin",
