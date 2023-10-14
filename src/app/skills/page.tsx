@@ -10,9 +10,6 @@ const Experience = () => {
       <div className="flex flex-row items-center justify-center">
         <SkillsTemplate />
       </div>
-      {/* <div className="flex flex-row items-center justify-center">
-        <GradientBackground />
-      </div> */}
       <div className="flex flex-row">
         <ExperienceTemplate />
       </div>

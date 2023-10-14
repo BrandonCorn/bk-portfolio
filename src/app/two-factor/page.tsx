@@ -1,6 +1,11 @@
 import TwoFactorForm from "@/components/molecules/TwoFactorForm";
 
-const TwoFactorAuth = async (phoneNumber: string, otp: string) => {
+export type TwoFactorProps = {
+  phoneNumber?: string;
+  otp?: string;
+};
+
+const TwoFactorAuth = async ({}) => {
   return (
     <div>
       <TwoFactorForm />
