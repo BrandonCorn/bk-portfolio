@@ -10,14 +10,22 @@ import TwilioSpeaker from "/public/about-me/twilio-speaker.jpeg";
 import Mom from "/public/about-me/brandon-mom.jpeg";
 import Testimonials from "@/components/atoms/Testimonials";
 import HomeIntro from "@/components/atoms/HomeIntro";
-import { useSession } from "next-auth/react";
 import { Header } from "@/components";
 import SmsContactForm from "@/components/organisms/SmsContactForm";
 import { LayoutGroup } from "framer-motion";
 
+import BasicModal from "@/components/atoms/modal/BasicModal";
+import { useState } from "react";
+
 const homeImages = [MeowWolf, Disneyland, MeowWolf2, TwilioSpeaker, Mom];
 
 export default function Home() {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShow = () => {
+    setShowModal((state) => !state);
+  };
+
   return (
     <LayoutGroup>
       <main className="flex min-h-screen flex-col items-center justify-between">

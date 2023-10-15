@@ -10,7 +10,7 @@ import GeneralButton, {
 } from "@/components/atoms/buttons/GeneralButton";
 import { useState, ChangeEventHandler, FormEventHandler } from "react";
 import { motion } from "framer-motion";
-
+import SuccessModal from "../molecules/modals/SuccessModal";
 const formDescription =
   "Are you looking for a developer? Let's chat and see how we can succeed.";
 
@@ -19,6 +19,7 @@ const SmsContactForm = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const handleNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setName(e.target.value);
@@ -42,6 +43,14 @@ const SmsContactForm = () => {
     setMessage("");
   };
 
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   const handleSubmit: FormEventHandler<
     HTMLFormElement | HTMLButtonElement
   > = async (e) => {
@@ -53,9 +62,7 @@ const SmsContactForm = () => {
       message,
     };
     if (!phoneNumber && !email) {
-      alert(
-        "I need a way to contact you. Please provide an email or phone number"
-      );
+      alert("I need a way to contact you");
     }
     const res = await fetch("/api/sms/send-sms", {
       method: "POST",
@@ -64,11 +71,11 @@ const SmsContactForm = () => {
         "Allow-Content-Type": "application/json",
       },
     });
-    if (res.ok) {
-      alert("Message sent");
-    } else {
-      alert("Message not sent");
-    }
+    // if (res.ok) {
+    //   openSuccessModal();
+    // } else {
+    //   openErrorModal();
+    // }
 
     resetAllData();
   };
@@ -140,7 +147,8 @@ const SmsContactForm = () => {
           cols={60}
         />
       </GeneralForm>
-      <p className="mt-8"> Message about texting permission</p>
+      <p className="mt-8"> Pay kindness forward! </p>
+      {/* <SuccessModal /> */}
     </motion.div>
   );
 };
