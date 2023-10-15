@@ -1,14 +1,12 @@
 "use client";
 
-import Image from "next/image";
-import { motion } from "framer-motion";
 import ImageGallery from "@/components/molecules/ImageGallery";
 import Disneyland from "/public/about-me/brandon-kat-disneyland-2.jpg";
 import MeowWolf from "/public/about-me/meow-wolf-1.jpeg";
 import MeowWolf2 from "/public/about-me/meow-wolf-2.jpeg";
 import TwilioSpeaker from "/public/about-me/twilio-speaker.jpeg";
 import Mom from "/public/about-me/brandon-mom.jpeg";
-import Testimonials from "@/components/atoms/Testimonials";
+import TestimonialsSection from "@/components/atoms/TestimonialsSection";
 import HomeIntro from "@/components/atoms/HomeIntro";
 import { Header } from "@/components";
 import SmsContactForm from "@/components/organisms/SmsContactForm";
@@ -20,12 +18,6 @@ import { useState } from "react";
 const homeImages = [MeowWolf, Disneyland, MeowWolf2, TwilioSpeaker, Mom];
 
 export default function Home() {
-  const [showModal, setShowModal] = useState(false);
-
-  const handleShow = () => {
-    setShowModal((state) => !state);
-  };
-
   return (
     <LayoutGroup>
       <main className="flex min-h-screen flex-col items-center justify-between">
@@ -38,11 +30,13 @@ export default function Home() {
               <ImageGallery images={homeImages} />
             </div>
 
-            <div className="flex flex-col lg:flex-row py-16">
+            <div className="flex flex-col lg:flex-row my-16 space-x-10 ">
               <div className="bg-transparent p-4 flex-1 flex-col sm:flex">
                 <SmsContactForm />
               </div>
-              <div className="p-4 flex-1 sm:flex "></div>
+              <div className="p-4 flex-1 sm:flex my-8">
+                <TestimonialsSection />
+              </div>
             </div>
           </div>
         </div>
