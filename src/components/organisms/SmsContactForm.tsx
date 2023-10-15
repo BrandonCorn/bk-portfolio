@@ -2,15 +2,22 @@
 
 import GeneralForm from "@/components/molecules/forms/GeneralForm";
 import DescriptionText from "@/components/atoms/text/DescriptionText";
-import GeneralInput, {
-  GeneralInputProps,
-} from "@/components/atoms/input/GeneralInput";
+import { GeneralInputProps } from "@/components/atoms/input/GeneralInput";
 import GeneralButton, {
   GeneralButtonProps,
 } from "@/components/atoms/buttons/GeneralButton";
-import { useState, ChangeEventHandler, FormEventHandler } from "react";
+import {
+  useState,
+  ChangeEventHandler,
+  FormEventHandler,
+  useEffect,
+  use,
+} from "react";
 import { motion } from "framer-motion";
 import SuccessModal from "../molecules/modals/SuccessModal";
+import { useAppDispatch, useAppSelector } from "@/redux";
+import { updateSmsSent, createVisitor } from "@/redux/slices/visitorSlice";
+
 const formDescription =
   "Are you looking for a developer? Let's chat and see how we can succeed.";
 
@@ -20,6 +27,8 @@ const SmsContactForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const visitor = useAppSelector((state) => state.visitor);
+  const dispatch = useAppDispatch();
 
   const handleNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setName(e.target.value);
@@ -55,30 +64,41 @@ const SmsContactForm = () => {
     HTMLFormElement | HTMLButtonElement
   > = async (e) => {
     e.preventDefault();
-    const data = {
-      name,
-      email,
-      phoneNumber,
-      message,
-    };
-    if (!phoneNumber && !email) {
-      alert("I need a way to contact you");
-    }
-    const res = await fetch("/api/sms/send-sms", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Allow-Content-Type": "application/json",
-      },
-    });
-    // if (res.ok) {
-    //   openSuccessModal();
-    // } else {
-    //   openErrorModal();
-    // }
+    //query visitor to make sure they haven't been here before
+    if (visitor.hasSentSms && visitor.sms && visitor.sms.length > 3) {
+      alert(`already sent an sms`);
+      console.log("already sent sms", visitor);
+    } else {
+      const data = {
+        name,
+        email,
+        phoneNumber,
+        message,
+      };
 
+      const res = await fetch("/api/sms/send-sms", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Allow-Content-Type": "application/json",
+        },
+      });
+
+      if (res.ok) {
+        //if we have a visitor already, let's just add to their data, otherwise we'll create one
+        dispatch(createVisitor({ name, email, phoneNumber }));
+        dispatch(updateSmsSent({ content: message }));
+      } else {
+        console.log("error sending message");
+      }
+    }
     resetAllData();
   };
+
+  useEffect(() => {
+    //don't need visitor data or rerender so issue db query to update with visitor info
+    console.log("visitor ", visitor);
+  }, [visitor]);
 
   const nameProps: GeneralInputProps = {
     placeholder: "Name",

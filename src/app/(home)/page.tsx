@@ -34,7 +34,7 @@ export default function Home() {
               <div className="bg-transparent p-4 flex-1 flex-col sm:flex">
                 <SmsContactForm />
               </div>
-              <div className="p-4 flex-1 sm:flex my-8">
+              <div className="flex flex-1 sm:flex my-4">
                 <TestimonialsSection />
               </div>
             </div>
