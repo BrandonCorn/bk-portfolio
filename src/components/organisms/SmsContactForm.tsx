@@ -16,7 +16,11 @@ import {
 import { motion } from "framer-motion";
 import SuccessModal from "../molecules/modals/SuccessModal";
 import { useAppDispatch, useAppSelector } from "@/redux";
-import { updateSmsSent, createVisitor } from "@/redux/slices/visitorSlice";
+import {
+  updateSmsSent,
+  createVisitor,
+  setVisitor,
+} from "@/redux/slices/visitorSlice";
 
 const formDescription =
   "Are you looking for a developer? Let's chat and see how we can succeed.";
@@ -64,7 +68,8 @@ const SmsContactForm = () => {
     HTMLFormElement | HTMLButtonElement
   > = async (e) => {
     e.preventDefault();
-    //query visitor to make sure they haven't been here before
+    //query visitor to make sure they haven't been here before, set their data in
+
     if (visitor.hasSentSms && visitor.sms && visitor.sms.length > 3) {
       alert(`already sent an sms`);
       console.log("already sent sms", visitor);

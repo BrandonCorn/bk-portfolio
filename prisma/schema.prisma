@@ -46,11 +46,6 @@ model User {
   image           String?
   accounts        Account[]
   sessions        Session[]
-  questions       Question[]
-  selectedAnswers SelectedAnswer[]
-  skills          Skill[]
-  preferences     Preference[]
-  roles           Role[]
 }
 
 model VerificationToken {
@@ -61,57 +56,47 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model QuestionCategory {
-  id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  name      String
-  question  Question[]
+model Visitors {
+  id           String      @id @unique @default(cuid())
+  name         String      @default(uuid())
+  email        String?     @unique
+  phoneNumber  String?     @unique
+  visitCount   Int
+  lastVisit    DateTime
+  hasSentSms   Boolean?    @default(false)
+  sentSmsCount Int?
+  sms          Sms[]
+  questions    Questions[]
+  answers      Answers[]
+  createdAt    DateTime    @default(now())
 }
 
-model Question {
-  id         Int              @id @default(autoincrement())
-  createdAt  DateTime         @default(now())
-  categoryId Int
-  text       String           @db.Text
-  category   QuestionCategory @relation(fields: [categoryId], references: [id])
-  question   SelectedAnswer[]
-  userId     String
-  user       User             @relation(fields: [userId], references: [id])
+model Questions {
+  id         String   @id @unique @default(cuid())
+  content    String
+  answer     Answers? 
+  visitor    Visitors @relation(fields: [visitorsId], references: [id])
+  createdAt  DateTime @default(now())
+  visitorsId String
 }
 
-model SelectedAnswer {
-  id         Int      @id @default(autoincrement())
-  questionId Int
-  answer     String   @db.Text
-  question   Question @relation(fields: [questionId], references: [id])
-  userId     String
-  user       User     @relation(fields: [userId], references: [id])
+model Answers {
+  id          String    @id @unique @default(cuid())
+  content     String
+  question    Questions @relation(fields: [questionsId], references: [id])
+  visitor     Visitors  @relation(fields: [visitorsId], references: [id])
+  createdAt   DateTime  @default(now())
+  questionsId String @unique
+  visitorsId  String
 }
 
-model Skill {
-  id               Int      @id @default(autoincrement())
-  createdAt        DateTime @default(now())
-  name             String
-  proficiencyLevel String?  @db.VarChar(120)
-  yearsExperience  Int
-  userId           String
-  user             User     @relation(fields: [userId], references: [id])
+model Sms {
+  id         String   @id @unique @default(cuid())
+  createdAt  DateTime @default(now())
+  dateSent   DateTime
+  content    String
+  visitor    Visitors @relation(fields: [visitorsId], references: [id])
+  visitorsId String
 }
 
-model Preference {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  name      String
-  weight    Int
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-}
 
-model Role {
-  id              Int    @id @default(autoincrement())
-  name            String
-  description     String @db.Text
-  yearsExperience Int
-  userId          String
-  user            User   @relation(fields: [userId], references: [id])
-}

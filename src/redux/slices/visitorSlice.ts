@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type Sms = {
   content: string;
+  dateSent?: Date;
 }
 
 type VisitorState = {
@@ -44,17 +45,24 @@ const visitorSlice = createSlice({
       state.phoneNumber = phoneNumber;
       state.numVisits += 1;
     },
+    setVisitor: (state, action: PayloadAction<VisitorState>) => {
+      const visitorData = action.payload;
+      return {
+        ...action.payload
+      }
+    },
     newVisit: (state, action) => {
       state.numVisits++;
     },
     updateSmsSent: (state, action: PayloadAction<Sms>) => {
+      const { content, dateSent } = action.payload;
       if(!state.hasSentSms) state.hasSentSms = true;
       state.smsSentCount++;
-      state.sms?.push({ ...action.payload});
+      state.sms?.push({ content, dateSent });
     }
   },
 });
 
-export const { createVisitor, newVisit, updateSmsSent } = visitorSlice.actions;
+export const { createVisitor, newVisit, updateSmsSent, setVisitor } = visitorSlice.actions;
 
 export default visitorSlice.reducer;
