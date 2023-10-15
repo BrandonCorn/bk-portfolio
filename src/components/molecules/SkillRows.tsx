@@ -45,7 +45,7 @@ const iconList: IconProps[] = [
     href: "https://www.docker.com/",
   },
   {
-    src: "/tech-icons/Typescript.svg",
+    src: "/tech-icons/TypeScript.svg",
     label: "Typescript",
     href: "https://www.typescriptlang.org/",
   },
