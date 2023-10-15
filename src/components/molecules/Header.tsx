@@ -38,19 +38,14 @@ const headerNavigation = [
     path: "/",
     label: "Home",
   },
-  {
-    path: "/about",
-    label: "About",
-  },
+  // {
+  //   path: "/about",
+  //   label: "About",
+  // },
   {
     path: "/skills",
     label: "Skills",
   },
-  //
-  // {
-  //   path: "/admin",
-  //   label: "Admin",
-  // },
 ];
 
 function NavigationGroup() {
