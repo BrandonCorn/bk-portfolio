@@ -1,14 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getVisitorByEmail } from "@/services/visitorService/getVisitor";
 import { BadRequestError } from "@/lib/errors/bad-request-error";
-import { CreateVisitorRoute } from "@/types/visitors/visitors";
+import { CreateVisitorRequest, CreateVisitorResponse } from "@/types/visitors/type";
 import { createVisitor } from "@/services/visitorService/createVisitor";
 
 
-export const POST = async (req: NextRequest) => {
+export const POST = async (req: NextRequest): Promise<NextResponse<unknown>> => {
   const data = await req.json();
-  console.log('what happened ', data);
-  const { ...visitorData }: CreateVisitorRoute = data;
+  const { ...visitorData }: CreateVisitorRequest = data;
 
   try{
     
@@ -20,8 +19,8 @@ export const POST = async (req: NextRequest) => {
   catch(err){
     console.error('Error creating visitor', err);
     if (err instanceof BadRequestError){
-      return NextResponse.json({error: err.message, status: err.statusCode})
+      return NextResponse.json({error: err.message}, { status: err.code })
     }
-    else return NextResponse.json({error: 'A server error ocurred', status: 500})
+    else return NextResponse.json({error: 'A server error ocurred'}, { status: 500})
   }
 }

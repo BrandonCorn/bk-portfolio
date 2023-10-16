@@ -1,12 +1,23 @@
-//ROUTES
-export type SendSmsDataRoute = {
+import { Sms } from "@prisma/client";
+import { ErrorResponse } from "../errors/type";
+
+//Requests
+export type SendSmsDataRequest = {
   name: string;
   email: string
   phoneNumber?: string;
   message: string;
 }
 
+//ADD RESPONSE FOR TWILIO SEND SMS
 
+export type CreateSmsRequest = {
+  id: string;
+  content: string;
+  dateSent: Date;
+}
+
+export type CreateSmsResponse = Promise<Sms | false | unknown>
 
 
 //SERVICES

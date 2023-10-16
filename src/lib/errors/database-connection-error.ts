@@ -2,7 +2,7 @@ import { CustomError } from "./custom-abstract-error";
 
 export class DatabaseConnectionError extends CustomError {
     reason = 'Error connecting to database';
-    statusCode = 500;
+    code = 500;
 
     constructor() {
         super('Error connecting to database');

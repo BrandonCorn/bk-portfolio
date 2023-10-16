@@ -1,5 +1,5 @@
 import Twilio from 'twilio';
-import { SendSms } from '@/types/sms/sms';
+import { SendSms } from '@/types/sms/type';
 import { BadRequestError } from '@/lib/errors/bad-request-error';
 
 export const sendSms = async (smsInfo: SendSms) => {

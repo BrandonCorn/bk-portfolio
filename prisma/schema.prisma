@@ -60,7 +60,7 @@ model Visitors {
   id           String      @id @unique @default(uuid())
   name         String      @default(uuid())
   email        String?     @unique
-  phoneNumber  String?     @unique
+  phoneNumber  String?     
   visitCount   Int
   lastVisit    DateTime?
   createdAt    DateTime    @default(now())

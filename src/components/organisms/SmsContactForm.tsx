@@ -16,13 +16,7 @@ import {
 import { motion } from "framer-motion";
 import SuccessModal from "../molecules/modals/SuccessModal";
 import { useAppDispatch, useAppSelector } from "@/redux";
-import {
-  updateSmsSent,
-  createVisitor,
-  setVisitor,
-} from "@/redux/slices/visitorSlice";
-import { CreateVisitorRoute } from "@/types/visitors/visitors";
-import { Visitors } from "@prisma/client";
+import { createVisitor, getVisitorByEmail } from "@/redux/slices/visitorSlice";
 
 const formDescription =
   "Are you looking for a developer? Let's chat and see how we can succeed.";
@@ -33,7 +27,7 @@ const SmsContactForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const { _persist, ...visitor } = useAppSelector((state) => state.visitor);
+  const { visitor } = useAppSelector((state) => state.visitor);
   const dispatch = useAppDispatch();
   const isInitialRender = useRef(true);
 
@@ -73,9 +67,11 @@ const SmsContactForm = () => {
   > = async (e) => {
     e.preventDefault();
 
-    const findVisitor = await getVisitor(email);
-    if (findVisitor) {
-      dispatch(setVisitor(findVisitor));
+    const findVisitor = await dispatch(getVisitorByEmail(email));
+    console.log("find visitor", findVisitor);
+    if (!findVisitor.payload) {
+      const visitor = { name, email, phoneNumber };
+      await dispatch(createVisitor(visitor));
     }
 
     if (visitor.sms && visitor.sms.length < 3) {
@@ -88,7 +84,6 @@ const SmsContactForm = () => {
       //     phoneNumber,
       //     message,
       //   };
-
       //   const res = await fetch("/api/sms/send-sms", {
       //     method: "POST",
       //     body: JSON.stringify(data),
@@ -96,55 +91,20 @@ const SmsContactForm = () => {
       //       "Allow-Content-Type": "application/json",
       //     },
       //   });
-
-      let res = { ok: true };
-      if (res.ok) {
-        //if we have a visitor already, let's just add to their data, otherwise we'll create one
-        let sms = { content: message, dateSent: new Date(Date.now()) };
-
-        if (!findVisitor) {
-          dispatch(createVisitor({ name, email, phoneNumber }));
-        }
-        //update to use date sent back from Twilio
-        dispatch(updateSmsSent(sms));
-      } else {
-        console.log("error sending message");
-      }
+      // let res = { ok: true };
+      // if (res.ok) {
+      //   //if we have a visitor already, let's just add to their data, otherwise we'll create one
+      //   let sms = { content: message, dateSent: new Date(Date.now()) };
+      //   if (!findVisitor) {
+      //     dispatch(createVisitor({ name, email, phoneNumber }));
+      //   }
+      //   //update to use date sent back from Twilio
+      //   dispatch(updateSmsSent(sms));
+      // } else {
+      //   console.log("error sending message");
+      // }
     }
     resetAllData();
-  };
-
-  //Save visitors to the db
-  const saveVisitor = async (visitorData: CreateVisitorRoute) => {
-    return fetch("/api/visitors/create-visitor", {
-      body: JSON.stringify(visitorData),
-      method: "POST",
-      headers: {
-        "Allow-Content-Type": "application/json",
-      },
-    }).then((response) => response.json());
-  };
-
-  //Get visitor from db from their email
-  const getVisitor = async (email: string) => {
-    return fetch(`/api/visitors/get-visitor`, {
-      method: "POST",
-      body: JSON.stringify({ email }),
-      headers: {
-        "Allow-Content-Type": "application/json",
-      },
-    }).then((response) => response.json());
-  };
-
-  //Save the visitors sms
-  const saveSms = async (sms: any) => {
-    return fetch("/api/sms/create-sms", {
-      method: "POST",
-      body: JSON.stringify(sms),
-      headers: {
-        "Allow-Content-Type": "application/json",
-      },
-    });
   };
 
   useEffect(() => {

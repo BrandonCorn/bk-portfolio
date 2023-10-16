@@ -3,12 +3,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { formatSms } from '@/services/utilService/utils';
 import { sendSms } from '@/services/twilioServices/sms/send-sms';
 import { BadRequestError } from '@/lib/errors/bad-request-error';
-import { SendSmsDataRoute } from '@/types/sms/sms';
+import { SendSmsDataRequest } from '@/types/sms/type';
 
 
 
 export const POST = async (req: NextRequest) => {
-  const data: SendSmsDataRoute = await req.json();
+  const data: SendSmsDataRequest = await req.json();
   let to, from;
   if (process.env.TWILIO_FROM_PHONE) to = process.env.TWILIO_FROM_PHONE;
   if (process.env.MY_PHONE) from = process.env.MY_PHONE;
@@ -30,8 +30,8 @@ export const POST = async (req: NextRequest) => {
   }
   catch(err){
     if (err instanceof BadRequestError){
-      return NextResponse.json({error: err.message, status: err.statusCode})
+      return NextResponse.json({error: err.message}, { status: err.code})
     }
-    else return NextResponse.json({error: 'A server error ocurred', status: 500})
+    else return NextResponse.json({error: 'A server error ocurred'}, {status: 500})
   }
 }

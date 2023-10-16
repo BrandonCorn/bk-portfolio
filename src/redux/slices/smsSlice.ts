@@ -21,8 +21,7 @@ const smsSlice = createSlice({
   initialState,
   reducers: {
     updateSmsSent: (state, action: PayloadAction<Sms>) => {
-      const { content, dateSent } = action.payload;
-      let id = v4();
+      const { id, content, dateSent } = action.payload;
       state.sms?.push({ id, content, dateSent });
     }
   },
