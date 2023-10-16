@@ -17,7 +17,7 @@ export type CreateSmsRequest = {
   dateSent: Date;
 }
 
-export type CreateSmsResponse = Promise<Sms | false | unknown>
+export type CreateSmsResponse = Promise<Sms | false | ErrorResponse>
 
 
 //SERVICES

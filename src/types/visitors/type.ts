@@ -1,10 +1,10 @@
 import { Prisma, Visitors } from "@prisma/client";
 import { ErrorResponse } from "../errors/type";
 
-//ROUTES
+//Requests & Responses
 export type GetVisitorByEmailRequest = string
 
-export type GetVisitorByEmailResponse = Promise<Visitors | false>;
+export type GetVisitorByEmailResponse =  Promise<Visitors | false | ErrorResponse>;
 
 export type CreateVisitorRequest = {
   id?: string
@@ -15,7 +15,7 @@ export type CreateVisitorRequest = {
   lastVisit?: Date | string
 }
 
-export type CreateVisitorResponse = Promise<Visitors | false>
+export type CreateVisitorResponse = Promise<Visitors | false | ErrorResponse>
 
 
 

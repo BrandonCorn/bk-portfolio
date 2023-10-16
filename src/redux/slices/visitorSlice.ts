@@ -3,6 +3,7 @@ import { Sms } from './smsSlice';
 import api from '@/lib/apiClient';
 import { LoadingState } from '@/types/common/type';
 import { CreateVisitorRequest } from '@/types/visitors/type';
+import { ErrorResponse } from '@/types/errors/type';
 
 type Visitor = {
   id?: string;
@@ -53,7 +54,7 @@ export const getVisitorByEmail = createAsyncThunk('visitor/getVisitorByEmail',
   async (email: string, thunkApi) => {
     try{
       const response = await api.visitors.getVisitorByEmail(email);
-      if (response) {
+      if (response && !('code' in response)) {
         response.lastVisit = new Date(Date.now());
         response.visitCount++;
         thunkApi.dispatch(setVisitor(response));
@@ -71,7 +72,7 @@ export const createVisitor = createAsyncThunk('visitor/createVisitor',
   async (visitor: CreateVisitorRequest, thunkApi) => {
     try{
       const response = await api.visitors.createVisitor(visitor);
-      if (response) {
+      if (response && !('code' in response)) {
         thunkApi.dispatch(setVisitor(response));
         return response;
       }
