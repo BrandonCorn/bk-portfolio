@@ -1,18 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { v4 } from 'uuid';
+import { Sms } from './smsSlice';
 
-type Sms = {
-  content: string;
-  dateSent?: Date;
-}
 
 type VisitorState = {
   id?: string;
   name: string;
   phoneNumber?: string
   email?: string;
-  numVisits: number;
-  hasSentSms: boolean;
-  smsSentCount: number;
+  visitCount: number;
+  lastVisit?: Date;
   sms?: Sms[]
 }
 
@@ -28,10 +25,9 @@ const initialState: VisitorState = {
   name: '',
   phoneNumber: "",
   email: '',
-  numVisits: 0,
-  hasSentSms: false,
-  smsSentCount: 0,
-  sms: [],
+  visitCount: 0,
+  lastVisit: undefined,
+  sms: []
 };
 
 const visitorSlice = createSlice({
@@ -40,29 +36,22 @@ const visitorSlice = createSlice({
   reducers: {
     createVisitor: (state, action: PayloadAction<Pick<VisitorState, keyof CreateVisitor>>) => {
       const { name, email, phoneNumber } = action.payload;
+      state.name = v4();
       state.name = name;
       state.email = email;
       state.phoneNumber = phoneNumber;
-      state.numVisits += 1;
+      state.visitCount += 1;
+      state.lastVisit = new Date(Date.now());
     },
     setVisitor: (state, action: PayloadAction<VisitorState>) => {
       const visitorData = action.payload;
       return {
-        ...action.payload
+        ...visitorData, lastVisit: new Date(Date.now()), newVisit: visitorData.visitCount++ 
       }
     },
-    newVisit: (state, action) => {
-      state.numVisits++;
-    },
-    updateSmsSent: (state, action: PayloadAction<Sms>) => {
-      const { content, dateSent } = action.payload;
-      if(!state.hasSentSms) state.hasSentSms = true;
-      state.smsSentCount++;
-      state.sms?.push({ content, dateSent });
-    }
   },
 });
 
-export const { createVisitor, newVisit, updateSmsSent, setVisitor } = visitorSlice.actions;
+export const { createVisitor, setVisitor } = visitorSlice.actions;
 
 export default visitorSlice.reducer;

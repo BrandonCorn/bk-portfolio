@@ -4,9 +4,10 @@ import { Prisma, Visitors } from '@prisma/client'
 
 
 export const createVisitor = async (visitorData: Prisma.VisitorsUncheckedCreateInput): Promise<Visitors | boolean> => {
+  const { sms, ...data } = visitorData;
   try{
     const newUser = await prisma.visitors.create({
-      data: visitorData
+      data
     });
     return newUser;
   }

@@ -11,7 +11,7 @@ import {
   ChangeEventHandler,
   FormEventHandler,
   useEffect,
-  use,
+  useRef,
 } from "react";
 import { motion } from "framer-motion";
 import SuccessModal from "../molecules/modals/SuccessModal";
@@ -21,6 +21,8 @@ import {
   createVisitor,
   setVisitor,
 } from "@/redux/slices/visitorSlice";
+import { CreateVisitorRoute } from "@/types/visitors/visitors";
+import { Visitors } from "@prisma/client";
 
 const formDescription =
   "Are you looking for a developer? Let's chat and see how we can succeed.";
@@ -31,8 +33,9 @@ const SmsContactForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const visitor = useAppSelector((state) => state.visitor);
+  const { _persist, ...visitor } = useAppSelector((state) => state.visitor);
   const dispatch = useAppDispatch();
+  const isInitialRender = useRef(true);
 
   const handleNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setName(e.target.value);
@@ -64,35 +67,46 @@ const SmsContactForm = () => {
     setShowModal(false);
   };
 
+  //Send sms to visitor and save their info
   const handleSubmit: FormEventHandler<
     HTMLFormElement | HTMLButtonElement
   > = async (e) => {
     e.preventDefault();
-    //query visitor to make sure they haven't been here before, set their data in
 
-    if (visitor.hasSentSms && visitor.sms && visitor.sms.length > 3) {
-      alert(`already sent an sms`);
-      console.log("already sent sms", visitor);
-    } else {
-      const data = {
-        name,
-        email,
-        phoneNumber,
-        message,
-      };
+    const findVisitor = await getVisitor(email);
+    if (findVisitor) {
+      dispatch(setVisitor(findVisitor));
+    }
 
-      const res = await fetch("/api/sms/send-sms", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Allow-Content-Type": "application/json",
-        },
-      });
+    if (visitor.sms && visitor.sms.length < 3) {
+      //   alert(`already sent an sms`);
+      //   console.log("already sent sms", visitor);
+      // } else {
+      //   const data = {
+      //     name,
+      //     email,
+      //     phoneNumber,
+      //     message,
+      //   };
 
+      //   const res = await fetch("/api/sms/send-sms", {
+      //     method: "POST",
+      //     body: JSON.stringify(data),
+      //     headers: {
+      //       "Allow-Content-Type": "application/json",
+      //     },
+      //   });
+
+      let res = { ok: true };
       if (res.ok) {
         //if we have a visitor already, let's just add to their data, otherwise we'll create one
-        dispatch(createVisitor({ name, email, phoneNumber }));
-        dispatch(updateSmsSent({ content: message }));
+        let sms = { content: message, dateSent: new Date(Date.now()) };
+
+        if (!findVisitor) {
+          dispatch(createVisitor({ name, email, phoneNumber }));
+        }
+        //update to use date sent back from Twilio
+        dispatch(updateSmsSent(sms));
       } else {
         console.log("error sending message");
       }
@@ -100,9 +114,42 @@ const SmsContactForm = () => {
     resetAllData();
   };
 
+  //Save visitors to the db
+  const saveVisitor = async (visitorData: CreateVisitorRoute) => {
+    return fetch("/api/visitors/create-visitor", {
+      body: JSON.stringify(visitorData),
+      method: "POST",
+      headers: {
+        "Allow-Content-Type": "application/json",
+      },
+    }).then((response) => response.json());
+  };
+
+  //Get visitor from db from their email
+  const getVisitor = async (email: string) => {
+    return fetch(`/api/visitors/get-visitor`, {
+      method: "POST",
+      body: JSON.stringify({ email }),
+      headers: {
+        "Allow-Content-Type": "application/json",
+      },
+    }).then((response) => response.json());
+  };
+
+  //Save the visitors sms
+  const saveSms = async (sms: any) => {
+    return fetch("/api/sms/create-sms", {
+      method: "POST",
+      body: JSON.stringify(sms),
+      headers: {
+        "Allow-Content-Type": "application/json",
+      },
+    });
+  };
+
   useEffect(() => {
     //don't need visitor data or rerender so issue db query to update with visitor info
-    console.log("visitor ", visitor);
+    if (!isInitialRender.current) console.log("visitor ", visitor);
   }, [visitor]);
 
   const nameProps: GeneralInputProps = {

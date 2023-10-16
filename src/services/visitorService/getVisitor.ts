@@ -3,7 +3,7 @@ import prisma from "@/lib/prismaDb";
 import { Visitors } from '@prisma/client'
 
 
-export const createVisitor = async (email: string): Promise<Visitors | boolean> => {
+export const getVisitorByEmail = async (email: string): Promise<Visitors | boolean> => {
   try{
     const foundVisitor = await prisma.visitors.findUnique({
       where: {
