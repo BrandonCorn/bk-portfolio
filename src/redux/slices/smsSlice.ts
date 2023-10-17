@@ -3,6 +3,7 @@ import { ActionReducerMapBuilder, createAsyncThunk, createSlice, PayloadAction }
 import { LoadingState } from '@/types/common/type';
 import { CreateSmsRequest, SendSmsRequest } from '@/types/sms/type';
 import api from '@/lib/apiClient';
+import { Sms as DbSms } from '@prisma/client';
 
 export type Sms = {
   id?: string;
@@ -99,9 +100,15 @@ const smsSlice = createSlice({
   name: 'sms',
   initialState,
   reducers: {
-    updateSmsSent: (state, action: PayloadAction<Sms>) => {
-      const { id, content, dateSent } = action.payload;
-      state.sms?.push({ id, content, dateSent });
+    updateSmsSent: (state, action: PayloadAction<Sms | DbSms[]>) => {
+      if (Array.isArray(action.payload)){
+        state.sms.push(...action.payload)
+      }
+      else{
+        const { id, content, dateSent } = action.payload;
+        state.sms?.push({ id, content, dateSent });
+      }
+
     }
   },
   extraReducers: (builder) => {

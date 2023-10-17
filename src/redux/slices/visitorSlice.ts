@@ -3,8 +3,8 @@ import { Sms } from './smsSlice';
 import api from '@/lib/apiClient';
 import { LoadingState } from '@/types/common/type';
 import { CreateVisitorRequest } from '@/types/visitors/type';
-import { ErrorResponse } from '@/types/errors/type';
-import { Action } from '@prisma/client/runtime/library';
+import { updateSmsSent } from "@/redux/slices/smsSlice";
+
 
 type Visitor = {
   id?: string;
@@ -61,6 +61,7 @@ export const getVisitorByEmail = createAsyncThunk('visitor/getVisitorByEmail',
         data.lastVisit = new Date(Date.now());
         data.visitCount++;
         thunkApi.dispatch(setVisitor(data));
+        thunkApi.dispatch(updateSmsSent(data.sms));
         return data;
       }
       else return thunkApi.rejectWithValue(response.error);

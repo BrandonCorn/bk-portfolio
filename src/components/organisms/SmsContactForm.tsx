@@ -95,6 +95,7 @@ const SmsContactForm = () => {
     let findVisitor;
     if (!visitor.email) {
       findVisitor = await dispatch(getVisitorByEmail(email));
+      console.log("got visitor", findVisitor);
       if (!findVisitor.payload) {
         const visitor = { name, email, phoneNumber };
         await dispatch(createVisitor(visitor));
@@ -107,6 +108,7 @@ const SmsContactForm = () => {
         message:
           "Sorry, It looks you've sent too many messages. Please feel free to reach out to me via email or text",
       });
+      openModal(modalInfo.status);
     } else {
       const data = {
         name: visitor.name,
@@ -146,6 +148,11 @@ const SmsContactForm = () => {
     }
     resetMessageData();
   };
+
+  useEffect(() => {
+    console.log("visitor stuff", visitor);
+    console.log("sms stuff ", sms);
+  }, [visitor, sms]);
 
   const nameProps: GeneralInputProps = {
     placeholder: "Name",
