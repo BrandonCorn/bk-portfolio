@@ -56,12 +56,12 @@ export const getVisitorByEmail = createAsyncThunk('visitor/getVisitorByEmail',
     try{
       const response = await api.visitors.getVisitorByEmail(email);
       if(response.success){
-        console.log('resposne good ', response);
         if (!response.data) return thunkApi.rejectWithValue(response.data);
         let data = response.data;
         data.lastVisit = new Date(Date.now());
         data.visitCount++;
-        return thunkApi.dispatch(setVisitor(data));
+        thunkApi.dispatch(setVisitor(data));
+        return data;
       }
       else return thunkApi.rejectWithValue(response.error);
     }
@@ -94,7 +94,7 @@ export const createVisitor = createAsyncThunk('visitor/createVisitor',
       if (response.success) {
         if (!response.data) return thunkApi.rejectWithValue(response.data);
         thunkApi.dispatch(setVisitor(response.data));
-        return response;
+        return response.data;
       }
       else return thunkApi.rejectWithValue(response);
     }
@@ -111,11 +111,11 @@ const createVisitorBuilders = (builder: ActionReducerMapBuilder<VisitorState>) =
   })
   builder.addCase(createVisitor.fulfilled, (state, action) => {
     state.createVisitorRequestLoading = 'success';
-    state.getVisitorRequestSuccess = action.payload;
+    state.createVisitorRequestSuccess = action.payload;
   })
   builder.addCase(createVisitor.rejected, (state, action) => {
     state.createVisitorRequestLoading = 'error';
-    state.getVisitorRequestFailure = action.payload;
+    state.createVisitorRequestFailure = action.payload;
     return state;
   })
 }
@@ -131,9 +131,7 @@ const visitorSlice = createSlice({
   initialState,
   reducers: {
     setVisitor: (state, action) => {
-      const visitorData = action.payload;
       state.visitor = action.payload;
-      return state;
     },
   },
   extraReducers: (builder) => {

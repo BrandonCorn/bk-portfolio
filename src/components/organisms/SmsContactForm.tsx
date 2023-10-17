@@ -20,6 +20,7 @@ import { useAppDispatch, useAppSelector } from "@/redux";
 import { createVisitor, getVisitorByEmail } from "@/redux/slices/visitorSlice";
 import { sendSms, createSms } from "@/redux/slices/smsSlice";
 import { v4 } from "uuid";
+import { MessageInstance } from "twilio/lib/rest/api/v2010/account/message";
 
 const formDescription =
   "Are you looking for a developer? Let's chat and see how we can work together!";
@@ -33,15 +34,14 @@ const SmsContactForm = () => {
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showFailureModal, setShowFailureModal] = useState(false);
+  const [modalInfo, setModalInfo] = useState<{
+    status: ModalType;
+    title: string;
+    message: string;
+  }>({ status: "failure", title: "", message: "" });
   const { visitor } = useAppSelector((state) => state.visitor);
-  const { sms } = useAppSelector((state) => state.sms);
+  const sms = useAppSelector((state) => state.sms);
   const dispatch = useAppDispatch();
-
-  const modalObj: { status: ModalType; title: string; message: string } = {
-    status: "failure",
-    title: "",
-    message: "",
-  };
 
   const handleNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setName(e.target.value);
@@ -58,23 +58,31 @@ const SmsContactForm = () => {
     setPhoneNumber(e.target.value);
   };
 
+  const handleUpdateModalInfo = (modal: {
+    status: ModalType;
+    title: string;
+    message: string;
+  }) => {
+    setModalInfo(modal);
+  };
+
   const resetMessageData = () => {
     setMessage("");
   };
 
   const openModal = (modal: ModalType) => {
     if (modal === "success") setShowModal(true);
-    else if (modal === "failure") setShowFailureModal(true);
+    else setShowFailureModal(true);
   };
 
-  const closeModal = (modal: ModalType) => {
-    if (modal === "success") setShowModal(false);
-    else if (modal === "failure") setShowFailureModal(false);
+  const closeModal = () => {
+    setShowModal(false);
+    setShowFailureModal(false);
   };
 
   const autoCloseModal = (modal: ModalType) => {
     setTimeout(() => {
-      closeModal(modal);
+      closeModal();
     }, 3000);
   };
 
@@ -92,12 +100,13 @@ const SmsContactForm = () => {
         await dispatch(createVisitor(visitor));
       }
     }
-
-    if (visitor.sms && visitor.sms.length > 3) {
-      modalObj.status = "failure";
-      modalObj.title = "I wish we could talk more!";
-      modalObj.message =
-        "Sorry, It looks you've sent too many messages. Please feel free to reach out to me via email or text";
+    if (sms.sms && sms.sms.length >= 2) {
+      handleUpdateModalInfo({
+        status: "failure",
+        title: "I wish we could talk more!",
+        message:
+          "Sorry, It looks you've sent too many messages. Please feel free to reach out to me via email or text",
+      });
     } else {
       const data = {
         name: visitor.name,
@@ -107,24 +116,28 @@ const SmsContactForm = () => {
       };
 
       const sentSms = await dispatch(sendSms(data));
-      if (!sentSms.payload) {
-        modalObj.status = "success";
-        modalObj.title = "Hooray, you did it!";
-        modalObj.message =
-          "Your message has been sent. I appreciate it and I'll reach out soon as I can!";
+      if (sentSms.meta.requestStatus === "fulfilled") {
+        handleUpdateModalInfo({
+          status: "success",
+          title: "Hooray, you did it!",
+          message:
+            "Your message has been sent. I appreciate it and I'll reach out soon as I can!",
+        });
       } else {
-        modalObj.status = "failure";
-        modalObj.title = "This is embarrassing";
-        modalObj.message = "Please, reach out and let me know went wrong!";
+        handleUpdateModalInfo({
+          status: "failure",
+          title: "This is embarrassing",
+          message: "Please, reach out and let me know went wrong!",
+        });
       }
-      openModal(modalObj.status);
+      openModal(modalInfo.status);
 
-      let oneSms = sms[sms.length - 1];
-      if (visitor.id && oneSms.dateSent) {
+      if (visitor.id) {
+        let oneSms = sentSms.payload as MessageInstance;
         const createdSms = await dispatch(
           createSms({
-            id: oneSms.id || v4(),
-            dateSent: oneSms.dateSent,
+            id: oneSms.sid || v4(),
+            dateSent: oneSms.dateCreated,
             content: message,
             visitorsId: visitor.id,
           })
@@ -206,16 +219,16 @@ const SmsContactForm = () => {
       </GeneralForm>
       <p className="mt-8"> Pay kindness forward! </p>
       <SuccessModal
-        title={modalObj.title}
-        message={modalObj.message}
+        title={modalInfo.title}
+        message={modalInfo.message}
         isOpen={showModal}
-        closeModal={() => closeModal(modalObj.status)}
+        closeModal={closeModal}
       />
       <FailureModal
-        title={modalObj.title}
-        message={modalObj.message}
+        title={modalInfo.title}
+        message={modalInfo.message}
         isOpen={showFailureModal}
-        closeModal={() => closeModal(modalObj.status)}
+        closeModal={closeModal}
       />
     </motion.div>
   );

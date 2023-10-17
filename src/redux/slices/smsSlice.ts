@@ -34,10 +34,10 @@ export const sendSms = createAsyncThunk('sms/sendSms',
   async (smsData: SendSmsRequest, thunkApi) => {
     try{
       const response = await api.sms.sendSms(smsData);
-      console.log('what is wrong with response ', response);
       if(response.success){
         const message = response.data;
-        thunkApi.dispatch(updateSmsSent({ id: message.sid, content: message.body, dateSent: message.dateSent}));
+        let dbMessage = { id: message.sid, content: message.body, dateSent: message.dateCreated};
+        thunkApi.dispatch(updateSmsSent(dbMessage));
         return message;
       }
       else return thunkApi.rejectWithValue(response);
@@ -68,7 +68,7 @@ export const createSms = createAsyncThunk('sms/createSms',
     try{
       const response = await api.sms.createSms(smsData);
       if(response.success){
-        if (!response.data) return thunkApi.rejectWithValue(false);
+        if (!response.data) return thunkApi.rejectWithValue(response);
         const message = response.data;
         return message;
       }
