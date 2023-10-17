@@ -1,9 +1,10 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk, ActionReducerMapBuilder } from '@reduxjs/toolkit';
 import { Sms } from './smsSlice';
 import api from '@/lib/apiClient';
 import { LoadingState } from '@/types/common/type';
 import { CreateVisitorRequest } from '@/types/visitors/type';
 import { ErrorResponse } from '@/types/errors/type';
+import { Action } from '@prisma/client/runtime/library';
 
 type Visitor = {
   id?: string;
@@ -54,13 +55,15 @@ export const getVisitorByEmail = createAsyncThunk('visitor/getVisitorByEmail',
   async (email: string, thunkApi) => {
     try{
       const response = await api.visitors.getVisitorByEmail(email);
-      if (response && !('code' in response)) {
-        response.lastVisit = new Date(Date.now());
-        response.visitCount++;
-        thunkApi.dispatch(setVisitor(response));
-        //add logic to update visitor via dispatch
+      if(response.success){
+        console.log('resposne good ', response);
+        if (!response.data) return thunkApi.rejectWithValue(response.data);
+        let data = response.data;
+        data.lastVisit = new Date(Date.now());
+        data.visitCount++;
+        return thunkApi.dispatch(setVisitor(data));
       }
-      return response;
+      else return thunkApi.rejectWithValue(response.error);
     }
     catch(err){
       return thunkApi.rejectWithValue(err);
@@ -68,12 +71,29 @@ export const getVisitorByEmail = createAsyncThunk('visitor/getVisitorByEmail',
   }
 )
 
+const getVisitorByEmailBuilders = (builder: ActionReducerMapBuilder<VisitorState>) => {
+  builder.addCase(getVisitorByEmail.pending, (state, action) => {
+    state.getVisitorRequestLoading = 'loading';
+    state.getVisitorRequestFailure = null;
+    state.getVisitorRequestSuccess = null;
+  })
+  builder.addCase(getVisitorByEmail.fulfilled, (state, action) => {
+    state.getVisitorRequestLoading = 'success';
+    state.getVisitorRequestSuccess = action.payload;
+  })
+  builder.addCase(getVisitorByEmail.rejected, (state, action) => {
+    state.getVisitorRequestLoading = 'error';
+    state.getVisitorRequestFailure = action.payload;
+  })
+}
+
 export const createVisitor = createAsyncThunk('visitor/createVisitor', 
   async (visitor: CreateVisitorRequest, thunkApi) => {
     try{
       const response = await api.visitors.createVisitor(visitor);
-      if (response && !('code' in response)) {
-        thunkApi.dispatch(setVisitor(response));
+      if (response.success) {
+        if (!response.data) return thunkApi.rejectWithValue(response.data);
+        thunkApi.dispatch(setVisitor(response.data));
         return response;
       }
       else return thunkApi.rejectWithValue(response);
@@ -82,6 +102,23 @@ export const createVisitor = createAsyncThunk('visitor/createVisitor',
       return thunkApi.rejectWithValue(err);
     }
 });
+
+const createVisitorBuilders = (builder: ActionReducerMapBuilder<VisitorState>) => {
+  builder.addCase(createVisitor.pending, (state, action) => {
+    state.createVisitorRequestLoading = 'loading';
+    state.createVisitorRequestFailure = null;
+    state.createVisitorRequestSuccess = null;
+  })
+  builder.addCase(createVisitor.fulfilled, (state, action) => {
+    state.createVisitorRequestLoading = 'success';
+    state.getVisitorRequestSuccess = action.payload;
+  })
+  builder.addCase(createVisitor.rejected, (state, action) => {
+    state.createVisitorRequestLoading = 'error';
+    state.getVisitorRequestFailure = action.payload;
+    return state;
+  })
+}
 
 
 const updateVisitor = createAsyncThunk('visitor/updateVisitor', 
@@ -95,39 +132,13 @@ const visitorSlice = createSlice({
   reducers: {
     setVisitor: (state, action) => {
       const visitorData = action.payload;
-      return {
-        ...visitorData.visitor 
-      }
+      state.visitor = action.payload;
+      return state;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getVisitorByEmail.pending, (state, action) => {
-      state.getVisitorRequestLoading = 'loading';
-      state.getVisitorRequestFailure = null;
-      state.getVisitorRequestSuccess = null;
-    }),
-    builder.addCase(getVisitorByEmail.fulfilled, (state, action) => {
-      state.getVisitorRequestLoading = 'success';
-      state.getVisitorRequestSuccess = action.payload;
-    }),
-    builder.addCase(getVisitorByEmail.rejected, (state, action) => {
-      state.getVisitorRequestLoading = 'error';
-      state.getVisitorRequestFailure = action.payload;
-    }),
-    builder.addCase(createVisitor.pending, (state, action) => {
-      state.createVisitorRequestLoading = 'loading';
-      state.createVisitorRequestFailure = null;
-      state.createVisitorRequestSuccess = null;
-    }),
-    builder.addCase(createVisitor.fulfilled, (state, action) => {
-      state.createVisitorRequestLoading = 'success';
-      state.getVisitorRequestSuccess = action.payload;
-
-    }),
-    builder.addCase(createVisitor.rejected, (state, action) => {
-      state.createVisitorRequestLoading = 'error';
-      state.getVisitorRequestFailure = action.payload;
-    })
+    getVisitorByEmailBuilders(builder);
+    createVisitorBuilders(builder);
   }
 });
 

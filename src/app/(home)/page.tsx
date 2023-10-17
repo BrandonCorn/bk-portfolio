@@ -1,6 +1,6 @@
 "use client";
 
-import ImageGallery from "@/components/molecules/ImageGallery";
+import ImageGallery from "@/components/molecules/gallery/ImageGallery/ImageGallery";
 import Disneyland from "/public/about-me/brandon-kat-disneyland-2.jpg";
 import MeowWolf from "/public/about-me/meow-wolf-1.jpeg";
 import MeowWolf2 from "/public/about-me/meow-wolf-2.jpeg";

@@ -1,4 +1,4 @@
-import ExperienceSection from "@/components/molecules/ExperienceSection";
+import ExperienceSection from "@/components/molecules/sections/ExperienceSection/ExperienceSection";
 
 const ExperienceTemplate = () => {
   return (

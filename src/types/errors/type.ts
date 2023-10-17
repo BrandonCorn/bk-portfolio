@@ -1,6 +1,7 @@
-export type ErrorCodes = 400 | 401 | 403 | 404 | 500;
+export type ErrorCodes = 400 | 401 | 403 | 404 | 500 | number;
 
 export type ErrorResponse = {
-  code: ErrorCodes;
+  status: ErrorCodes;
+  statusText: string;
   message: string;
 }

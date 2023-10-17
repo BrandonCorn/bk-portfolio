@@ -3,12 +3,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { formatSms } from '@/services/utilService/utils';
 import { sendSms } from '@/services/twilioServices/sms/send-sms';
 import { BadRequestError } from '@/lib/errors/bad-request-error';
-import { SendSmsDataRequest } from '@/types/sms/type';
+import { SendSmsRequest } from '@/types/sms/type';
 
 
 
 export const POST = async (req: NextRequest) => {
-  const data: SendSmsDataRequest = await req.json();
+  const data: SendSmsRequest = await req.json();
   let to, from;
   if (process.env.TWILIO_FROM_PHONE) to = process.env.TWILIO_FROM_PHONE;
   if (process.env.MY_PHONE) from = process.env.MY_PHONE;
@@ -21,15 +21,16 @@ export const POST = async (req: NextRequest) => {
         message: formatMessage
       }
       const sendMessage = await sendSms(msgData);
-      console.log('send message function result ', sendMessage);
-      return NextResponse.json(sendMessage);
+      console.log(sendMessage);
+      return NextResponse.json(sendMessage, {status: 200});
     }
     else {
-      return NextResponse.json({ error: 'An error occured sending message'}, { status: 400 })
+      return NextResponse.json({ error: 'Missing phone numbers to send message'}, { status: 400 })
     }
   }
   catch(err){
     if (err instanceof BadRequestError){
+      console.log('whats the error', err);
       return NextResponse.json({error: err.message}, { status: err.code})
     }
     else return NextResponse.json({error: 'A server error ocurred'}, {status: 500})

@@ -1,5 +1,5 @@
-import { BadRequestError } from "@/lib/errors/bad-request-error";
 import { GetVisitorByEmailRequest, GetVisitorByEmailResponse } from "@/types/visitors/type";
+import { formatResponse } from "@/services/utilService/utils";
 
 
 /**
@@ -14,10 +14,5 @@ export const getVisitorByEmail = (email: GetVisitorByEmailRequest): GetVisitorBy
     headers: {
       "Allow-Content-Type": "application/json",
     },
-  }).then((response) => {
-    if (response.ok) return response.json();
-    else {
-      throw new BadRequestError(`${response}`)
-    }
-  })
+  }).then(response => formatResponse(response))
 }

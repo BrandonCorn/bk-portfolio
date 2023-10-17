@@ -12,9 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <ReduxProvider>
-      <html lang="en">
-        <body>{children}</body>
-      </html>
+      <html lang="en">{children}</html>
     </ReduxProvider>
   );
 }

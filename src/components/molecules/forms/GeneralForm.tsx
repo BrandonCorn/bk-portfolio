@@ -42,6 +42,7 @@ const GeneralForm: React.FC<CustomFormProps> = ({
                     ariaLabel={field.ariaLabel}
                     onChange={field.onChange}
                     style="bg-transparent border-teal-500 border-solid border-b-2 m-6 w-full"
+                    required={field.required}
                   />
                 );
               })}

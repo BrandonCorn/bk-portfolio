@@ -36,7 +36,7 @@ const TestimonialsSection = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.8 }}
-      className="flex flex-col"
+      className="flex flex-col mt-8 sm:mt0"
     >
       <h1 className="text-3xl md:text-4xl font-bold pb-4 md:pb-8">
         Testimonials

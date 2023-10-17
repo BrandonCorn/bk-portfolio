@@ -1,4 +1,5 @@
 import { CreateSmsRequest, CreateSmsResponse } from "@/types/sms/type";
+import { formatResponse } from "@/services/utilService/utils";
 
 
 /**
@@ -13,5 +14,5 @@ export const createSms = async (sms: CreateSmsRequest): CreateSmsResponse => {
     headers: {
       "Allow-Content-Type": "application/json",
     },
-  }).then(response => response.json());
+  }).then(response => formatResponse(response));
 };

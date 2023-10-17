@@ -14,12 +14,17 @@ import {
   useRef,
 } from "react";
 import { motion } from "framer-motion";
-import SuccessModal from "../molecules/modals/SuccessModal";
+import SuccessModal from "../molecules/modals/SuccessModal/SuccessModal";
+import FailureModal from "../molecules/modals/FailureModal/FailureModal";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import { createVisitor, getVisitorByEmail } from "@/redux/slices/visitorSlice";
+import { sendSms, createSms } from "@/redux/slices/smsSlice";
+import { v4 } from "uuid";
 
 const formDescription =
-  "Are you looking for a developer? Let's chat and see how we can succeed.";
+  "Are you looking for a developer? Let's chat and see how we can work together!";
+
+type ModalType = "success" | "failure";
 
 const SmsContactForm = () => {
   const [name, setName] = useState("");
@@ -27,9 +32,16 @@ const SmsContactForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showFailureModal, setShowFailureModal] = useState(false);
   const { visitor } = useAppSelector((state) => state.visitor);
+  const { sms } = useAppSelector((state) => state.sms);
   const dispatch = useAppDispatch();
-  const isInitialRender = useRef(true);
+
+  const modalObj: { status: ModalType; title: string; message: string } = {
+    status: "failure",
+    title: "",
+    message: "",
+  };
 
   const handleNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setName(e.target.value);
@@ -46,19 +58,24 @@ const SmsContactForm = () => {
     setPhoneNumber(e.target.value);
   };
 
-  const resetAllData = () => {
-    setName("");
-    setEmail("");
-    setPhoneNumber("");
+  const resetMessageData = () => {
     setMessage("");
   };
 
-  const openModal = () => {
-    setShowModal(true);
+  const openModal = (modal: ModalType) => {
+    if (modal === "success") setShowModal(true);
+    else if (modal === "failure") setShowFailureModal(true);
   };
 
-  const closeModal = () => {
-    setShowModal(false);
+  const closeModal = (modal: ModalType) => {
+    if (modal === "success") setShowModal(false);
+    else if (modal === "failure") setShowFailureModal(false);
+  };
+
+  const autoCloseModal = (modal: ModalType) => {
+    setTimeout(() => {
+      closeModal(modal);
+    }, 3000);
   };
 
   //Send sms to visitor and save their info
@@ -67,50 +84,55 @@ const SmsContactForm = () => {
   > = async (e) => {
     e.preventDefault();
 
-    const findVisitor = await dispatch(getVisitorByEmail(email));
-    console.log("find visitor", findVisitor);
-    if (!findVisitor.payload) {
-      const visitor = { name, email, phoneNumber };
-      await dispatch(createVisitor(visitor));
+    let findVisitor;
+    if (!visitor.email) {
+      findVisitor = await dispatch(getVisitorByEmail(email));
+      if (!findVisitor.payload) {
+        const visitor = { name, email, phoneNumber };
+        await dispatch(createVisitor(visitor));
+      }
     }
 
-    if (visitor.sms && visitor.sms.length < 3) {
-      //   alert(`already sent an sms`);
-      //   console.log("already sent sms", visitor);
-      // } else {
-      //   const data = {
-      //     name,
-      //     email,
-      //     phoneNumber,
-      //     message,
-      //   };
-      //   const res = await fetch("/api/sms/send-sms", {
-      //     method: "POST",
-      //     body: JSON.stringify(data),
-      //     headers: {
-      //       "Allow-Content-Type": "application/json",
-      //     },
-      //   });
-      // let res = { ok: true };
-      // if (res.ok) {
-      //   //if we have a visitor already, let's just add to their data, otherwise we'll create one
-      //   let sms = { content: message, dateSent: new Date(Date.now()) };
-      //   if (!findVisitor) {
-      //     dispatch(createVisitor({ name, email, phoneNumber }));
-      //   }
-      //   //update to use date sent back from Twilio
-      //   dispatch(updateSmsSent(sms));
-      // } else {
-      //   console.log("error sending message");
-      // }
+    if (visitor.sms && visitor.sms.length > 3) {
+      modalObj.status = "failure";
+      modalObj.title = "I wish we could talk more!";
+      modalObj.message =
+        "Sorry, It looks you've sent too many messages. Please feel free to reach out to me via email or text";
+    } else {
+      const data = {
+        name: visitor.name,
+        email: visitor.email,
+        phoneNumber: visitor.phoneNumber,
+        message,
+      };
+
+      const sentSms = await dispatch(sendSms(data));
+      if (!sentSms.payload) {
+        modalObj.status = "success";
+        modalObj.title = "Hooray, you did it!";
+        modalObj.message =
+          "Your message has been sent. I appreciate it and I'll reach out soon as I can!";
+      } else {
+        modalObj.status = "failure";
+        modalObj.title = "This is embarrassing";
+        modalObj.message = "Please, reach out and let me know went wrong!";
+      }
+      openModal(modalObj.status);
+
+      let oneSms = sms[sms.length - 1];
+      if (visitor.id && oneSms.dateSent) {
+        const createdSms = await dispatch(
+          createSms({
+            id: oneSms.id || v4(),
+            dateSent: oneSms.dateSent,
+            content: message,
+            visitorsId: visitor.id,
+          })
+        );
+      }
     }
-    resetAllData();
+    resetMessageData();
   };
-
-  useEffect(() => {
-    //don't need visitor data or rerender so issue db query to update with visitor info
-    if (!isInitialRender.current) console.log("visitor ", visitor);
-  }, [visitor]);
 
   const nameProps: GeneralInputProps = {
     placeholder: "Name",
@@ -133,10 +155,11 @@ const SmsContactForm = () => {
     type: "email",
     value: email,
     onChange: handleEmailChange,
+    required: true,
   };
 
   const messageProps = {
-    placeholder: "Tell me what your reaching out for!",
+    placeholder: "Speak your mind..",
     type: "text",
     value: message,
     onChange: handleMessageChange,
@@ -175,12 +198,25 @@ const SmsContactForm = () => {
           placeholder={messageProps.placeholder}
           value={messageProps.value}
           onChange={messageProps.onChange}
-          rows={6} // You can set the number of visible rows
+          rows={6}
           cols={60}
+          minLength={5}
+          required={true}
         />
       </GeneralForm>
       <p className="mt-8"> Pay kindness forward! </p>
-      {/* <SuccessModal /> */}
+      <SuccessModal
+        title={modalObj.title}
+        message={modalObj.message}
+        isOpen={showModal}
+        closeModal={() => closeModal(modalObj.status)}
+      />
+      <FailureModal
+        title={modalObj.title}
+        message={modalObj.message}
+        isOpen={showFailureModal}
+        closeModal={() => closeModal(modalObj.status)}
+      />
     </motion.div>
   );
 };

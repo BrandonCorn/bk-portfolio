@@ -1,4 +1,5 @@
 import { CreateVisitorRequest, CreateVisitorResponse } from "@/types/visitors/type";
+import { formatResponse } from "@/services/utilService/utils";
 
 /**
  * Create a visitor in the database
@@ -12,5 +13,5 @@ export const createVisitor = (visitor: CreateVisitorRequest): CreateVisitorRespo
     headers: {
       "Allow-Content-Type": "application/json",
     },
-  }).then((response) => response.json());
+  }).then((response) => formatResponse(response));
 }

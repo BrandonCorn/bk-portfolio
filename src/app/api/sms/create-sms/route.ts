@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createSms } from "@/services/visitorService/sms/create-sms";
+import { createSms } from "@/services/smsService/sms/create-sms";
 import { BadRequestError } from "@/lib/errors/bad-request-error";
 import { CreateSmsRequest } from "@/types/sms/type";
 
@@ -10,7 +10,7 @@ export const POST = async (req: NextRequest) => {
   try{
     const created = await createSms(data);
     if (created) return NextResponse.json(created);
-    else return NextResponse.json({error: 'Could not create Sms'}, {status: 400}); 
+    else return NextResponse.json(false); 
   }
 
   catch(err){
