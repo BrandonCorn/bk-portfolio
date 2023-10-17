@@ -54,12 +54,13 @@ const initialState: VisitorState = {
 export const getVisitorByEmail = createAsyncThunk('visitor/getVisitorByEmail', 
   async (email: string, thunkApi) => {
     try{
-      const response = await api.visitors.getVisitorByEmail(email);
+      const response = await api.visitors.getVisitorByEmail({email});
       if(response.success){
         if (!response.data) return thunkApi.rejectWithValue(response.data);
         let data = response.data;
         data.lastVisit = new Date(Date.now());
-        data.visitCount++;
+        if (data.visitCount === null) data.visitCount = 1;
+        else data.visitCount++;
         thunkApi.dispatch(setVisitor(data));
         thunkApi.dispatch(updateSmsSent(data.sms));
         return data;

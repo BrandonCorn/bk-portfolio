@@ -5,7 +5,7 @@ import { CustomResponse } from "../common/type";
 
 
 //Requests & Responses
-export type GetVisitorByEmailRequest = string
+export type GetVisitorByEmailRequest = { email: string }
 
 export type GetVisitorByEmailResponse =  Promise<CustomResponse<VisitorsWithSms | false>>;
 
