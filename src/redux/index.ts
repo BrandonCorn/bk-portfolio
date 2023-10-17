@@ -2,16 +2,24 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { persistReducer } from "redux-persist";
 import visitorReducer from "./slices/visitorSlice";
+import smsReducer from './slices/smsSlice';
 import storage from "./customStorage";
 import logger from 'redux-logger';
+
 
 const visitorConfig = {
   key: "visitor",
   storage,
 };
 
+const smsConfig = {
+  key: "visitor",
+  storage,
+};
+
 const rootReducer = combineReducers({
   visitor: persistReducer(visitorConfig, visitorReducer),
+  sms: persistReducer(smsConfig, smsReducer)
 });
 
 export const store = configureStore({

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import SkillsTemplate from "@/components/organisms/SkillsTemplate";
-import GradientBackground from "@/components/atoms/GradientBackground";
 import ExperienceTemplate from "@/components/organisms/ExperienceTemplate";
 
 const Experience = () => {

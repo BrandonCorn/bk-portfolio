@@ -34,11 +34,13 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "swr": "^2.2.1",
-    "twilio": "^4.14.1"
+    "twilio": "^4.14.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "^20.5.0",
     "@types/redux-logger": "^3.0.10",
+    "@types/uuid": "^9.0.5",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.27",
     "prisma": "^5.1.1",

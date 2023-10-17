@@ -1,8 +1,7 @@
 import { CustomError } from './custom-abstract-error';
 
 export class RequestValidationError extends CustomError {
-    // private readonly message = 'Invalid request';
-    statusCode = 400;
+    code = 400;
     constructor(public message = 'Invalid request') {
         super(message);
 

@@ -74,7 +74,7 @@ export function Header() {
 
   //need to show menu whenver under medium width
   return (
-    <header className="grid grid-cols-3 items-center justify-between p-6 bg-black-500 text-white">
+    <header className="grid grid-cols-3 items-center justify-between p-6 bg-black-500 text-white w-full">
       <div className="flex items-center justify-start">
         <Image
           src={"/personal-logo.jpeg"}

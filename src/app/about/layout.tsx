@@ -17,20 +17,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head></head>
-      <body className={"bg-white text-black dark:bg-black dark:text-white"}>
-        <Provider>
-          <div className="min-h-screen flex justify-center items-center">
-            <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5 max-w-screen-xl p-4 transition-width">
-              <div className="min-h-screen">
-                <Header />
-                {children}
-              </div>
+    <section className={"bg-white text-black dark:bg-black dark:text-white"}>
+      <Provider>
+        <div className="min-h-screen flex justify-center items-center">
+          <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5 max-w-screen-xl p-4 transition-width">
+            <div className="min-h-screen">
+              <Header />
+              {children}
             </div>
           </div>
-        </Provider>
-      </body>
-    </html>
+        </div>
+      </Provider>
+    </section>
   );
 }

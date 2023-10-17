@@ -1,7 +1,7 @@
-import SkillRows from "@/components/molecules/SkillRows";
+import SkillSection from "@/components/molecules/sections/SkillSection/SkillSection";
 
 const SkillsTemplate = () => {
-  return <SkillRows />;
+  return <SkillSection />;
 };
 
 export default SkillsTemplate;

@@ -38,14 +38,14 @@ model Session {
 }
 
 model User {
-  id              String           @id @default(cuid())
-  name            String?
-  email           String?          @unique
-  emailVerified   DateTime?
-  password        String?
-  image           String?
-  accounts        Account[]
-  sessions        Session[]
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
 }
 
 model VerificationToken {
@@ -57,46 +57,42 @@ model VerificationToken {
 }
 
 model Visitors {
-  id           String      @id @unique @default(cuid())
+  id           String      @id @unique @default(uuid())
   name         String      @default(uuid())
   email        String?     @unique
-  phoneNumber  String?     @unique
-  visitCount   Int
-  lastVisit    DateTime
-  hasSentSms   Boolean?    @default(false)
-  sentSmsCount Int?
-  sms          Sms[]
-  questions    Questions[]
-  answers      Answers[]
+  phoneNumber  String?     
+  visitCount   Int?
+  lastVisit    DateTime?
   createdAt    DateTime    @default(now())
+  Questions    Questions[]
+  Answers      Answers[]
+  Sms          Sms[]
 }
 
 model Questions {
-  id         String   @id @unique @default(cuid())
+  id         String   @id @unique @default(uuid())
   content    String
-  answer     Answers? 
+  answer     Answers?
   visitor    Visitors @relation(fields: [visitorsId], references: [id])
   createdAt  DateTime @default(now())
   visitorsId String
 }
 
 model Answers {
-  id          String    @id @unique @default(cuid())
+  id          String    @id @unique @default(uuid())
   content     String
   question    Questions @relation(fields: [questionsId], references: [id])
   visitor     Visitors  @relation(fields: [visitorsId], references: [id])
   createdAt   DateTime  @default(now())
-  questionsId String @unique
+  questionsId String    @unique
   visitorsId  String
 }
 
 model Sms {
-  id         String   @id @unique @default(cuid())
+  id         String   @id @unique @default(uuid())
   createdAt  DateTime @default(now())
   dateSent   DateTime
   content    String
   visitor    Visitors @relation(fields: [visitorsId], references: [id])
   visitorsId String
 }
-
-

@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import { SendVerificationBody } from "@/app/api/send-verification/route";
-
 const LoginForm = () => {
   return (
     <motion.div
