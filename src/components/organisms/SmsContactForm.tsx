@@ -95,7 +95,6 @@ const SmsContactForm = () => {
     let findVisitor;
     if (!visitor.email) {
       findVisitor = await dispatch(getVisitorByEmail(email));
-      console.log("got visitor", findVisitor);
       if (!findVisitor.payload) {
         const visitor = { name, email, phoneNumber };
         await dispatch(createVisitor(visitor));

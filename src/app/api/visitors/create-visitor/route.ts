@@ -10,7 +10,6 @@ export const POST = async (req: NextRequest): Promise<NextResponse<unknown>> => 
   const { ...visitorData }: CreateVisitorRequest = data;
 
   try{
-    
     const createdVisitor = await createVisitor(visitorData);
     console.log(createdVisitor);
     if (createdVisitor) return NextResponse.json(createdVisitor);

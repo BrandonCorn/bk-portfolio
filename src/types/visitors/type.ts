@@ -11,10 +11,9 @@ export type GetVisitorByEmailResponse =  Promise<CustomResponse<VisitorsWithSms 
 
 export type CreateVisitorRequest = {
   id?: string
-  name?: string
-  email?: string | null
+  name: string
+  email: string | null
   phoneNumber?: string | null
-  visitCount?: number
   lastVisit?: Date | string
 }
 
