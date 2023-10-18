@@ -106,6 +106,16 @@ const SmsContactForm = () => {
   > = async (e) => {
     e.preventDefault();
     handleLoading(true);
+    if (!message || !email) {
+      handleLoading(false);
+      updateFailureModal({
+        title: "Oops",
+        message:
+          "Looks like were missing some info in the form. Please provide your email and a message",
+        show: true,
+      });
+      return;
+    }
     // find visitors and if they don't exist create one
     let findVisitor;
     if (!visitor.visitor.email) {
