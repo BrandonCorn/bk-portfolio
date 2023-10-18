@@ -3,7 +3,7 @@
 import GeneralInput, {
   GeneralInputProps,
 } from "@/components/atoms/input/GeneralInput";
-import { FormEventHandler } from "react";
+import React, { FormEventHandler } from "react";
 
 type CustomFormProps = {
   children: React.ReactNode;
@@ -38,7 +38,7 @@ const GeneralForm: React.FC<CustomFormProps> = ({
                     type={field.type}
                     ariaLabel={field.ariaLabel}
                     onChange={field.onChange}
-                    style="bg-transparent border-teal-500 border-solid border-b-2 m-6 w-full"
+                    className="bg-transparent border-teal-500 border-solid border-b-2 m-6 w-full"
                     required={field.required}
                   />
                 );

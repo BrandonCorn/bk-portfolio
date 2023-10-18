@@ -3,10 +3,7 @@
 import GeneralForm from "@/components/molecules/forms/GeneralForm/GeneralForm";
 import DescriptionText from "@/components/atoms/text/DescriptionText";
 import { GeneralInputProps } from "@/components/atoms/input/GeneralInput";
-import GeneralButton, {
-  GeneralButtonProps,
-} from "@/components/atoms/buttons/GeneralButton/GeneralButton";
-import { useState, ChangeEventHandler, FormEventHandler } from "react";
+import React, { useState, FormEventHandler, useCallback } from "react";
 import { motion } from "framer-motion";
 import SuccessModal from "@/components/molecules/modals/SuccessModal/SuccessModal";
 import FailureModal from "@/components/molecules/modals/FailureModal/FailureModal";
@@ -18,8 +15,9 @@ import {
 } from "@/redux/slices/visitorSlice";
 import { sendSms, createSms } from "@/redux/slices/smsSlice";
 import { MessageInstance } from "twilio/lib/rest/api/v2010/account/message";
-import LoadingIcon from "@/components/atoms/icons/LoadingIcon/LoadingIcon";
-import LoadingButton from "../atoms/buttons/LoadingButton/LoadingButton";
+import LoadingButton, {
+  LoadingButtonProps,
+} from "../atoms/buttons/LoadingButton/LoadingButton";
 
 const formDescription =
   "Are you looking for a developer? Let's chat and see how we can work together!";
@@ -48,21 +46,34 @@ const SmsContactForm = () => {
   const [loading, setLoading] = useState(false);
   const visitor = useAppSelector((state) => state.visitor);
   const dispatch = useAppDispatch();
+  console.log("render sms contact form");
 
-  const handleNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setName(e.target.value);
-  };
+  const handleNameChange = useCallback(
+    (value: string) => {
+      setName(value);
+    },
+    [name]
+  );
 
-  const handleEmailChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setEmail(e.target.value);
-  };
-  const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    setMessage(e.target.value);
-  };
+  const handleEmailChange = useCallback(
+    (value: string) => {
+      setEmail(value);
+    },
+    [email]
+  );
+  const handleMessageChange = useCallback(
+    (value: string) => {
+      setMessage(value);
+    },
+    [message]
+  );
 
-  const handlePhoneNumberChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setPhoneNumber(e.target.value);
-  };
+  const handlePhoneNumberChange = useCallback(
+    (value: string) => {
+      setPhoneNumber(value);
+    },
+    [phoneNumber]
+  );
 
   const updateSuccesModal = (modal: ModalInfo) => {
     setSuccessModalInfo({ ...modal });
@@ -195,9 +206,12 @@ const SmsContactForm = () => {
     onChange: handleMessageChange,
   };
 
-  const buttonProps: GeneralButtonProps = {
-    text: "Send SMS",
-    onSubmit: handleSubmit,
+  const buttonProps: LoadingButtonProps = {
+    text: "Send",
+    loadingText: "Sending",
+    onClick: handleSubmit,
+    type: "submit",
+    isLoading: loading,
   };
 
   const formProps = {
@@ -220,11 +234,11 @@ const SmsContactForm = () => {
             className={
               "h-10 w-40 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-4 rounded"
             }
-            isLoading={loading}
-            text={"Send"}
-            loadingText={"Sending"}
+            isLoading={buttonProps.isLoading}
+            text={buttonProps.text}
+            loadingText={buttonProps.loadingText}
             onClick={handleSubmit}
-            type="submit"
+            type={buttonProps.type}
           />
         }
         onSubmit={formProps.onSubmit}
@@ -233,7 +247,7 @@ const SmsContactForm = () => {
           className="bg-transparent border-solid border-zinc-200 border-1 p-2 w-full"
           placeholder={messageProps.placeholder}
           value={messageProps.value}
-          onChange={messageProps.onChange}
+          onChange={(e) => messageProps.onChange(e.target.value)}
           rows={6}
           cols={60}
           minLength={5}

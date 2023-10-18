@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from "react";
+import React from "react";
 
 export type GeneralInputProps = {
   placeholder: string;
@@ -6,8 +6,8 @@ export type GeneralInputProps = {
   type?: string;
   ariaLabel?: string;
   required?: boolean;
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  style?: string;
+  onChange: (value: string) => void;
+  className?: string;
 };
 
 export const GeneralInput: React.FC<GeneralInputProps> = ({
@@ -17,22 +17,23 @@ export const GeneralInput: React.FC<GeneralInputProps> = ({
   ariaLabel,
   required,
   onChange,
-  style,
+  className,
 }) => {
+  console.log("renders every time", value);
   return (
     <input
       aria-label={ariaLabel || "text"}
       className={
-        style ||
+        className ||
         "appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outilne-none"
       }
       type={type || "text"}
       placeholder={placeholder}
       value={value}
-      onChange={onChange}
+      onChange={(e) => onChange(e.target.value)}
       required={required || false}
     ></input>
   );
 };
 
-export default GeneralInput;
+export default React.memo(GeneralInput);

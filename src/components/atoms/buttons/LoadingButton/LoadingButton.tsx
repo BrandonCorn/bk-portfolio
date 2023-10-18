@@ -2,7 +2,7 @@
 import clsx from "clsx";
 import LoadingIcon from "../../icons/LoadingIcon/LoadingIcon";
 
-export type LoadingButton = {
+export type LoadingButtonProps = {
   onClick?: React.FormEventHandler<HTMLButtonElement> | (() => void);
   disabled?: boolean;
   text: string;
@@ -13,7 +13,7 @@ export type LoadingButton = {
   loadingClassName?: string;
 };
 
-const LoadingButton: React.FC<LoadingButton> = ({
+const LoadingButton: React.FC<LoadingButtonProps> = ({
   onClick,
   disabled,
   text,
