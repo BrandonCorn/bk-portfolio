@@ -1,15 +1,15 @@
 "use client";
 
-import GeneralForm from "@/components/molecules/forms/GeneralForm";
+import GeneralForm from "@/components/molecules/forms/GeneralForm/GeneralForm";
 import DescriptionText from "@/components/atoms/text/DescriptionText";
 import { GeneralInputProps } from "@/components/atoms/input/GeneralInput";
 import GeneralButton, {
   GeneralButtonProps,
-} from "@/components/atoms/buttons/GeneralButton";
+} from "@/components/atoms/buttons/GeneralButton/GeneralButton";
 import { useState, ChangeEventHandler, FormEventHandler } from "react";
 import { motion } from "framer-motion";
-import SuccessModal from "../molecules/modals/SuccessModal/SuccessModal";
-import FailureModal from "../molecules/modals/FailureModal/FailureModal";
+import SuccessModal from "@/components/molecules/modals/SuccessModal/SuccessModal";
+import FailureModal from "@/components/molecules/modals/FailureModal/FailureModal";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import {
   createVisitor,
@@ -18,6 +18,8 @@ import {
 } from "@/redux/slices/visitorSlice";
 import { sendSms, createSms } from "@/redux/slices/smsSlice";
 import { MessageInstance } from "twilio/lib/rest/api/v2010/account/message";
+import LoadingIcon from "@/components/atoms/icons/LoadingIcon/LoadingIcon";
+import LoadingButton from "../atoms/buttons/LoadingButton/LoadingButton";
 
 const formDescription =
   "Are you looking for a developer? Let's chat and see how we can work together!";
@@ -43,6 +45,7 @@ const SmsContactForm = () => {
     title: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
   const visitor = useAppSelector((state) => state.visitor);
   const dispatch = useAppDispatch();
 
@@ -73,15 +76,17 @@ const SmsContactForm = () => {
     setMessage("");
   };
 
+  const handleLoading = (state: boolean) => {
+    setLoading(state);
+  };
+
   const closeModal = () => {
     setSuccessModalInfo((prev) => ({ ...prev, show: false }));
     setFailureModalInfo((prev) => ({ ...prev, show: false }));
   };
 
-  // const autoCloseModal = (modal: ModalType) => {
-  //   setTimeout(() => {
-  //     closeModal();
-  //   }, 3000);
+  // const autoCloseModal = () => {
+  //   setTimeout(() => {}, 3000);
   // };
 
   //Send sms to visitor and save their info
@@ -89,8 +94,8 @@ const SmsContactForm = () => {
     HTMLFormElement | HTMLButtonElement
   > = async (e) => {
     e.preventDefault();
-
-    //find visitors and if they don't exist create one
+    handleLoading(true);
+    // find visitors and if they don't exist create one
     let findVisitor;
     if (!visitor.visitor.email) {
       findVisitor = await dispatch(getVisitorByEmail({ email })).unwrap();
@@ -108,6 +113,7 @@ const SmsContactForm = () => {
 
     //two conditions, we have visitor with sms cause we found them or we have a visitor without sms because we had to create them an sms array is empty and not included
     if ("sms" in findVisitor && findVisitor.sms.length >= 2) {
+      handleLoading(false);
       updateFailureModal({
         show: true,
         title: "I wish we could talk more!",
@@ -123,6 +129,7 @@ const SmsContactForm = () => {
       };
       const sentSms = await dispatch(sendSms(data));
       if (sentSms.meta.requestStatus === "fulfilled") {
+        setLoading(false);
         updateSuccesModal({
           show: true,
           title: "Hooray, you did it!",
@@ -145,6 +152,7 @@ const SmsContactForm = () => {
           );
         }
       } else {
+        setLoading(false);
         updateFailureModal({
           show: true,
           title: "This is embarrassing",
@@ -208,9 +216,15 @@ const SmsContactForm = () => {
         Description={<DescriptionText text={formDescription} />}
         formInputFields={[nameProps, phoneNumberProps, emailProps]}
         FormButton={
-          <GeneralButton
-            text={buttonProps.text}
-            onSubmit={buttonProps.onSubmit}
+          <LoadingButton
+            className={
+              "h-10 w-40 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-4 rounded"
+            }
+            isLoading={loading}
+            text={"Send"}
+            loadingText={"Sending"}
+            onClick={handleSubmit}
+            type="submit"
           />
         }
         onSubmit={formProps.onSubmit}

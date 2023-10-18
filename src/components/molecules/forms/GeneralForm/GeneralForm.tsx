@@ -20,9 +20,6 @@ const GeneralForm: React.FC<CustomFormProps> = ({
   onSubmit,
   children,
 }) => {
-  const customFunc = () => {
-    console.log("we did some stuff");
-  };
   return (
     <div className=" max-w-sm lg:max-w-full lg:flex">
       <div className="flex flex-col justify-center w-full">
