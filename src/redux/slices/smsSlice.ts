@@ -9,6 +9,8 @@ export type Sms = {
   id?: string;
   content: string;
   dateSent?: Date;
+  createdAt?: Date;
+  visitorId?: string;
 }
 
 export type SmsState = {
@@ -37,8 +39,6 @@ export const sendSms = createAsyncThunk('sms/sendSms',
       const response = await api.sms.sendSms(smsData);
       if(response.success){
         const message = response.data;
-        let dbMessage = { id: message.sid, content: message.body, dateSent: message.dateCreated};
-        thunkApi.dispatch(updateSmsSent(dbMessage));
         return message;
       }
       else return thunkApi.rejectWithValue(response);
@@ -55,8 +55,10 @@ export const sendSms = createAsyncThunk('sms/sendSms',
       state.sendSmsRequestSuccess = null;
     });
     builder.addCase(sendSms.fulfilled, (state, action) => {
+      let message = action.payload;
       state.sendSmsRequestLoading = 'success';
       state.sendSmsRequestSuccess = action.payload;
+      state.sms.push({id: message.sid, content: message.body, dateSent: message.dateCreated})
     });
     builder.addCase(sendSms.rejected, (state, action) => {
       state.sendSmsRequestLoading = 'error';
@@ -69,9 +71,7 @@ export const createSms = createAsyncThunk('sms/createSms',
     try{
       const response = await api.sms.createSms(smsData);
       if(response.success){
-        if (!response.data) return thunkApi.rejectWithValue(response);
-        const message = response.data;
-        return message;
+        return response.data;
       }
       else return thunkApi.rejectWithValue(response);
     }
@@ -100,15 +100,8 @@ const smsSlice = createSlice({
   name: 'sms',
   initialState,
   reducers: {
-    updateSmsSent: (state, action: PayloadAction<Sms | DbSms[]>) => {
-      if (Array.isArray(action.payload)){
-        state.sms.push(...action.payload)
-      }
-      else{
-        const { id, content, dateSent } = action.payload;
-        state.sms?.push({ id, content, dateSent });
-      }
-
+    updateSmsSent: (state, action: PayloadAction<DbSms[]>) => {
+      state.sms = [...state.sms, ...action.payload];
     }
   },
   extraReducers: (builder) => {
