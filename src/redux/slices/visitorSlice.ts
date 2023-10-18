@@ -2,8 +2,9 @@ import { createSlice, PayloadAction, createAsyncThunk, ActionReducerMapBuilder }
 import { Sms } from './smsSlice';
 import api from '@/lib/apiClient';
 import { LoadingState } from '@/types/common/type';
-import { CreateVisitorRequest } from '@/types/visitors/type';
+import { CreateVisitorRequest, VisitorsWithSms } from '@/types/visitors/type';
 import { updateSmsSent } from "@/redux/slices/smsSlice";
+import { MessageInstance } from 'twilio/lib/rest/api/v2010/account/message';
 
 
 type Visitor = {
@@ -13,10 +14,10 @@ type Visitor = {
   email: string | null;
   visitCount: number;
   lastVisit: Date | null;
-  sms: Sms[] | null;
+  sms: Sms[];
 }
 
-type VisitorState = {
+export type VisitorState = {
   visitor: Visitor
   createVisitorRequestLoading: LoadingState | null,
   createVisitorRequestSuccess: any,
@@ -52,20 +53,19 @@ const initialState: VisitorState = {
 };
 
 export const getVisitorByEmail = createAsyncThunk('visitor/getVisitorByEmail', 
-  async (email: string, thunkApi) => {
+  async (email: {email: string}, thunkApi) => {
     try{
-      const response = await api.visitors.getVisitorByEmail({email});
+      const response = await api.visitors.getVisitorByEmail(email);
       if(response.success){
-        if (!response.data) return thunkApi.rejectWithValue(response.data);
+        if (!response.data) return response.data;
         let data = response.data;
-        data.lastVisit = new Date(Date.now());
-        if (data.visitCount === null) data.visitCount = 1;
-        else data.visitCount++;
         thunkApi.dispatch(setVisitor(data));
         thunkApi.dispatch(updateSmsSent(data.sms));
         return data;
       }
-      else return thunkApi.rejectWithValue(response.error);
+      else {
+        return thunkApi.rejectWithValue(response.error);
+      }
     }
     catch(err){
       return thunkApi.rejectWithValue(err);
@@ -94,7 +94,7 @@ export const createVisitor = createAsyncThunk('visitor/createVisitor',
     try{
       const response = await api.visitors.createVisitor(visitor);
       if (response.success) {
-        if (!response.data) return thunkApi.rejectWithValue(response.data);
+        if (!response.data) return response.data;
         thunkApi.dispatch(setVisitor(response.data));
         return response.data;
       }
@@ -135,6 +135,17 @@ const visitorSlice = createSlice({
     setVisitor: (state, action) => {
       state.visitor = action.payload;
     },
+    updateVisitorSms: (state, action: PayloadAction<MessageInstance & {visitorId: string}>) => {
+      let twilioSms = action.payload;
+      const message: Sms = {
+        id: twilioSms.sid,
+        dateSent: twilioSms.dateCreated,
+        content: twilioSms.body,
+        visitorId: twilioSms.visitorId
+      }
+      if (!state.visitor.sms) state.visitor.sms = [message];
+      else state.visitor.sms = [...state.visitor.sms, message]
+    }
   },
   extraReducers: (builder) => {
     getVisitorByEmailBuilders(builder);
@@ -142,6 +153,6 @@ const visitorSlice = createSlice({
   }
 });
 
-export const { setVisitor } = visitorSlice.actions;
+export const { setVisitor, updateVisitorSms } = visitorSlice.actions;
 
 export default visitorSlice.reducer;

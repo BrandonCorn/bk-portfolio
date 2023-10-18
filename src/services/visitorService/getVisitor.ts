@@ -3,12 +3,16 @@ import prisma from "@/lib/prismaDb";
 import { Visitors } from '@prisma/client'
 import { VisitorsWithSms } from "@/types/visitors/type";
 
+type GetVisitorByEmail = {
+  email: string;
+}
 
-export const getVisitorByEmail = async (email: string): Promise<VisitorsWithSms | boolean> => {
+export const getVisitorByEmail = async (email: GetVisitorByEmail): Promise<VisitorsWithSms | boolean> => {
+  const extractEmail = email.email;
   try{
     const  foundVisitor = await prisma.visitors.findUnique({
       where: {
-        email
+        email: extractEmail,
       },
       include: {
         Sms: true

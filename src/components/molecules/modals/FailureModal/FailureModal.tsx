@@ -1,3 +1,4 @@
+"use client";
 import BasicModal, {
   BasicModalProps,
 } from "@/components/atoms/modal/BasicModal";

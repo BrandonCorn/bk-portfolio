@@ -13,7 +13,7 @@ const visitorConfig = {
 };
 
 const smsConfig = {
-  key: "visitor",
+  key: "sms",
   storage,
 };
 
