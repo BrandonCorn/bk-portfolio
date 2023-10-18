@@ -4,8 +4,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { redirect } from "next/navigation";
-import useSWR from "swr";
-import { fetcher } from "@/lib/prismaDb/fetcher";
 
 function SignUpForm() {
   const [name, setName] = useState("");
