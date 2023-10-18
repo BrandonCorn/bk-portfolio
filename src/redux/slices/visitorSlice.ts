@@ -53,9 +53,9 @@ const initialState: VisitorState = {
 };
 
 export const getVisitorByEmail = createAsyncThunk('visitor/getVisitorByEmail', 
-  async (email: string, thunkApi) => {
+  async (email: {email: string}, thunkApi) => {
     try{
-      const response = await api.visitors.getVisitorByEmail({email});
+      const response = await api.visitors.getVisitorByEmail(email);
       if(response.success){
         if (!response.data) return response.data;
         let data = response.data;

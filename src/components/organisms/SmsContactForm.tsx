@@ -93,7 +93,7 @@ const SmsContactForm = () => {
     //find visitors and if they don't exist create one
     let findVisitor;
     if (!visitor.visitor.email) {
-      findVisitor = await dispatch(getVisitorByEmail(email)).unwrap();
+      findVisitor = await dispatch(getVisitorByEmail({ email })).unwrap();
       if (!findVisitor) {
         const newVisitor = { name, email, phoneNumber };
         findVisitor = await dispatch(createVisitor(newVisitor)).unwrap();

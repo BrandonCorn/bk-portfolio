@@ -6,7 +6,7 @@ import { GetVisitorByEmailRequest } from "@/types/visitors/type";
 
 export const POST = async (req: NextRequest) => {
   const data = await req.json();
-  const {email}: GetVisitorByEmailRequest = data;
+  const {email} = data;
 
   try{
     const findVisitor = await getVisitorByEmail(email);
