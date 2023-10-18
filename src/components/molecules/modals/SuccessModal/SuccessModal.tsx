@@ -1,7 +1,7 @@
 "use client";
 import BasicModal, {
   BasicModalProps,
-} from "@/components/atoms/modal/BasicModal";
+} from "@/components/atoms/Modals/BasicModal";
 import Image from "next/image";
 import { motion } from "framer-motion";
 

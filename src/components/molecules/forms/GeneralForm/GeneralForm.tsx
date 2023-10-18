@@ -2,7 +2,7 @@
 
 import GeneralInput, {
   GeneralInputProps,
-} from "@/components/atoms/input/GeneralInput";
+} from "@/components/atoms/Inputs/GeneralInput";
 import React, { FormEventHandler } from "react";
 
 type CustomFormProps = {

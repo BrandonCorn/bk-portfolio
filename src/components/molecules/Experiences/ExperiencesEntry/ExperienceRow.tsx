@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-export type ExperienceRowProps = {
+export type ExperienceEntryProps = {
   company: string;
   startDate: string;
   endDate: string;
@@ -9,7 +9,7 @@ export type ExperienceRowProps = {
   description: string;
 };
 
-const ExperienceRow: React.FC<ExperienceRowProps> = ({
+const ExperienceEntry: React.FC<ExperienceEntryProps> = ({
   company,
   startDate,
   endDate,
@@ -32,4 +32,4 @@ const ExperienceRow: React.FC<ExperienceRowProps> = ({
   );
 };
 
-export default ExperienceRow;
+export default ExperienceEntry;

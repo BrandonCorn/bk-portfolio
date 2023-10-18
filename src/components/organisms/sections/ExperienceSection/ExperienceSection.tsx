@@ -1,6 +1,9 @@
-import ExperienceRow, {
-  ExperienceRowProps,
-} from "@/components/atoms/ExperienceRow";
+"use client";
+
+import ExperienceEntry, {
+  ExperienceEntryProps,
+} from "@/components/molecules/Experiences/ExperiencesEntry/ExperienceRow";
+import { motion } from "framer-motion";
 
 const roles = {
   FlavorCloud:
@@ -11,7 +14,7 @@ const roles = {
     "During my time at Vimbel, I led the development of the company's full-stack mobile application, utilizing React Native, Node.js, Typescript, mySQL, and MongoDB to exceed technical and design standards set by the product team. I collaborated on implementing a streamlined CI/CD pipeline and cloud infrastructure using GitLab and AWS, significantly reducing deployment time and enhancing product reliability. My commitment to excellence extended to code reviews, where I optimized performance and ensured application stability. I also played a key role in selecting and integrating external technologies, boosting development efficiency. My Vimbel experience has equipped me with the skills and expertise to drive success in my future endeavors.",
 };
 
-const bcornExperience: ExperienceRowProps[] = [
+const bcornExperience: ExperienceEntryProps[] = [
   {
     title: "Senior Solutions Engineer",
     company: "FlavorCloud",
@@ -37,13 +40,20 @@ const bcornExperience: ExperienceRowProps[] = [
 
 const ExperienceSection = () => {
   return (
-    <div className="flex flex-row">
-      <div className="flex flex-col w-full">
-        {bcornExperience.map((job, index) => {
-          return <ExperienceRow key={index} {...job} />;
-        })}
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="flex flex-row">
+        <div className="flex flex-col w-full">
+          {bcornExperience.map((job, index) => {
+            return <ExperienceEntry key={index} {...job} />;
+          })}
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

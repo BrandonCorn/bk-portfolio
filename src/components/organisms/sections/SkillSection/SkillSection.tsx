@@ -71,7 +71,7 @@ const iconList: IconProps[] = [
   },
 ];
 
-const SkillRows = () => {
+const SkillsSection = () => {
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
@@ -88,4 +88,4 @@ const SkillRows = () => {
   );
 };
 
-export default SkillRows;
+export default SkillsSection;

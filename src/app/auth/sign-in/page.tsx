@@ -1,4 +1,4 @@
-import LoginForm from "@/components/molecules/forms/LoginForm/LoginForm";
+import LoginForm from "@/components/molecules/Forms/LoginForm/LoginForm";
 import Image from "next/image";
 import { useState } from "react";
 

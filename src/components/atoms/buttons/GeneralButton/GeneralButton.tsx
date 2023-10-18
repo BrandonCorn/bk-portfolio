@@ -1,27 +1,24 @@
 import { FormEventHandler } from "react";
+import { AtomProps } from "../../types";
+import clsx from "clsx";
 
 export type GeneralButtonProps = {
-  onSubmit: FormEventHandler<HTMLButtonElement>;
   text: string;
-  style?: string;
-  disabled?: boolean;
-};
+} & AtomProps<"button">;
 
-const GeneralButton: React.FC<GeneralButtonProps> = ({
-  onSubmit,
-  text,
-  style,
-  disabled,
-}) => {
+const GeneralButton: React.FC<GeneralButtonProps> = ({ text, ...rest }) => {
+  const classes = clsx(
+    "flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded",
+    rest.className
+  );
   return (
     <button
-      className={
-        style ||
-        "flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
-      }
-      type="submit"
-      onSubmit={onSubmit}
-      disabled={disabled || false}
+      id={rest.id || ""}
+      className={classes}
+      type={rest.type || "submit"}
+      onSubmit={rest.onSubmit}
+      disabled={rest.disabled || false}
+      {...rest}
     >
       {text}
     </button>

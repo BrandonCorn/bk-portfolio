@@ -1,6 +1,6 @@
 "use client";
 
-import ImageGallery from "@/components/molecules/gallery/ImageGallery/ImageGallery";
+import ImageGallery from "@/components/molecules/Gallery/ImageGallery/ImageGallery";
 import Disneyland from "/public/about-me/brandon-kat-disneyland-2.jpg";
 import MeowWolf from "/public/about-me/meow-wolf-1.jpeg";
 import MeowWolf2 from "/public/about-me/meow-wolf-2.jpeg";
@@ -11,9 +11,6 @@ import HomeIntro from "@/components/atoms/HomeIntro";
 import { Header } from "@/components";
 import SmsContactForm from "@/components/organisms/SmsContactForm";
 import { LayoutGroup } from "framer-motion";
-
-import BasicModal from "@/components/atoms/modal/BasicModal";
-import { useState } from "react";
 
 const homeImages = [MeowWolf, Disneyland, MeowWolf2, TwilioSpeaker, Mom];
 

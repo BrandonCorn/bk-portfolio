@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 import TestimonialCard, {
   TestimonialProps,
-} from "@/components/atoms/cards/TestimonialCard";
+} from "@/components/molecules/Cards/TestimonialCard/TestimonialCard";
 
 const testimonials: TestimonialProps[] = [
   {

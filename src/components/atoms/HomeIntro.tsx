@@ -3,6 +3,11 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import PersonalLogo from "../../../public/personal-logo.jpeg";
+import IntroText from "@/components/atoms/Texts/IntroText/IntroText";
+import IntroTitle from "./Titles/IntroTitle/IntroTitle";
+
+const introText = `I'm Brandon, a software engineer and entrepreneur based in Colorado Springs. I'm a lover of learning and imagining, whether that's at DragonCon, my projects, or DisneyWorld! I have great pride in my contributions, and am always excited to learn. Let's work together!`;
+const introTitle = "Engineer, mentor, and imagineer";
 
 const HomeIntro = () => {
   return (
@@ -22,16 +27,9 @@ const HomeIntro = () => {
             className="object-fill rounded-full"
           />
         </div>
-        <h1 className="text-4xl lg:text-5xl font-bold leading-normal">
-          Engineer, mentor, and imagineer
-        </h1>
-        <p className="my-6 leading-loose text-lg text-zinc-600 dark:text-zinc-400">
-          I&apos;m Brandon, a software engineer and entrepreneur based in
-          Colorado Springs. I&apos;m a lover of learning and imagining, whether
-          that&apos;s at Disneyworld, DragonCon, or on the job! I have great
-          pride my contributions, and am always excited for more! Let&apos;s
-          work together!
-        </p>
+        <IntroTitle text={introTitle} />
+
+        <IntroText text={introText} />
       </div>
     </motion.div>
   );

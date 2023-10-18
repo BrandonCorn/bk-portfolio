@@ -1,12 +1,12 @@
 "use client";
 
-import GeneralForm from "@/components/molecules/forms/GeneralForm/GeneralForm";
-import DescriptionText from "@/components/atoms/text/DescriptionText";
-import { GeneralInputProps } from "@/components/atoms/input/GeneralInput";
+import GeneralForm from "@/components/molecules/Forms/GeneralForm/GeneralForm";
+import DescriptionText from "@/components/atoms/Texts/DescriptionText/DescriptionText";
+import { GeneralInputProps } from "@/components/atoms/Inputs/GeneralInput";
 import React, { useState, FormEventHandler, useCallback } from "react";
 import { motion } from "framer-motion";
-import SuccessModal from "@/components/molecules/modals/SuccessModal/SuccessModal";
-import FailureModal from "@/components/molecules/modals/FailureModal/FailureModal";
+import SuccessModal from "@/components/molecules/Modals/SuccessModal/SuccessModal";
+import FailureModal from "@/components/molecules/Modals/FailureModal/FailureModal";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import {
   createVisitor,
@@ -17,7 +17,7 @@ import { sendSms, createSms } from "@/redux/slices/smsSlice";
 import { MessageInstance } from "twilio/lib/rest/api/v2010/account/message";
 import LoadingButton, {
   LoadingButtonProps,
-} from "../atoms/buttons/LoadingButton/LoadingButton";
+} from "../atoms/Buttons/LoadingButton/LoadingButton";
 
 const formDescription =
   "Are you looking for a developer? Let's chat and see how we can work together!";

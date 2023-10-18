@@ -1,6 +1,7 @@
 import React from "react";
 
 export type GeneralInputProps = {
+  id?: string;
   placeholder: string;
   value: string;
   type?: string;
@@ -11,6 +12,7 @@ export type GeneralInputProps = {
 };
 
 export const GeneralInput: React.FC<GeneralInputProps> = ({
+  id,
   placeholder,
   value,
   type,
@@ -22,6 +24,7 @@ export const GeneralInput: React.FC<GeneralInputProps> = ({
   console.log("renders every time", value);
   return (
     <input
+      id={id || ""}
       aria-label={ariaLabel || "text"}
       className={
         className ||

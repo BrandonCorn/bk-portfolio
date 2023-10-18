@@ -1,4 +1,4 @@
-import { Header } from './molecules/headers/Header/Header';
+import { Header } from './molecules/Headers/Header/Header';
 import { ModeToggle } from './atoms/ModeToggle';
 import { Provider } from './atoms/Provider';
 

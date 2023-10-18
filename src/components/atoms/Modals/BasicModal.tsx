@@ -1,6 +1,7 @@
 import Modal from "react-modal";
 
 export type BasicModalProps = {
+  id?: string;
   children?: React.ReactNode;
   isOpen: boolean;
   closeModal: () => void;
@@ -29,6 +30,7 @@ const customOverlay = {
 Modal.setAppElement("#main-layout");
 
 const BasicModal: React.FC<BasicModalProps> = ({
+  id,
   children,
   isOpen,
   closeModal,
@@ -37,6 +39,7 @@ const BasicModal: React.FC<BasicModalProps> = ({
 }) => {
   return (
     <Modal
+      id={id || ""}
       isOpen={isOpen}
       onAfterOpen={onAfterOpen}
       onAfterClose={onAfterClose}
