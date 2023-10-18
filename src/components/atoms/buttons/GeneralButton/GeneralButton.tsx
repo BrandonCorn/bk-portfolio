@@ -4,12 +4,14 @@ export type GeneralButtonProps = {
   onSubmit: FormEventHandler<HTMLButtonElement>;
   text: string;
   style?: string;
+  disabled?: boolean;
 };
 
 const GeneralButton: React.FC<GeneralButtonProps> = ({
   onSubmit,
   text,
   style,
+  disabled,
 }) => {
   return (
     <button
@@ -19,6 +21,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({
       }
       type="submit"
       onSubmit={onSubmit}
+      disabled={disabled || false}
     >
       {text}
     </button>
