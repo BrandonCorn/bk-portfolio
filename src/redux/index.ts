@@ -22,10 +22,12 @@ const rootReducer = combineReducers({
   sms: persistReducer(smsConfig, smsReducer)
 });
 
+
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }).concat(logger),
+    process.env.NODE_ENV === 'development' ? getDefaultMiddleware({ serializableCheck: false }).concat(logger) 
+    : getDefaultMiddleware({serializableCheck: false})
 });
 
 export type RootState = ReturnType<typeof store.getState>;
