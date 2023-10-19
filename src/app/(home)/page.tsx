@@ -7,7 +7,7 @@ import MeowWolf2 from "/public/about-me/meow-wolf-2.jpeg";
 import TwilioSpeaker from "/public/about-me/twilio-speaker.jpeg";
 import Mom from "/public/about-me/brandon-mom.jpeg";
 import TestimonialsSection from "@/components/atoms/TestimonialsSection";
-import HomeIntro from "@/components/atoms/HomeIntro";
+import HomeIntro from "@/components/molecules/Cards/HomeIntroCard/HomeIntro";
 import { Header } from "@/components";
 import SmsContactForm from "@/components/organisms/SmsContactForm";
 import { LayoutGroup } from "framer-motion";

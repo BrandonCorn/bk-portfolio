@@ -15,7 +15,7 @@ const GeneralButton: React.FC<GeneralButtonProps> = ({ text, ...rest }) => {
     <button
       id={rest.id || ""}
       className={classes}
-      type={rest.type || "submit"}
+      type={rest.type || "button"}
       onSubmit={rest.onSubmit}
       disabled={rest.disabled || false}
       {...rest}

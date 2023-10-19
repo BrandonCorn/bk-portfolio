@@ -1,40 +1,34 @@
 import React from "react";
+import { AtomProps } from "../types";
+import clsx from "clsx";
 
-export type GeneralInputProps = {
-  id?: string;
-  placeholder: string;
-  value: string;
-  type?: string;
-  ariaLabel?: string;
-  required?: boolean;
-  onChange: (value: string) => void;
-  className?: string;
-};
+// export type GeneralInputProps = {
+//   id?: string;
+//   placeholder: string;
+//   value: string;
+//   type?: string;
+//   ariaLabel?: string;
+//   required?: boolean;
+//   onChange: (value: string) => void;
+//   className?: string;
+// };
+export type GeneralInputProps = {} & AtomProps<"input">;
 
 export const GeneralInput: React.FC<GeneralInputProps> = ({
-  id,
-  placeholder,
-  value,
-  type,
-  ariaLabel,
-  required,
   onChange,
-  className,
+  ...rest
 }) => {
-  console.log("renders every time", value);
+  const classes = clsx(
+    "appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outilne-none",
+    rest.className
+  );
   return (
     <input
-      id={id || ""}
-      aria-label={ariaLabel || "text"}
       className={
-        className ||
         "appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outilne-none"
       }
-      type={type || "text"}
-      placeholder={placeholder}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      required={required || false}
+      onChange={onChange}
+      {...rest}
     ></input>
   );
 };

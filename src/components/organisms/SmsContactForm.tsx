@@ -3,7 +3,12 @@
 import GeneralForm from "@/components/molecules/Forms/GeneralForm/GeneralForm";
 import DescriptionText from "@/components/atoms/Texts/DescriptionText/DescriptionText";
 import { GeneralInputProps } from "@/components/atoms/Inputs/GeneralInput";
-import React, { useState, FormEventHandler, useCallback } from "react";
+import React, {
+  useState,
+  FormEventHandler,
+  useCallback,
+  ChangeEventHandler,
+} from "react";
 import { motion } from "framer-motion";
 import SuccessModal from "@/components/molecules/Modals/SuccessModal/SuccessModal";
 import FailureModal from "@/components/molecules/Modals/FailureModal/FailureModal";
@@ -48,32 +53,34 @@ const SmsContactForm = () => {
   const dispatch = useAppDispatch();
   console.log("render sms contact form");
 
-  const handleNameChange = useCallback(
-    (value: string) => {
-      setName(value);
+  const handleNameChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      setName(e.target.value);
     },
     [name]
   );
 
-  const handleEmailChange = useCallback(
-    (value: string) => {
-      setEmail(value);
+  const handleEmailChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      setEmail(e.target.value);
     },
     [email]
   );
-  const handleMessageChange = useCallback(
-    (value: string) => {
-      setMessage(value);
-    },
-    [message]
-  );
+  const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> =
+    useCallback(
+      (e) => {
+        setMessage(e.target.value);
+      },
+      [message]
+    );
 
-  const handlePhoneNumberChange = useCallback(
-    (value: string) => {
-      setPhoneNumber(value);
-    },
-    [phoneNumber]
-  );
+  const handlePhoneNumberChange: ChangeEventHandler<HTMLInputElement> =
+    useCallback(
+      (e) => {
+        setPhoneNumber(e.target.value);
+      },
+      [phoneNumber]
+    );
 
   const updateSuccesModal = (modal: ModalInfo) => {
     setSuccessModalInfo({ ...modal });
@@ -105,6 +112,7 @@ const SmsContactForm = () => {
     HTMLFormElement | HTMLButtonElement
   > = async (e) => {
     e.preventDefault();
+
     handleLoading(true);
     if (!message || !email) {
       handleLoading(false);
@@ -181,7 +189,6 @@ const SmsContactForm = () => {
         });
       }
     }
-    console.log("at the end my visitor is ", visitor);
     resetMessageData();
   };
 
@@ -189,7 +196,6 @@ const SmsContactForm = () => {
     placeholder: "Name",
     value: name,
     type: "text",
-    ariaLabel: "name",
     onChange: handleNameChange,
     required: true,
   };
@@ -257,7 +263,7 @@ const SmsContactForm = () => {
           className="bg-transparent border-solid border-zinc-200 border-1 p-2 w-full"
           placeholder={messageProps.placeholder}
           value={messageProps.value}
-          onChange={(e) => messageProps.onChange(e.target.value)}
+          onChange={messageProps.onChange}
           rows={6}
           cols={60}
           minLength={5}

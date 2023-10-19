@@ -1,22 +1,17 @@
 import clsx from "clsx";
+import { AtomProps } from "../../types";
 
 type DescriptionProps = {
-  id?: string;
   text: string;
-  className?: string;
-};
+} & AtomProps<"p">;
 
-const DescriptionText: React.FC<DescriptionProps> = ({
-  id,
-  text,
-  className,
-}) => {
+const DescriptionText: React.FC<DescriptionProps> = ({ text, ...rest }) => {
   const classes = clsx(
     "text-sm text-black dark:text-zinc-100 flex items-center",
-    className
+    rest.className
   );
   return (
-    <p id={id || ""} className={classes}>
+    <p id={rest.id || ""} className={classes}>
       {text}
     </p>
   );

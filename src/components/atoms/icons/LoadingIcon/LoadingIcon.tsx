@@ -1,13 +1,13 @@
 "use client";
 import clsx from "clsx";
+import { AtomProps } from "../../types";
 
 export type LoadingIconProps = {
   isShowing?: boolean;
-  className?: string;
-};
+} & AtomProps<"div">;
 
-const LoadingIcon: React.FC<LoadingIconProps> = ({ isShowing, className }) => {
-  const classes = clsx(" ", isShowing && (className || ""), {
+const LoadingIcon: React.FC<LoadingIconProps> = ({ isShowing, ...rest }) => {
+  const classes = clsx(" ", isShowing && (rest.className || ""), {
     hidden: !isShowing,
   });
   return (
