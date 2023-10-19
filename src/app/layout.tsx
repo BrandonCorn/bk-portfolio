@@ -1,3 +1,4 @@
+import Footer from "@/components/molecules/Footers/Footer/Footer";
 import ReduxProvider from "@/redux/ReduxProvider";
 
 export const metadata = {
@@ -12,7 +13,16 @@ export default function RootLayout({
 }) {
   return (
     <ReduxProvider>
-      <html lang="en">{children}</html>
+      <html lang="en">
+        <head></head>
+        <body
+          id="main-layout"
+          className="flex flex-col min-h-screen m-0 bg-white text-black dark:bg-black dark:text-white"
+        >
+          {children}
+          <Footer />
+        </body>
+      </html>
     </ReduxProvider>
   );
 }

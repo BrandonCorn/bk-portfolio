@@ -17,22 +17,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head></head>
-      <ReduxProvider>
-        <body
-          id="main-layout"
-          className={"bg-white text-black dark:bg-black dark:text-white"}
-        >
-          <ThemeProvider>
-            <div className="min-h-screen flex justify-center items-center">
-              <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5 max-w-screen-xl p-4 transition-width">
-                <div className="min-h-screen">{children}</div>
-              </div>
+    <ReduxProvider>
+      <section id="main-layout">
+        <ThemeProvider>
+          <div className="min-h-screen flex justify-center items-center">
+            <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5 max-w-screen-xl p-4 transition-width">
+              <div className="min-h-screen">{children}</div>
             </div>
-          </ThemeProvider>
-        </body>
-      </ReduxProvider>
-    </html>
+          </div>
+        </ThemeProvider>
+      </section>
+    </ReduxProvider>
   );
 }
