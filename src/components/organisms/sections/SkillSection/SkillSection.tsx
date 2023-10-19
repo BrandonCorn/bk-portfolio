@@ -1,5 +1,7 @@
 "use client";
-import SkillsRow, { IconProps } from "@/components/atoms/SkillRow";
+import SkillEntries, {
+  IconProps,
+} from "@/components/molecules/Experiences/SkillEntries/SkillEntries";
 import { motion } from "framer-motion";
 
 const iconList: IconProps[] = [
@@ -82,7 +84,7 @@ const SkillsSection = () => {
     >
       <h1 className="text-4xl md:text-5xl font-bold my-4 mb-8">Skills</h1>
       <div className="flex justify-center items-center w-full sm:w-screen  border-2 rounded-xl bg-gray-800 dark:bg-gray-200">
-        <SkillsRow images={iconList} />
+        <SkillEntries images={iconList} />
       </div>
     </motion.div>
   );

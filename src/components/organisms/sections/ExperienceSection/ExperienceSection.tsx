@@ -2,7 +2,7 @@
 
 import ExperienceEntry, {
   ExperienceEntryProps,
-} from "@/components/molecules/Experiences/ExperiencesEntry/ExperienceRow";
+} from "@/components/molecules/Experiences/ExperiencesEntry/ExperienceEntry";
 import { motion } from "framer-motion";
 
 const roles = {

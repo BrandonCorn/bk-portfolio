@@ -16,11 +16,11 @@ export type IconProps = {
   href: string;
 };
 
-type SkillsRowProps = {
+type SkillEntriesProps = {
   images: IconProps[];
 };
 
-const SkillsRow: React.FC<SkillsRowProps> = ({ images }) => {
+const SkillEntries: React.FC<SkillEntriesProps> = ({ images }) => {
   return (
     <div className="flex my-16">
       <div className="flex flex-wrap justify-center items-center">
@@ -50,4 +50,4 @@ const SkillsRow: React.FC<SkillsRowProps> = ({ images }) => {
   );
 };
 
-export default SkillsRow;
+export default SkillEntries;
