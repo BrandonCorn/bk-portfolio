@@ -57,30 +57,24 @@ const SmsContactForm = () => {
     (e) => {
       setName(e.target.value);
     },
-    [name]
+    []
   );
 
   const handleEmailChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
       setEmail(e.target.value);
     },
-    [email]
+    []
   );
   const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> =
-    useCallback(
-      (e) => {
-        setMessage(e.target.value);
-      },
-      [message]
-    );
+    useCallback((e) => {
+      setMessage(e.target.value);
+    }, []);
 
   const handlePhoneNumberChange: ChangeEventHandler<HTMLInputElement> =
-    useCallback(
-      (e) => {
-        setPhoneNumber(e.target.value);
-      },
-      [phoneNumber]
-    );
+    useCallback((e) => {
+      setPhoneNumber(e.target.value);
+    }, []);
 
   const updateSuccesModal = (modal: ModalInfo) => {
     setSuccessModalInfo({ ...modal });
