@@ -2,28 +2,33 @@
 import { FaGithub, FaLinkedin, FaInstagram, FaDiscord } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="flex items-center justify-center m-auto bg-inherit w-screen h-40 text-white">
+    <footer className="flex items-center justify-center m-auto bg-inherit w-screen h-40">
       <div className="flex justify-between items-center w-3/4 lg:w-1/2 xl:w-1/4">
         <IconContext.Provider value={{ size: "3em" }}>
-          <motion.div
-            whileHover={{ scale: 1.2, transition: { duration: 1 } }}
-            className="flex flex-col items-center justify-center space-y-2 cursor-pointer"
-          >
-            <FaGithub />
-            <p> GitHub</p>
-          </motion.div>
+          <Link href="https://github.com/BrandonCorn">
+            <motion.div
+              whileHover={{ scale: 1.2, transition: { duration: 1 } }}
+              className="flex flex-col items-center justify-center space-y-2 cursor-pointer"
+            >
+              <FaGithub />
+              <p> GitHub</p>
+            </motion.div>
+          </Link>
         </IconContext.Provider>
         <IconContext.Provider value={{ color: "#0077B5", size: "3em" }}>
-          <motion.div
-            whileHover={{ scale: 1.2, transition: { duration: 1 } }}
-            className="flex flex-col items-center justify-center space-y-2 cursor-pointer"
-          >
-            <FaLinkedin />
-            <p> LinkedIn</p>
-          </motion.div>
+          <Link href="https://www.linkedin.com/in/brandon-corn-3b3249152">
+            <motion.div
+              whileHover={{ scale: 1.2, transition: { duration: 1 } }}
+              className="flex flex-col items-center justify-center space-y-2 cursor-pointer"
+            >
+              <FaLinkedin />
+              <p> LinkedIn</p>
+            </motion.div>
+          </Link>
         </IconContext.Provider>
         <IconContext.Provider
           value={{
@@ -36,13 +41,15 @@ const Footer = () => {
             },
           }}
         >
-          <motion.div
-            whileHover={{ scale: 1.2, transition: { duration: 1 } }}
-            className="flex flex-col items-center justify-center space-y-2 cursor-pointer"
-          >
-            <FaInstagram />
-            <p> Instagram</p>
-          </motion.div>
+          <Link href="https://instagram.com/thatscornwithac">
+            <motion.div
+              whileHover={{ scale: 1.2, transition: { duration: 1 } }}
+              className="flex flex-col items-center justify-center space-y-2 cursor-pointer"
+            >
+              <FaInstagram />
+              <p> Instagram</p>
+            </motion.div>
+          </Link>
         </IconContext.Provider>
         <IconContext.Provider
           value={{
@@ -52,13 +59,15 @@ const Footer = () => {
             className: "rounded-md",
           }}
         >
-          <motion.div
-            whileHover={{ scale: 1.2, transition: { duration: 1 } }}
-            className="flex flex-col items-center justify-center space-y-2 cursor-pointer"
-          >
-            <FaDiscord />
-            <p> Discord</p>
-          </motion.div>
+          <Link href="https://discord.com/users/thatscornwithac">
+            <motion.div
+              whileHover={{ scale: 1.2, transition: { duration: 1 } }}
+              className="flex flex-col items-center justify-center space-y-2 cursor-pointer"
+            >
+              <FaDiscord />
+              <p> Discord</p>
+            </motion.div>
+          </Link>
         </IconContext.Provider>
       </div>
     </footer>
