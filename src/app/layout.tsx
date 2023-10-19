@@ -15,8 +15,12 @@ export default function RootLayout({
     <ReduxProvider>
       <html lang="en">
         <head></head>
-        <body id="main-layout">
-          {children} <Footer />
+        <body
+          id="main-layout"
+          className="flex flex-col min-h-screen m-0 bg-white text-black dark:bg-black dark:text-white"
+        >
+          {children}
+          <Footer />
         </body>
       </html>
     </ReduxProvider>
