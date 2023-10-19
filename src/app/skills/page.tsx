@@ -1,5 +1,5 @@
-import ExperienceSection from "@/components/organisms/sections/ExperienceSection/ExperienceSection";
-import SkillsSection from "@/components/organisms/sections/SkillSection/SkillSection";
+import ExperienceSection from "@/components/organisms/Sections/ExperienceSection/ExperienceSection";
+import SkillsSection from "@/components/organisms/Sections/SkillSection/SkillSection";
 
 const Experience = () => {
   return (

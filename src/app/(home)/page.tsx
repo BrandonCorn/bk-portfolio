@@ -6,10 +6,10 @@ import MeowWolf from "/public/about-me/meow-wolf-1.jpeg";
 import MeowWolf2 from "/public/about-me/meow-wolf-2.jpeg";
 import TwilioSpeaker from "/public/about-me/twilio-speaker.jpeg";
 import Mom from "/public/about-me/brandon-mom.jpeg";
-import TestimonialsSection from "@/components/atoms/TestimonialsSection";
+import TestimonialsSection from "@/components/organisms/Sections/TestimonialsSection/TestimonialsSection";
 import HomeIntro from "@/components/molecules/Cards/HomeIntroCard/HomeIntro";
 import { Header } from "@/components";
-import SmsContactForm from "@/components/organisms/SmsContactForm";
+import SmsContactSection from "@/components/organisms/Sections/SmsContactSection/SmsContactSection";
 import { LayoutGroup } from "framer-motion";
 
 const homeImages = [MeowWolf, Disneyland, MeowWolf2, TwilioSpeaker, Mom];
@@ -29,7 +29,7 @@ export default function Home() {
 
             <div className="flex flex-col lg:flex-row my-16 space-x-10 ">
               <div className="bg-transparent p-4 flex-1 flex-col sm:flex">
-                <SmsContactForm />
+                <SmsContactSection />
               </div>
               <div className="flex flex-1 sm:flex my-4">
                 <TestimonialsSection />

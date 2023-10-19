@@ -22,7 +22,7 @@ import { sendSms, createSms } from "@/redux/slices/smsSlice";
 import { MessageInstance } from "twilio/lib/rest/api/v2010/account/message";
 import LoadingButton, {
   LoadingButtonProps,
-} from "../atoms/Buttons/LoadingButton/LoadingButton";
+} from "../../../atoms/Buttons/LoadingButton/LoadingButton";
 
 const formDescription =
   "Are you looking for a developer? Let's chat and see how we can work together!";
