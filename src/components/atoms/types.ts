@@ -1,0 +1,1 @@
+export type AtomProps<Type extends keyof JSX.IntrinsicElements> = JSX.IntrinsicElements[Type];

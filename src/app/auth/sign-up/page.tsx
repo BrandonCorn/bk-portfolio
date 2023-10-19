@@ -1,4 +1,4 @@
-import SignUpForm from "@/components/molecules/forms/SignUpForm/SignUpForm";
+import SignUpForm from "@/components/molecules/Forms/SignUpForm/SignUpForm";
 
 const Auth = async () => {
   return (

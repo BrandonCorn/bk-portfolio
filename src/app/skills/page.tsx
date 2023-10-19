@@ -1,16 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
-import SkillsTemplate from "@/components/organisms/SkillsTemplate";
-import ExperienceTemplate from "@/components/organisms/ExperienceTemplate";
+import ExperienceSection from "@/components/organisms/Sections/ExperienceSection/ExperienceSection";
+import SkillsSection from "@/components/organisms/Sections/SkillSection/SkillSection";
 
 const Experience = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex flex-row items-center justify-center">
-        <SkillsTemplate />
+        <SkillsSection />
       </div>
       <div className="flex flex-row">
-        <ExperienceTemplate />
+        <ExperienceSection />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import "../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Provider } from "@/components";
+import { ThemeProvider } from "@/components";
 const inter = Inter({ subsets: ["latin"] });
 import { Header } from "@/components";
 
@@ -24,7 +24,7 @@ export default function RootLayout({
           "bg-white text-black dark:bg-black dark:text-white overflow-x-hidden"
         }
       >
-        <Provider>
+        <ThemeProvider>
           <div className="min-h-screen flex justify-center items-center">
             <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5  max-w-screen-2xl p-4 transition-width">
               <div className="min-h-screen">
@@ -33,7 +33,8 @@ export default function RootLayout({
               </div>
             </div>
           </div>
-        </Provider>
+        </ThemeProvider>
+        ;
       </body>
     </html>
   );
