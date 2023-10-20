@@ -38,7 +38,7 @@ const GeneralForm: React.FC<CustomFormProps> = ({
                     type={field.type}
                     aria-label={field["aria-label"]}
                     onChange={field.onChange}
-                    className="bg-transparent border-teal-500 border-solid border-b-2 m-6 w-full"
+                    className="bg-transparent border-teal-500 border-solid border-b-2 m-6 w-full outline-none"
                     required={field.required}
                   />
                 );
