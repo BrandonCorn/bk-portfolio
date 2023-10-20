@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer className="flex items-center justify-center m-auto bg-transparent w-screen h-24 mt-2">
       <div className="flex flex-row justify-center items-center  pt-8 w-screen">
-        <div className="flex items-center justify-start w-3/4 lg:w-1/2 space-x-8 mb-8">
+        <div className="flex flex-wrap items-center justify-start w-1/2 sm:1/2 xl:w-1/3 space-x-8 mb-8 px-2">
           <IconContext.Provider value={{ size: "2em" }}>
             <Link href="https://github.com/BrandonCorn">
               <motion.div
@@ -67,7 +67,7 @@ const Footer = () => {
           </IconContext.Provider>
         </div>
         <div>
-          <p className="mb-8 dark:text-gray-600 text-black">
+          <p className="mb-8 dark:text-gray-600 text-black text-center md:text-clip">
             &copy; Brandon Corn All Rights Reserved
           </p>
         </div>
