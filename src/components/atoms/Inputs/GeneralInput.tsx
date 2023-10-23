@@ -17,4 +17,5 @@ export const GeneralInput = React.forwardRef<
   );
 });
 
+GeneralInput.displayName = "GeneralInputField";
 export default GeneralInput;
