@@ -2,7 +2,9 @@
 
 import GeneralForm from "@/components/molecules/Forms/GeneralForm/GeneralForm";
 import DescriptionText from "@/components/atoms/Texts/DescriptionText/DescriptionText";
-import { GeneralInputProps } from "@/components/atoms/Inputs/GeneralInput";
+import GeneralInput, {
+  GeneralInputProps,
+} from "@/components/atoms/Inputs/GeneralInput";
 import React, {
   useState,
   FormEventHandler,
@@ -51,7 +53,6 @@ const SmsContactForm = () => {
   const [loading, setLoading] = useState(false);
   const visitor = useAppSelector((state) => state.visitor);
   const dispatch = useAppDispatch();
-  console.log("render sms contact form");
 
   const handleNameChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
@@ -186,28 +187,36 @@ const SmsContactForm = () => {
     resetMessageData();
   };
 
-  const nameProps: GeneralInputProps = {
-    placeholder: "Name",
-    value: name,
-    type: "text",
-    onChange: handleNameChange,
-    required: true,
-  };
-
-  const phoneNumberProps: GeneralInputProps = {
-    placeholder: "Phone Number",
-    type: "phone",
-    value: phoneNumber,
-    onChange: handlePhoneNumberChange,
-  };
-
-  const emailProps: GeneralInputProps = {
-    placeholder: "Email",
-    type: "email",
-    value: email,
-    onChange: handleEmailChange,
-    required: true,
-  };
+  const formInputClasses =
+    "bg-transparent border-teal-500 border-solid border-b-2 m-6 w-full outline-none";
+  const FormInputFields = [
+    <GeneralInput
+      className={formInputClasses}
+      key={`sms-input-1`}
+      placeholder={"name"}
+      value={name}
+      type="text"
+      onChange={handleNameChange}
+      required
+    />,
+    <GeneralInput
+      className={formInputClasses}
+      key={`sms-input-2`}
+      placeholder="Phone"
+      value={phoneNumber}
+      type="tel"
+      onChange={handlePhoneNumberChange}
+    />,
+    <GeneralInput
+      className={formInputClasses}
+      key={`sms-input-3`}
+      placeholder="Email"
+      value={email}
+      type="email"
+      onChange={handleEmailChange}
+      required
+    />,
+  ];
 
   const messageProps = {
     placeholder: "Speak your mind..",
@@ -238,7 +247,7 @@ const SmsContactForm = () => {
     >
       <GeneralForm
         Description={<DescriptionText text={formDescription} />}
-        formInputFields={[nameProps, phoneNumberProps, emailProps]}
+        FormInputFields={FormInputFields}
         FormButton={
           <LoadingButton
             className={
