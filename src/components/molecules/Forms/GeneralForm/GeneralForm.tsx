@@ -39,19 +39,3 @@ const GeneralForm: React.FC<CustomFormProps> = ({
 };
 
 export default GeneralForm;
-
-// {formInputFields &&
-//   formInputFields.map((field, index) => {
-//     return (
-//       <GeneralInput
-//         key={`sms-form-input-${index}`}
-//         placeholder={field.placeholder}
-//         value={field.value}
-//         type={field.type}
-//         aria-label={field["aria-label"]}
-//         onChange={field.onChange}
-//         className="bg-transparent border-teal-500 border-solid border-b-2 m-6 w-full outline-none"
-//         required={field.required}
-//       />
-//     );
-//   })}
