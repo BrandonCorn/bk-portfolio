@@ -2,12 +2,15 @@
 
 import GeneralForm from "@/components/molecules/Forms/GeneralForm/GeneralForm";
 import DescriptionText from "@/components/atoms/Texts/DescriptionText/DescriptionText";
-import { GeneralInputProps } from "@/components/atoms/Inputs/GeneralInput";
+import GeneralInput, {
+  GeneralInputProps,
+} from "@/components/atoms/Inputs/GeneralInput";
 import React, {
   useState,
   FormEventHandler,
   useCallback,
   ChangeEventHandler,
+  useRef,
 } from "react";
 import { motion } from "framer-motion";
 import SuccessModal from "@/components/molecules/Modals/SuccessModal/SuccessModal";
@@ -34,10 +37,11 @@ type ModalInfo = {
 };
 
 const SmsContactForm = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [message, setMessage] = useState("");
+  const nameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+
   const [successModalInfo, setSuccessModalInfo] = useState<ModalInfo>({
     show: false,
     title: "",
@@ -51,30 +55,19 @@ const SmsContactForm = () => {
   const [loading, setLoading] = useState(false);
   const visitor = useAppSelector((state) => state.visitor);
   const dispatch = useAppDispatch();
-  console.log("render sms contact form");
 
-  const handleNameChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
-      setName(e.target.value);
-    },
-    []
-  );
-
-  const handleEmailChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
-      setEmail(e.target.value);
-    },
-    []
-  );
-  const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> =
-    useCallback((e) => {
-      setMessage(e.target.value);
-    }, []);
-
-  const handlePhoneNumberChange: ChangeEventHandler<HTMLInputElement> =
-    useCallback((e) => {
-      setPhoneNumber(e.target.value);
-    }, []);
+  const handleNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (nameRef.current) nameRef.current.value = e.target.value;
+  };
+  const handlePhoneNumberChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (phoneRef.current) phoneRef.current.value = e.target.value;
+  };
+  const handleEmailChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (emailRef.current) emailRef.current.value = e.target.value;
+  };
+  const handleMessageChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+    if (messageRef.current) messageRef.current.value = e.target.value;
+  };
 
   const updateSuccesModal = (modal: ModalInfo) => {
     setSuccessModalInfo({ ...modal });
@@ -85,7 +78,14 @@ const SmsContactForm = () => {
   };
 
   const resetMessageData = () => {
-    setMessage("");
+    if (messageRef.current) messageRef.current.value = "";
+  };
+
+  const isValidEmail = (email: string) => {
+    // Regular expression pattern for a valid email address
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    return emailPattern.test(email);
   };
 
   const handleLoading = (state: boolean) => {
@@ -106,6 +106,10 @@ const SmsContactForm = () => {
     HTMLFormElement | HTMLButtonElement
   > = async (e) => {
     e.preventDefault();
+    const name = nameRef.current?.value || "";
+    const email = emailRef.current?.value;
+    const phoneNumber = phoneRef.current?.value || "";
+    const message = messageRef.current?.value;
 
     handleLoading(true);
     if (!message || !email) {
@@ -123,7 +127,11 @@ const SmsContactForm = () => {
     if (!visitor.visitor.email) {
       findVisitor = await dispatch(getVisitorByEmail({ email })).unwrap();
       if (!findVisitor) {
-        const newVisitor = { name, email, phoneNumber };
+        const newVisitor = {
+          name: name || "",
+          email,
+          phoneNumber: phoneNumber || "",
+        };
         findVisitor = await dispatch(createVisitor(newVisitor)).unwrap();
         //need to implement retry logic to store the users data, until then save with no id
         if (!findVisitor) {
@@ -186,33 +194,41 @@ const SmsContactForm = () => {
     resetMessageData();
   };
 
-  const nameProps: GeneralInputProps = {
-    placeholder: "Name",
-    value: name,
-    type: "text",
-    onChange: handleNameChange,
-    required: true,
-  };
-
-  const phoneNumberProps: GeneralInputProps = {
-    placeholder: "Phone Number",
-    type: "phone",
-    value: phoneNumber,
-    onChange: handlePhoneNumberChange,
-  };
-
-  const emailProps: GeneralInputProps = {
-    placeholder: "Email",
-    type: "email",
-    value: email,
-    onChange: handleEmailChange,
-    required: true,
-  };
+  const formClasses =
+    "bg-transparent border-teal-500 border-solid border-b-2 m-6 w-full outline-none";
+  const FormInputFields = [
+    <GeneralInput
+      key="input-1"
+      ref={nameRef}
+      placeholder="name"
+      onChange={handleNameChange}
+      type="text"
+      required={true}
+      className={formClasses}
+    />,
+    <GeneralInput
+      key="input-2"
+      ref={phoneRef}
+      placeholder="Phone Number"
+      onChange={handlePhoneNumberChange}
+      type="tel"
+      required={true}
+      className={formClasses}
+    />,
+    <GeneralInput
+      key="input-3"
+      ref={emailRef}
+      placeholder="Email"
+      onChange={handleEmailChange}
+      type="email"
+      required={true}
+      className={formClasses}
+    />,
+  ];
 
   const messageProps = {
     placeholder: "Speak your mind..",
     type: "text",
-    value: message,
     onChange: handleMessageChange,
   };
 
@@ -222,10 +238,6 @@ const SmsContactForm = () => {
     onClick: handleSubmit,
     type: "submit",
     isLoading: loading,
-  };
-
-  const formProps = {
-    onSubmit: handleSubmit as FormEventHandler<HTMLFormElement>,
   };
 
   return (
@@ -238,7 +250,8 @@ const SmsContactForm = () => {
     >
       <GeneralForm
         Description={<DescriptionText text={formDescription} />}
-        formInputFields={[nameProps, phoneNumberProps, emailProps]}
+        // formInputFields={[nameProps, phoneNumberProps, emailProps]}
+        FormInputFields={FormInputFields}
         FormButton={
           <LoadingButton
             className={
@@ -251,12 +264,13 @@ const SmsContactForm = () => {
             type={buttonProps.type}
           />
         }
-        onSubmit={formProps.onSubmit}
+        onSubmit={handleSubmit}
       >
         <textarea
           className="bg-transparent border-solid border-zinc-200 border-1 p-2 w-full"
           placeholder={messageProps.placeholder}
-          value={messageProps.value}
+          ref={messageRef}
+          // value={messageProps.value}
           onChange={messageProps.onChange}
           rows={6}
           cols={60}
