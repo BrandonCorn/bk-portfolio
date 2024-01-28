@@ -219,7 +219,8 @@ const SmsContactForm = () => {
   ];
 
   const messageProps = {
-    placeholder: "Speak your mind..",
+    placeholder:
+      "Temporarily disabled and awaiting phone number verification from Twilio. Sorry for the delay everyone!",
     type: "text",
     value: message,
     onChange: handleMessageChange,
