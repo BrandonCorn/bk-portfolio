@@ -2,8 +2,17 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const LoginForm = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
@@ -50,19 +59,17 @@ const LoginForm = () => {
         </div>
 
         <div>
-          <Link href="/two-factor">
-            <button
-              // onClick={}
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Sign in
-            </button>
-          </Link>
+          <button
+            // onClick={}
+            type="submit"
+            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Sign in
+          </button>
         </div>
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="text-md text-blue-500 hover:text-blue-600">
-            <Link href="/sign-up"> Sign Up </Link>
+            <Link href="/signup"> Sign Up </Link>
           </div>
           <div className="text-md text-blue-500 hover:text-blue-600">
             <Link href="/forgot-password"> Forgot Password </Link>
