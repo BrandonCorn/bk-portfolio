@@ -10,7 +10,6 @@ import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 
 interface NavLink {
-  // index: number | string;
   href: string;
   label?: string;
 }
@@ -91,7 +90,6 @@ function NavigationGroup() {
         <nav className="flex px-3">
           {paths.map((page, index) => {
             if (page.path === "/auth/signout" && page.onClick) {
-              console.log("should render the fourth");
               return (
                 <NavButton
                   key={index}

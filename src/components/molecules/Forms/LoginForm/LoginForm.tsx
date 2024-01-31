@@ -5,8 +5,14 @@ import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { providersList } from "@/lib/nextAuth";
+import { ClientSafeProvider } from "next-auth/react";
 
-const LoginForm = () => {
+type NextAuthLoginFormProps = {
+  providers?: Array<ClientSafeProvider>;
+};
+
+const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -16,7 +22,11 @@ const LoginForm = () => {
     setPassword("");
   };
 
-  const handleSubmit = async (
+  /**
+   * Uses our custom Credentials provider for signin
+   * @param e HTML FormEvent ButtonElement or FormEvent<FormElement>
+   */
+  const handleCredentialSignIn = async (
     e: React.FormEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
@@ -33,6 +43,24 @@ const LoginForm = () => {
     }
   };
 
+  /**
+   * Function to redirect to provider site for signin
+   * @param e Button element Mouse event
+   * @param providerName we supply the provider.id here because that's the syntax we need to redirect correctly
+   */
+  const handleProviderSignIn = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+    providerName: string
+  ) => {
+    // e.preventDefault();
+    const result = await signIn(providerName);
+    // if (result && result.ok) {
+    //   router.push("/");
+    // } else {
+    //   alert("There was an issue with signin");
+    // }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
@@ -46,7 +74,24 @@ const LoginForm = () => {
           Sign in to your account
         </h2>
       </div>
-      <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+      <div>
+        {providers &&
+          providers.map((provider: any) => {
+            if (provider.id === "credentials") return <></>;
+            const providerData = providersList[provider.id];
+            return (
+              <div className="flex justify-center w-full border border-gray-400 my-2 rounded-lg">
+                <button
+                  onClick={(e) => handleProviderSignIn(e, provider.id)}
+                  className="py-2"
+                >
+                  Sign in with {providerData.name}
+                </button>
+              </div>
+            );
+          })}
+      </div>
+      <form className="mt-8 space-y-6" onSubmit={handleCredentialSignIn}>
         <div className="rounded-md md:rounded-lg shadow-lg -space-y-px">
           <div>
             <label htmlFor="username" className="sr-only">
@@ -84,7 +129,7 @@ const LoginForm = () => {
 
         <div>
           <button
-            onClick={handleSubmit}
+            onClick={handleCredentialSignIn}
             type="submit"
             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
