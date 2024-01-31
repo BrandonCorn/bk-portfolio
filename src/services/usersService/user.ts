@@ -9,9 +9,12 @@ export async function createUser(user: Prisma.UserUncheckedCreateInput): Promise
     });
     return newUser;
   }
-  catch(error){
+  catch(error: any){
     console.error(error);
-    throw new BadRequestError(error as string);
+    if(error?.code === 'P2002'){
+      return new BadRequestError('User already exists');
+    }
+    return new BadRequestError(error as string);
   }
 }
 

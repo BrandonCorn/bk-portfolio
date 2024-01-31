@@ -10,6 +10,7 @@ function SignUpForm() {
   const [password, setPassword] = useState("");
   const [userCreateError, setUserCreateError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [signUpError, setSignUpError] = useState("");
 
   const resetForm = () => {
     setName("");
@@ -36,10 +37,14 @@ function SignUpForm() {
     });
     setIsLoading(false);
     if (res.ok) {
+      // clear fields a little later
+      setTimeout(resetForm, 1000);
+    } else {
+      const { error } = await res.json();
+      setUserCreateError(true);
+      setSignUpError(error);
       resetForm();
     }
-    setUserCreateError(true);
-    resetForm();
   };
 
   return (
@@ -124,7 +129,7 @@ function SignUpForm() {
         <div className="flex flex-col md:flex-row justify-center items-center">
           {userCreateError && (
             <div className="text-md text-red-500">
-              <p className="text-md text-red-500"> Error creating user</p>
+              <p className="text-md text-red-500"> {signUpError}</p>
             </div>
           )}
         </div>

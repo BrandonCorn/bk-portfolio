@@ -52,12 +52,22 @@ export const authOptions: NextAuthOptions = NextAuth({
 
       return session;
     },
-    async signIn({
-      user, account, profile, email, credentials
-    }){
-      // add logic for signIn with provider, we'll skip this stuff if credentials is the provider
-      return '/';
-    }
+    // async signIn({
+    //   user, account, profile, email, credentials
+    // }){
+    //   // fetch user account
+
+    //   //compare user account with provider.id
+
+    //   // if same provider we pass and return true
+
+    //   //if we fail we return false
+    //   console.log('what data do we have ');
+    //   console.log('user ', user);
+    //   console.log('account ', account);
+    //   console.log('credentials ', credentials);
+    //   return true;
+    // }
   }, 
   session: {
     strategy: 'jwt'
