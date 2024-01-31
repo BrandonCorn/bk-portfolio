@@ -9,7 +9,7 @@ import prisma from "@/lib/prismaDb";
 
 
 //custom providers described here https://next-auth.js.org/configuration/providers/credentials
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   //configure one or more auth providers
   providers: [
@@ -32,14 +32,13 @@ const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials, req) {
-        const res = await fetch("http://localhost:3000/api/auth/login", {
+        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/signin`, {
           method: "POST",
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" },
         });
 
         const user = await res.json();
-
         //no error and user exists
         if (res.ok && user) {
           return user;
@@ -49,14 +48,14 @@ const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  secret: process.env.SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({session}: {session: Session}){
       return session;
     },
   }, 
   session: {
-    strategy: 'jwt'
+    strategy: 'database'
   }
 };
 

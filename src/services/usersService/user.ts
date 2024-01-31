@@ -10,7 +10,7 @@ export async function createUser(user: Prisma.UserUncheckedCreateInput): Promise
     return newUser;
   }
   catch(error){
-    console.log(error);
+    console.error(error);
     throw new BadRequestError(error as string);
   }
 }
@@ -23,12 +23,11 @@ export async function getUser(email: string){
         email,
       }
     });
-    console.log('got user inside getUser', user);
     if(!user) return false;
     return user;
   }
   catch(error){
-    console.log(error);
+    console.error(error);
     throw new BadRequestError(error as string)
   }
 }
