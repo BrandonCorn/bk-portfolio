@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import { ModeToggle } from "@/components";
@@ -33,13 +33,15 @@ interface NavButton {
   onClick: () => void;
 }
 
-function NavButton({ onClick }: NavButton) {
+function NavButton({ label, onClick }: NavButton) {
   return (
     <motion.button
       onClick={onClick}
       whileHover={{ scale: 1.1 }}
       className={clsx(navStyles)}
-    ></motion.button>
+    >
+      {label}
+    </motion.button>
   );
 }
 
@@ -49,31 +51,37 @@ type NavigationItem = {
   onClick?: () => void;
 };
 
+const headerNavigation: NavigationItem[] = [
+  {
+    path: "/",
+    label: "Home",
+  },
+  {
+    path: "/skills",
+    label: "Skills",
+  },
+  {
+    path: "/blog",
+    label: "Blog",
+  },
+];
+
 function NavigationGroup() {
   const { status } = useSession();
-
-  const headerNavigation: NavigationItem[] = [
-    {
-      path: "/",
-      label: "Home",
-    },
-    {
-      path: "/skills",
-      label: "Skills",
-    },
-    {
-      path: "/blog",
-      label: "Blog",
-    },
-  ];
+  const [paths, setPaths] = useState(headerNavigation);
 
   useEffect(() => {
+    const signOutPath = {
+      path: "/auth/signout",
+      label: "Sign Out",
+      onClick: signOut,
+    };
     if (status === "authenticated") {
-      headerNavigation.push({
-        path: "/auth/signout",
-        label: "Sign Out",
-        onClick: signOut,
-      });
+      setPaths((prevState) => [...prevState, signOutPath]);
+    } else if (status === "unauthenticated") {
+      setPaths((prevState) =>
+        prevState.filter((item) => item.path !== "/auth/signout")
+      );
     }
   }, [status]);
 
@@ -81,8 +89,9 @@ function NavigationGroup() {
     <motion.div>
       <div className="hidden md:flex rounded-full bg-white/90 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
         <nav className="flex px-3">
-          {headerNavigation.map((page, index) => {
+          {paths.map((page, index) => {
             if (page.path === "/auth/signout" && page.onClick) {
+              console.log("should render the fourth");
               return (
                 <NavButton
                   key={index}
