@@ -7,54 +7,94 @@ import { motion } from "framer-motion";
 import clsx from "clsx";
 import { ModeToggle } from "@/components";
 import { usePathname } from "next/navigation";
-import PersonalLogo from "../../../public/personal-logo.jpeg";
+import { signOut, useSession } from "next-auth/react";
 
 interface NavLink {
   // index: number | string;
   href: string;
-  isAnchorLink?: boolean;
   label?: string;
 }
 
-function NavLink({ href, isAnchorLink = false, label }: NavLink) {
+const navStyles =
+  "flex px-2 py-3 cursor-pointer transition text-zinc-600 hover:text-teal-600 dark:text-zinc-400 dark:hover:text-teal-500";
+
+function NavLink({ href, label }: NavLink) {
   return (
-    <motion.button whileHover={{ scale: 1.1 }}>
-      <Link
-        href={href}
-        aria-current={"page"}
-        className={clsx(
-          "flex justify-between gap-1 py-3 pr-2 text-sm transition text-zinc-600 hover:text-teal-600 dark:text-zinc-400 dark:hover:text-teal-500",
-          isAnchorLink ? "pl-7" : "pl-4"
-        )}
-      >
-        <span className="truncate"> {label} </span>
+    <motion.div whileHover={{ scale: 1.1 }} className={clsx(navStyles)}>
+      <Link href={href} aria-current={"page"}>
+        {label}
       </Link>
-    </motion.button>
+    </motion.div>
   );
 }
 
-const headerNavigation = [
-  {
-    path: "/",
-    label: "Home",
-  },
-  // {
-  //   path: "/about",
-  //   label: "About",
-  // },
-  {
-    path: "/skills",
-    label: "Skills",
-  },
-];
+interface NavButton {
+  label: string;
+  onClick: () => void;
+}
+
+function NavButton({ onClick }: NavButton) {
+  return (
+    <motion.button
+      onClick={onClick}
+      whileHover={{ scale: 1.1 }}
+      className={clsx(navStyles)}
+    ></motion.button>
+  );
+}
+
+type NavigationItem = {
+  path: string;
+  label: string;
+  onClick?: () => void;
+};
 
 function NavigationGroup() {
+  const { status } = useSession();
+
+  const headerNavigation: NavigationItem[] = [
+    {
+      path: "/",
+      label: "Home",
+    },
+    {
+      path: "/skills",
+      label: "Skills",
+    },
+    {
+      path: "/blog",
+      label: "Blog",
+    },
+  ];
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      headerNavigation.push({
+        path: "/auth/signout",
+        label: "Sign Out",
+        onClick: signOut,
+      });
+    }
+  }, [status]);
+
   return (
     <motion.div>
-      <div className="hidden md:flex rounded-full bg-white/90 px-2 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-        <nav className="flex items-center justify-center px-2">
-          {headerNavigation.map((link, index) => {
-            return <NavLink key={index} href={link.path} label={link.label} />;
+      <div className="hidden md:flex rounded-full bg-white/90 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+        <nav className="flex px-3">
+          {headerNavigation.map((page, index) => {
+            if (page.path === "/auth/signout" && page.onClick) {
+              return (
+                <NavButton
+                  key={index}
+                  label={page.label}
+                  onClick={page.onClick}
+                />
+              );
+            } else {
+              return (
+                <NavLink key={index} href={page.path} label={page.label} />
+              );
+            }
           })}
         </nav>
       </div>

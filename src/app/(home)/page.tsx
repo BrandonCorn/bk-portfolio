@@ -14,7 +14,7 @@ import { LayoutGroup } from "framer-motion";
 
 const homeImages = [MeowWolf, Disneyland, MeowWolf2, TwilioSpeaker, Mom];
 
-export default function Home() {
+function Home() {
   return (
     <LayoutGroup>
       <main className="flex min-h-screen flex-col items-center justify-between">
@@ -41,3 +41,5 @@ export default function Home() {
     </LayoutGroup>
   );
 }
+
+export default Home;
