@@ -22,7 +22,7 @@ export default async function RootLayout({
           <head></head>
           <body
             id="main-layout"
-            className="flex flex-col min-h-screen m-0 bg-zinc-100 text-black dark:bg-black dark:text-white"
+            className="flex flex-col min-h-screen m-0 bg-white text-black dark:bg-black dark:text-white"
           >
             {children}
             <Footer />
