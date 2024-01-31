@@ -54,11 +54,6 @@ const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
   ) => {
     // e.preventDefault();
     const result = await signIn(providerName);
-    // if (result && result.ok) {
-    //   router.push("/");
-    // } else {
-    //   alert("There was an issue with signin");
-    // }
   };
 
   return (

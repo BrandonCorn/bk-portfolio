@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 function SignUpForm() {
   const [name, setName] = useState("");
@@ -37,7 +38,12 @@ function SignUpForm() {
     });
     setIsLoading(false);
     if (res.ok) {
-      // clear fields a little later
+      signIn("credentials", {
+        email,
+        password,
+        redirect: true,
+        callbackUrl: process.env.NEXTAUTH_URL || "http://localhost:3000",
+      });
       setTimeout(resetForm, 1000);
     } else {
       const { error } = await res.json();
