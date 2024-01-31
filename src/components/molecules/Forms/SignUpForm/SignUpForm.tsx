@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { redirect } from "next/navigation";
 
 function SignUpForm() {
   const [name, setName] = useState("");
@@ -18,7 +17,9 @@ function SignUpForm() {
     setPassword("");
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
     setIsLoading(true);
     const user = {
@@ -26,7 +27,7 @@ function SignUpForm() {
       email,
       password,
     };
-    const res = await fetch("http://localhost:3000/api/user/create-user", {
+    const res = await fetch("/api/user/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +37,6 @@ function SignUpForm() {
     setIsLoading(false);
     if (res.ok) {
       resetForm();
-      redirect("/admin");
     }
     setUserCreateError(true);
     resetForm();
@@ -55,7 +55,7 @@ function SignUpForm() {
           Sign up for an account
         </h2>
       </div>
-      <form className="mt-8 space-y-6">
+      <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
         <div className="rounded-md md:rounded-lg shadow-lg -space-y-px">
           <div>
             <label htmlFor="name" className="sr-only">

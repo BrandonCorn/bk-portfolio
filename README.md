@@ -33,6 +33,12 @@ Welcome to my personal portfolio website! This dynamic and user-friendly site is
 
 5. **Explore and Customize**: Access your portfolio website at `http://localhost:3000`. Customize it to showcase your own projects and experiences.
 
+## Deployment
+
+This project is deployed with the help of Vercel! Changes pushed to individual branches build and allow preview before deploying which is helpful since we don't want to merge changes into master that we don't want built and deployed to the
+primary site. In order to provide an consistent flow before merging changes to master, I use a `preview` branch to merge my changes and will soon automate merging of preview into master on a release schedule if changes are recognized on the preview
+branch.
+
 ## Contributions
 
 If you'd like to contribute or provide feedback, please feel free to open an issue or submit a pull request. Your input is highly appreciated!

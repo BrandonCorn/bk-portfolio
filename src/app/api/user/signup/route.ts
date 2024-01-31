@@ -1,16 +1,18 @@
 import { PasswordManager } from "@/services/authService/auth";
 import { createUser } from "@/services/usersService/user";
 import { NextRequest, NextResponse } from "next/server";
+import { SignUpUserBody } from "@/types/user/user";
+import { BadRequestError } from "@/lib/errors/bad-request-error";
 
 
-type CreateUserBody = {
-  name: string;
-  email: string;
-  password: string;
-}
+// type SignUpUserBody = {
+//   name: string;
+//   email: string;
+//   password: string;
+// }
 
 export async function POST(req: NextRequest){
-  const data: CreateUserBody = await req.json();
+  const data: SignUpUserBody = await req.json();
   const encryptedPassword = await PasswordManager.toHash(data.password);
   const user = await createUser({
     name: data.name,
@@ -19,7 +21,8 @@ export async function POST(req: NextRequest){
   });
   
   if(!user) {
-    return NextResponse.json({message: 'Failed to create user'}, {status: 400});
+    const error = new BadRequestError('Failed to create user');
+    return NextResponse.json({ error }, {status: error.code });
   }
   else{
     return NextResponse.json({ user }, { status: 201});
