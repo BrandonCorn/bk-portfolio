@@ -1,4 +1,4 @@
-import { NextAuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import DiscordProvider from "next-auth/providers/discord";
 import GitHubProvider from "next-auth/providers/github";
@@ -7,7 +7,7 @@ import prisma from '../prismaDb';
 
 
 //custom providers described here https://next-auth.js.org/configuration/providers/credentials
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = NextAuth({
   adapter: PrismaAdapter(prisma),
   //configure one or more auth providers
   providers: [
@@ -70,9 +70,7 @@ const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt'
   }
-}
-
-export default authOptions;
+});
 
 export type ProviderInfo = {
   name: string;
