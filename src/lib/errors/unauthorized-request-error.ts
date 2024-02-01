@@ -3,8 +3,8 @@ import { CustomError } from "./custom-abstract-error";
 export class UnauthorizedRequestError extends CustomError {
     code = 401;
 
-    constructor() {
-        super('not authorized');
+    constructor(message: string) {
+        super(message);
 
         Object.setPrototypeOf(this, UnauthorizedRequestError.prototype);
     }
@@ -12,7 +12,7 @@ export class UnauthorizedRequestError extends CustomError {
     serializeErrors(): { message: string; field?: string | undefined; }[] {
         return [
             {
-                message: 'Not Authorized'
+                message: this.message
             }
         ]
     }

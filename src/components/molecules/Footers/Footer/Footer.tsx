@@ -3,7 +3,6 @@ import { FaGithub, FaLinkedin, FaInstagram, FaDiscord } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import DescriptionText from "@/components/atoms/Texts/DescriptionText/DescriptionText";
 
 const Footer = () => {
   return (

@@ -3,8 +3,8 @@ import { CustomError } from './custom-abstract-error';
 export class NotFoundError extends CustomError {
     code = 404;
 
-    constructor() {
-        super('Route not found');
+    constructor(message: string) {
+        super(message);
 
         Object.setPrototypeOf(this, NotFoundError.prototype);
     }
