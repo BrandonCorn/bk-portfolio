@@ -71,11 +71,14 @@ const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
       </div>
       <div>
         {providers &&
-          providers.map((provider: any) => {
+          providers.map((provider: any, index: number) => {
             if (provider.id === "credentials") return <></>;
             const providerData = providersList[provider.id];
             return (
-              <div className="flex justify-center w-full border border-gray-400 my-2 rounded-lg">
+              <div
+                key={index}
+                className="flex justify-center w-full border border-gray-400 my-2 rounded-lg"
+              >
                 <button
                   onClick={(e) => handleProviderSignIn(e, provider.id)}
                   className="py-2"
