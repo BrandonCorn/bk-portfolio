@@ -2,7 +2,7 @@ import NextAuthProvider from "@/components/atoms/Providers/SessionProvider/Sessi
 import Footer from "@/components/molecules/Footers/Footer/Footer";
 import ReduxProvider from "@/redux/ReduxProvider";
 import { getServerSession } from "next-auth";
-import authOptions from "@/lib/nextAuth";
+import { authOptions } from "@/lib/nextAuth";
 
 export const metadata = {
   title: "Next.js",
