@@ -1,4 +1,5 @@
 import Modal from "react-modal";
+import { useEffect, useState } from "react";
 
 export type BasicModalProps = {
   id?: string;
@@ -26,8 +27,6 @@ const customOverlay = {
     borderRadius: "0.75rem",
   },
 };
-
-Modal.setAppElement("#main-layout");
 
 const BasicModal: React.FC<BasicModalProps> = ({
   id,

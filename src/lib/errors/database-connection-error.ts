@@ -1,11 +1,10 @@
 import { CustomError } from "./custom-abstract-error";
 
 export class DatabaseConnectionError extends CustomError {
-    reason = 'Error connecting to database';
     code = 500;
 
-    constructor() {
-        super('Error connecting to database');
+    constructor(message: string) {
+        super(message);
 
         Object.setPrototypeOf(this, DatabaseConnectionError.prototype);
     }
@@ -13,7 +12,7 @@ export class DatabaseConnectionError extends CustomError {
     serializeErrors() {
         return [
             {
-                message: this.reason,
+                message: this.message,
             }
         ]
     }

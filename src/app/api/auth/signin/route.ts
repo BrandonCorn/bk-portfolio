@@ -11,20 +11,26 @@ type SignInUserBody = {
 
 export async function POST(req: NextRequest) {
   const userData: SignInUserBody = await req.json();
-  const findUser = await getUser(userData.email).catch(error => error);
+  let findUser;
+  try{
+    findUser = await getUser(userData.email).catch(error => error);
+  }
+  catch(error){
+    return NextResponse.json({error: 'Something went wrong'}, {status: 500})
+  }
 
   if(!findUser) {
     const error = new NotFoundError('User not found');
     return NextResponse.json({ error }, { status: error.code });
   }
-  if (findUser instanceof BadRequestError) {
+  else if (findUser instanceof BadRequestError) {
     return NextResponse.json({ error: findUser }, { status: findUser.code })
   }
 
-  let approved  = false;
+  let approved = false;
   if (findUser.password) {
     approved = await PasswordManager.compare(findUser.password, userData.password);
   }
-
-  return approved !==  false ? NextResponse.json(findUser) : NextResponse.json(false);
+  
+  return approved !==  false ? NextResponse.json(findUser) : NextResponse.json({ error: 'Password Incorrect' }, { status: 401 });
 }

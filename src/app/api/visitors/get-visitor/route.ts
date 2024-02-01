@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getVisitorByEmail } from "@/services/visitorService/getVisitor";
 import { BadRequestError } from "@/lib/errors/bad-request-error";
-import { GetVisitorByEmailRequest } from "@/types/visitors/type";
 
 
 export const POST = async (req: NextRequest) => {

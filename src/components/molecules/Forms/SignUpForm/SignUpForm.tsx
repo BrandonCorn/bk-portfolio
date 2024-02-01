@@ -3,13 +3,15 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 function SignUpForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userCreateError, setUserCreateError] = useState(false);
+  const [signUpError, setSignUpError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [signUpErrorMessage, setSignUpErrorMessage] = useState("");
 
   const resetForm = () => {
     setName("");
@@ -36,10 +38,19 @@ function SignUpForm() {
     });
     setIsLoading(false);
     if (res.ok) {
+      signIn("credentials", {
+        email,
+        password,
+        redirect: true,
+        callbackUrl: process.env.NEXTAUTH_URL || "http://localhost:3000",
+      });
+      setTimeout(resetForm, 1000);
+    } else {
+      const { error } = await res.json();
+      setSignUpError(true);
+      setSignUpErrorMessage(error);
       resetForm();
     }
-    setUserCreateError(true);
-    resetForm();
   };
 
   return (
@@ -122,9 +133,9 @@ function SignUpForm() {
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center">
-          {userCreateError && (
+          {signUpError && (
             <div className="text-md text-red-500">
-              <p className="text-md text-red-500"> Error creating user</p>
+              <p className="text-md text-red-500"> {signUpErrorMessage}</p>
             </div>
           )}
         </div>
