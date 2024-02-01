@@ -1,9 +1,9 @@
 import { BadRequestError } from "@/lib/errors/bad-request-error";
 import { DatabaseConnectionError } from "@/lib/errors/database-connection-error";
 import prisma from "@/lib/prismaDb";
-import { Prisma } from '@prisma/client'
+import { Prisma, User } from '@prisma/client'
 
-export async function createUser(user: Prisma.UserUncheckedCreateInput): Promise<Prisma.UserUncheckedCreateInput | boolean>{
+export async function createUser(user: Prisma.UserUncheckedCreateInput): Promise<Prisma.UserUncheckedCreateInput>{
   try{
     const newUser = await prisma.user.create({
       data: user
@@ -20,20 +20,18 @@ export async function createUser(user: Prisma.UserUncheckedCreateInput): Promise
 }
 
 
-export async function getUser(email: string){
+export async function getUser(email: string): Promise<User | null>{
   try{
     const user = await prisma.user.findUnique({
       where: {
         email,
       }
     });
-    if(!user) return false;
-    return user;
+    
+    return user || null;
   }
   catch(error){
     console.error(error);
     throw new DatabaseConnectionError(error as string)
   }
 }
-
-//crud ops to follow

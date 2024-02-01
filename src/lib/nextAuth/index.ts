@@ -52,22 +52,24 @@ export const authOptions: NextAuthOptions = NextAuth({
 
       return session;
     },
-    // async signIn({
-    //   user, account, profile, email, credentials
-    // }){
-    //   // fetch user account
-
-    //   //compare user account with provider.id
-
-    //   // if same provider we pass and return true
-
-    //   //if we fail we return false
-    //   console.log('what data do we have ');
-    //   console.log('user ', user);
-    //   console.log('account ', account);
-    //   console.log('credentials ', credentials);
-    //   return true;
-    // }
+    async signIn({
+      user, account, profile, email, credentials
+    }){
+      console.log('what data do we have ');
+      console.log('user ', user);
+      console.log('account ', account);
+      console.log('credentials ', credentials);
+      const res = await fetch(`${process.env.NEXTAUTH_URL}/api/accounts/get-account?userId=${user.id}`);
+      if(res.ok){
+        const existingAccount = await res.json();
+        const wrongProvider = existingAccount.provider === account?.provider ? true : false
+        if(wrongProvider) return true;
+        else return false;
+      }
+      else{
+        return '/auth/signin'
+      }
+    }
   }, 
   session: {
     strategy: 'jwt'
