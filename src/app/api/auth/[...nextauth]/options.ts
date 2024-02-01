@@ -61,15 +61,17 @@ export const authOptions: NextAuthOptions = {
     async signIn({
       user, account
     }){
-      const res = await fetch(`${process.env.NEXTAUTH_URL}/api/accounts/get-account?userId=${user.id}`);
-      if(res.ok){
-        const existingAccount = await res.json();
-        const wrongProvider = existingAccount.provider === account?.provider ? true : false
-        if(wrongProvider) return true;
-        else return false;
+      if(account?.type !== 'credentials'){
+        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/accounts/get-account?providerAccountId=${account?.providerAccountId}`);
+        if(res.ok){
+          return true;
+        }
+        else{
+          return '/auth/signin';
+        }
       }
       else{
-        return '/auth/signin'
+        return true;
       }
     }
   }, 

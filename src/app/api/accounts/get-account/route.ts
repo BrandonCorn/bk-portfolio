@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAccount } from "@/services/accountsService/accounts";
+import { getAccountByProvider } from "@/services/accountsService/accounts";
 import { NotFoundError } from "@/lib/errors/not-found-error";
 
 
 export const GET = async (req: NextRequest, res: NextResponse) => {
-  const userId = req.nextUrl.searchParams.get('userId');
-
+  const providerId = req.nextUrl.searchParams.get('providerAccountId');
+  console.log('id ', providerId);
   let userAccount;
   try{
-    if(userId) userAccount = await getAccount(userId);
+    if(providerId) userAccount = await getAccountByProvider(providerId);
   }
   catch(error){
     return NextResponse.json({ error: 'Something went wrong' }, { status: 500 })

@@ -2,11 +2,11 @@ import { DatabaseConnectionError } from "@/lib/errors/database-connection-error"
 import prisma from "@/lib/prismaDb";
 import { Account } from '@prisma/client'
 
-export async function getAccount(id: string): Promise<Account | null>{
+export async function getAccountByProvider(id: string): Promise<Account | null>{
   try{
     const account = await prisma.account.findFirst({
       where: {
-        userId: id
+        providerAccountId: id
       }
     });
     
