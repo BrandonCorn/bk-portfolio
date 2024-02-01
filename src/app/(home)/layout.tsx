@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 import ReduxProvider from "@/redux/ReduxProvider";
 import NextAuthProvider from "@/components/atoms/Providers/SessionProvider/SessionProvider";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/nextAuth";
+import authOptions from "@/lib/nextAuth";
 
 export const metadata: Metadata = {
   title: "Brandon Corn Portfolio",
