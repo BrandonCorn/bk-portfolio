@@ -55,10 +55,6 @@ export const authOptions: NextAuthOptions = NextAuth({
     async signIn({
       user, account, profile, email, credentials
     }){
-      console.log('what data do we have ');
-      console.log('user ', user);
-      console.log('account ', account);
-      console.log('credentials ', credentials);
       const res = await fetch(`${process.env.NEXTAUTH_URL}/api/accounts/get-account?userId=${user.id}`);
       if(res.ok){
         const existingAccount = await res.json();
