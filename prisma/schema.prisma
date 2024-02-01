@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("NEXTAUTH_URL")
+  url      = env("MYSQL_URL")
 }
 
 model Account {
