@@ -7,12 +7,12 @@ export type IntroTitleProps = {
 } & AtomProps<"p">;
 
 const IntroTitle: React.FC<IntroTitleProps> = ({ text, ...rest }) => {
-  const classes = clsx(
+  const classStyles = clsx(
     "text-4xl lg:text-5xl font-bold leading-normal",
     rest.className
   );
   return (
-    <p id={rest.id || ""} className={classes} {...rest}>
+    <p id={rest.id || ""} className={classStyles} {...rest}>
       {text}
     </p>
   );

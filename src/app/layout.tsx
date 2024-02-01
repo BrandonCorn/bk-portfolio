@@ -3,6 +3,13 @@ import NextAuthProvider from "@/components/atoms/Providers/SessionProvider/Sessi
 import Footer from "@/components/molecules/Footers/Footer/Footer";
 import ReduxProvider from "@/redux/ReduxProvider";
 import { serverSession } from "@/app/api/auth/[...nextauth]/options";
+import { Roboto } from "next/font/google";
+
+const roboto = Roboto({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-roboto",
+});
 
 export const metadata = {
   title: "Next.js",
@@ -22,7 +29,7 @@ export default async function RootLayout({
           <head></head>
           <body
             id="main-layout"
-            className="flex flex-col min-h-screen m-0 bg-white text-black dark:bg-black dark:text-white"
+            className={`flex flex-col min-h-screen m-0 bg-white text-black dark:bg-black dark:text-white ${roboto.className}`}
           >
             {children}
             <Footer />
