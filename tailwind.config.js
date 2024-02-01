@@ -14,6 +14,19 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
+    typography: require('./typography'),
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.paragraph-spacing': {
+          '& > p:not(:last-child)': {
+            marginBottom: 'var(--paragraph-spacing)',
+          },
+        },
+      };
+
+      addUtilities(newUtilities, ['responsive', 'hover']);
+    }
+  ],
 }
