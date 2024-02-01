@@ -2,10 +2,10 @@
 import LoginForm from "@/components/molecules/Forms/LoginForm/LoginForm";
 import { redirect } from "next/navigation";
 import { getProviders } from "next-auth/react";
-import { useServerSession } from "@/hooks/session/useServerSession";
+import { serverSession } from "@/lib/nextAuth";
 
 export default async function Page() {
-  const session = await useServerSession();
+  const session = await serverSession();
   const providers = await getProviders();
   let signInProviders;
   if (session) {

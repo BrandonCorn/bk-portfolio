@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components";
 // const inter = Inter({ subsets: ["latin"] });
 import ReduxProvider from "@/redux/ReduxProvider";
 import NextAuthProvider from "@/components/atoms/Providers/SessionProvider/SessionProvider";
-import { useServerSession } from "@/hooks/session/useServerSession";
+import { serverSession } from "@/lib/nextAuth";
 
 export const metadata: Metadata = {
   title: "Brandon Corn Portfolio",
@@ -18,7 +18,7 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await useServerSession();
+  const session = await serverSession();
   return (
     <NextAuthProvider session={session}>
       <ReduxProvider>

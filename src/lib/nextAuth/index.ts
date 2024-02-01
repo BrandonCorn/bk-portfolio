@@ -4,6 +4,8 @@ import DiscordProvider from "next-auth/providers/discord";
 import GitHubProvider from "next-auth/providers/github";
 import {PrismaAdapter} from '@next-auth/prisma-adapter';
 import prisma from '../prismaDb';
+import { getServerSession } from "next-auth";
+import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
 
 
 //custom providers described here https://next-auth.js.org/configuration/providers/credentials
@@ -74,6 +76,15 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt'
   }
+}
+
+/**
+ * Helper function to retrieve the server session
+ * @param args 
+ * @returns 
+ */
+export function serverSession(...args: [GetServerSidePropsContext['req'], GetServerSidePropsContext['res']] | [NextApiRequest, NextApiResponse] | []){
+  return getServerSession(...args, authOptions);
 }
 
 
