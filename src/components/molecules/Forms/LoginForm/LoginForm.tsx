@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { providersList } from "@/lib/nextAuth";
+import { providersList } from "@/app/api/auth/[...nextauth]/options";
 import { ClientSafeProvider } from "next-auth/react";
 
 type NextAuthLoginFormProps = {

@@ -1,11 +1,9 @@
 import "../globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components";
-// const inter = Inter({ subsets: ["latin"] });
 import ReduxProvider from "@/redux/ReduxProvider";
 import NextAuthProvider from "@/components/atoms/Providers/SessionProvider/SessionProvider";
-import { serverSession } from "@/lib/nextAuth";
+import { serverSession } from "@/app/api/auth/[...nextauth]/options";
 
 export const metadata: Metadata = {
   title: "Brandon Corn Portfolio",
