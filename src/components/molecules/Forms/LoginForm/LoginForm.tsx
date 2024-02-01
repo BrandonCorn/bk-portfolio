@@ -52,7 +52,6 @@ const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
     e: React.MouseEvent<HTMLButtonElement>,
     providerName: string
   ) => {
-    // e.preventDefault();
     const result = await signIn(providerName);
   };
 
@@ -72,7 +71,7 @@ const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
       <div>
         {providers &&
           providers.map((provider: any, index: number) => {
-            if (provider.id === "credentials") return <></>;
+            if (provider.id === "credentials") return null;
             const providerData = providersList[provider.id];
             return (
               <div

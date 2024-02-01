@@ -1,12 +1,11 @@
 "use server";
 import LoginForm from "@/components/molecules/Forms/LoginForm/LoginForm";
 import { redirect } from "next/navigation";
-import { authOptions } from "@/lib/nextAuth";
-import { getServerSession } from "next-auth";
 import { getProviders } from "next-auth/react";
+import { useServerSession } from "@/hooks/session/useServerSession";
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
+  const session = await useServerSession();
   const providers = await getProviders();
   let signInProviders;
   if (session) {

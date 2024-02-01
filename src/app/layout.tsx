@@ -1,8 +1,8 @@
+import "./globals.css";
 import NextAuthProvider from "@/components/atoms/Providers/SessionProvider/SessionProvider";
 import Footer from "@/components/molecules/Footers/Footer/Footer";
 import ReduxProvider from "@/redux/ReduxProvider";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/nextAuth";
+import { useServerSession } from "@/hooks/session/useServerSession";
 
 export const metadata = {
   title: "Next.js",
@@ -14,7 +14,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await useServerSession();
   return (
     <NextAuthProvider session={session}>
       <ReduxProvider>

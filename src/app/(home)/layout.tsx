@@ -2,11 +2,10 @@ import "../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components";
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 import ReduxProvider from "@/redux/ReduxProvider";
 import NextAuthProvider from "@/components/atoms/Providers/SessionProvider/SessionProvider";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/nextAuth";
+import { useServerSession } from "@/hooks/session/useServerSession";
 
 export const metadata: Metadata = {
   title: "Brandon Corn Portfolio",
@@ -19,7 +18,7 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await useServerSession();
   return (
     <NextAuthProvider session={session}>
       <ReduxProvider>

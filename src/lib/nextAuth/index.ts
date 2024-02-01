@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import DiscordProvider from "next-auth/providers/discord";
 import GitHubProvider from "next-auth/providers/github";
@@ -7,7 +7,11 @@ import prisma from '../prismaDb';
 
 
 //custom providers described here https://next-auth.js.org/configuration/providers/credentials
-export const authOptions: NextAuthOptions = NextAuth({
+
+/**
+ * authOptions is the configuration necessary for NextAuth
+ */
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   //configure one or more auth providers
   providers: [
@@ -48,12 +52,12 @@ export const authOptions: NextAuthOptions = NextAuth({
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async session({session, token, user }){
+    async session({ session }){
 
       return session;
     },
     async signIn({
-      user, account, profile, email, credentials
+      user, account
     }){
       const res = await fetch(`${process.env.NEXTAUTH_URL}/api/accounts/get-account?userId=${user.id}`);
       if(res.ok){
@@ -70,7 +74,8 @@ export const authOptions: NextAuthOptions = NextAuth({
   session: {
     strategy: 'jwt'
   }
-});
+}
+
 
 export type ProviderInfo = {
   name: string;
@@ -82,7 +87,9 @@ export type ProviderList = {
 }
 
 
-
+/**
+ * List of the providers for within components where we want to render content about them
+ */
 export const providersList: ProviderList = {
   github: {
     name: 'GitHub',
