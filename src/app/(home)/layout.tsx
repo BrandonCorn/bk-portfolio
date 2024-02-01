@@ -4,6 +4,9 @@ import { ThemeProvider } from "@/components";
 import ReduxProvider from "@/redux/ReduxProvider";
 import NextAuthProvider from "@/components/atoms/Providers/SessionProvider/SessionProvider";
 import { serverSession } from "@/app/api/auth/[...nextauth]/options";
+import { Roboto } from "next/font/google";
+
+const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Brandon Corn Portfolio",
@@ -20,7 +23,7 @@ export default async function Layout({
   return (
     <NextAuthProvider session={session}>
       <ReduxProvider>
-        <section>
+        <section className={roboto.className}>
           <ThemeProvider>
             <div className="min-h-screen flex justify-center items-center">
               <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5 max-w-screen-xl p-4 transition-width">
