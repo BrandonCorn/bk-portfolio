@@ -8,6 +8,6 @@ import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next
  * @param args 
  * @returns 
  */
-export function useServerSession(...args: [GetServerSidePropsContext['req'], GetServerSidePropsContext['res']] | [NextApiRequest, NextApiResponse] | []){
+export async function useServerSession(...args: [GetServerSidePropsContext['req'], GetServerSidePropsContext['res']] | [NextApiRequest, NextApiResponse] | []){
   return getServerSession(...args, authOptions);
 }
