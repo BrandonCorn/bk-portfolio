@@ -16,6 +16,13 @@ const roles = {
 
 const bcornExperience: ExperienceEntryProps[] = [
   {
+    title: "User Interface Engineer II",
+    company: "Cox Automotive Inc",
+    startDate: "November 2023",
+    endDate: "current",
+    description: "",
+  },
+  {
     title: "Senior Solutions Engineer",
     company: "FlavorCloud",
     startDate: "April 2023",
