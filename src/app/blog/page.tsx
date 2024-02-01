@@ -60,8 +60,9 @@ export default function Page() {
           <p className="text-sm md:text-base mt-3"> {author} </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">{role}</p>
         </div>
-        <div id="blog-main-image-container" className="mt-8 rounded-xl">
+        <div id="blog-main-image-container" className="mt-8">
           <Image
+            className={`rounded-xl`}
             priority
             src="/blog/city.jpg"
             alt="blog city image"
@@ -71,8 +72,7 @@ export default function Page() {
         </div>
         <div className="flex flex-col w-full md:w-3/4 2xl:w-1/2  space-y-4 my-6 md:my-8 paragraph-spacing">
           <p className="text-md md:text-lg indent-4 md:indent-6 leading-relaxed md:leading-loose pl-4">
-            {" "}
-            {paragraphs.p1}{" "}
+            {paragraphs.p1}
           </p>
           <p className="text-md md:text-lg indent-4 md:indent-6 leading-relaxed md:leading-loose pl-4">
             {paragraphs.p2}
