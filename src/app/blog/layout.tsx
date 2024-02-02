@@ -30,7 +30,6 @@ export default function Layout({
             <div className="min-h-screen">
               <Header />
               {children}
-              {posts}
             </div>
           </div>
         </div>

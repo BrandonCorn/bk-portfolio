@@ -3,6 +3,8 @@
 //
 // next, we need to be able
 
-export default function Page() {
-  return <div>Here is where we will show blog posts</div>;
+export default function Page({ params }: { params: { page: string } }) {
+  const { page } = params;
+
+  return <div>we are on page {page}</div>;
 }
