@@ -6,6 +6,7 @@
 
 import "../globals.css";
 import type { Metadata } from "next";
+import { motion } from "framer-motion";
 
 export default function LoginLayout({
   children,
@@ -17,7 +18,7 @@ export default function LoginLayout({
       <div className="flex min-h-screen">
         <div className=" md:w-1/2 lg:w-3/5 md:flex-col justify-center items-center hidden md:flex bg-indigo-800">
           <div className="hidden md:flex">
-            <div className="border border-gray-400 mb-48 shadow-2xl border-transparent overflow-auto text-wrap text-center">
+            <div className="animated-header border border-gray-400 mb-48 shadow-2xl border-transparent overflow-auto text-wrap text-center">
               <h1 className="text-3xl md:text-4xl text-purple-400">
                 Welcome to the Portfolio Admin
               </h1>

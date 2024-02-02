@@ -11,10 +11,12 @@ export const metadata: Metadata = {
     "The greatest portfolio in all the land. Feast your eyes as this mighty software engineer seeks to make the greatest contributions he knows how. Through high impact work on projects, to collaborating with his teammates to grow, this guy is on his way somewhere",
 };
 
-export default function RootLayout({
+export default function Layout({
   children,
+  posts,
 }: {
   children: React.ReactNode;
+  posts: React.ReactNode;
 }) {
   return (
     <section
@@ -28,6 +30,7 @@ export default function RootLayout({
             <div className="min-h-screen">
               <Header />
               {children}
+              {posts}
             </div>
           </div>
         </div>

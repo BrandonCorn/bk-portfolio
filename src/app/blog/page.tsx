@@ -85,7 +85,7 @@ export default function Page() {
           <div className="my-6">
             <Link
               aria-label="posts link"
-              href="/blog"
+              href="/blog/@posts"
               className="bg-brand-secondary/20 rounded-full py-3 px-6 text-lg md:text-xl border border-solid hover:bg-brand-secondary dark:hover:bg-gray-700 transition duration-300"
             >
               Posts in construction
