@@ -27,12 +27,6 @@ export type VisitorState = {
   getVisitorRequestFailure: any,
 }
 
-type CreateVisitor = {
-  name: string;
-  phoneNumber?: string;
-  email?: string;
-}
-
 
 const initialState: VisitorState = {
   visitor: {

@@ -21,7 +21,6 @@ export const POST = async (req: NextRequest) => {
         message: formatMessage
       }
       const sendMessage = await sendSms(msgData);
-      console.log(sendMessage);
       return NextResponse.json(sendMessage, {status: 200});
     }
     else {

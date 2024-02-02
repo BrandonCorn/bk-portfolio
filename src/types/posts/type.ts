@@ -1,6 +1,7 @@
-export type Post = {
-  title: string;
-  content: string;
-  published: boolean;
-  authorId: string;
+
+
+export type GetPostsByPublishDateRequest = {
+  pageSize: number,
+  skip: number;
+  date: Date,
 }
