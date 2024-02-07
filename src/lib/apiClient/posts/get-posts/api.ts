@@ -10,8 +10,8 @@ import { baseUrl } from "../..";
  */
 export const getPostsByPublishDate = (data: GetPostsByPublishDateRequest) => {
   const { pageSize, skip, date } = data;
-
-  return fetch(`${baseUrl}/api/posts/get-posts?pageSize=${pageSize}&skip=${skip}&date=${date}`, {
+  
+  return fetch(`/api/posts/get-posts?pageSize=${pageSize}&skip=${skip}&date=${date}`, {
     method: 'GET',
     headers: {
       'Allow-Content-Type': 'application/json',

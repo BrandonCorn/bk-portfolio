@@ -4,7 +4,7 @@ import { baseUrl } from "../..";
 
 
 export const sendSms = async (smsData: SendSmsRequest): SendSmsResponse => {
-  return fetch(`${baseUrl}/api/sms/send-sms`, {
+  return fetch(`/api/sms/send-sms`, {
     method: "POST",
     body: JSON.stringify(smsData),
     headers: {

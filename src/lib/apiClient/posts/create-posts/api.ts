@@ -8,7 +8,7 @@ import { baseUrl } from "../..";
  * @returns return response with result of api request
  */
 export const createPost = (post: CreatePostRequest) => {
-  return fetch(`${baseUrl}/api/posts/create-post`, {
+  return fetch(`/api/posts/create-post`, {
     method: 'POST',
     body: JSON.stringify(post),
     headers: {

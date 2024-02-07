@@ -8,7 +8,7 @@ import { baseUrl } from "../..";
  * @returns {CreateSmsResponse}
  */
 export const createSms = async (sms: CreateSmsRequest): CreateSmsResponse => {
-  return fetch(`${baseUrl}/api/sms/create-sms`, {
+  return fetch(`/api/sms/create-sms`, {
     method: "POST",
     body: JSON.stringify(sms),
     headers: {

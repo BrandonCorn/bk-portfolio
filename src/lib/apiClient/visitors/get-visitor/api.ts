@@ -8,7 +8,7 @@ import { baseUrl } from "../..";
  * @returns {GetVisitorByEmailResponse}
  */
 export const getVisitorByEmail = (email: GetVisitorByEmailRequest): GetVisitorByEmailResponse => {
-  return fetch(`${baseUrl}/api/visitors/get-visitor`, {
+  return fetch(`/api/visitors/get-visitor`, {
     method: "POST",
     body: JSON.stringify({ email }),
     headers: {

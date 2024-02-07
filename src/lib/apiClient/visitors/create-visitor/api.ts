@@ -8,7 +8,7 @@ import { baseUrl } from "../..";
  * @returns {CreateVisitorResponse} 
  */
 export const createVisitor = (visitor: CreateVisitorRequest): CreateVisitorResponse => {
-  return fetch(`${baseUrl}/api/visitors/create-visitor`, {
+  return fetch(`/api/visitors/create-visitor`, {
     body: JSON.stringify(visitor),
     method: "POST",
     headers: {

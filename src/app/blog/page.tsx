@@ -3,6 +3,9 @@ import IntroTitle from "@/components/atoms/Titles/IntroTitle/IntroTitle";
 import Image from "next/image";
 import { LayoutGroup, motion } from "framer-motion";
 import Link from "next/link";
+import { getInitialPosts } from "@/redux/slices/postSlice";
+import { useEffect } from "react";
+import { useAppDispatch } from "@/redux";
 
 const blogTitle = "Moments Unscripted: A Continual Blog";
 const author = "Brandon Corn";
@@ -42,6 +45,15 @@ const paragraphs = {
 };
 
 export default function Page() {
+  const dispatch = useAppDispatch();
+
+  /**
+   * Retrieve initial blog posts in background for user
+   */
+  useEffect(() => {
+    dispatch(getInitialPosts());
+  }, []);
+
   return (
     <LayoutGroup>
       <motion.div
