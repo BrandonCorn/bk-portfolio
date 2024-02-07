@@ -1,6 +1,6 @@
 import { GetVisitorByEmailRequest, GetVisitorByEmailResponse } from "@/types/visitors/type";
 import { formatResponse } from "@/services/utilService/utils";
-
+import { baseUrl } from "../..";
 
 /**
  * Find a visitor by their email address
@@ -8,7 +8,7 @@ import { formatResponse } from "@/services/utilService/utils";
  * @returns {GetVisitorByEmailResponse}
  */
 export const getVisitorByEmail = (email: GetVisitorByEmailRequest): GetVisitorByEmailResponse => {
-  return fetch(`/api/visitors/get-visitor`, {
+  return fetch(`${baseUrl}/api/visitors/get-visitor`, {
     method: "POST",
     body: JSON.stringify({ email }),
     headers: {

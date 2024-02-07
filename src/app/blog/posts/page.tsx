@@ -3,12 +3,12 @@
 //
 // next, we need to be able
 "use client";
+import api from "@/lib/apiClient";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 
 export default function Page() {
-  const [page, setPage] = useState(2);
+  const page = 1;
   const path = usePathname();
 
   const pageNumbers = Math.ceil(13 / 3);

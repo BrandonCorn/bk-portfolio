@@ -1,6 +1,6 @@
 import { CreateSmsRequest, CreateSmsResponse } from "@/types/sms/type";
 import { formatResponse } from "@/services/utilService/utils";
-
+import { baseUrl } from "../..";
 
 /**
  * Create an Sms in the db
@@ -8,7 +8,7 @@ import { formatResponse } from "@/services/utilService/utils";
  * @returns {CreateSmsResponse}
  */
 export const createSms = async (sms: CreateSmsRequest): CreateSmsResponse => {
-  return fetch("/api/sms/create-sms", {
+  return fetch(`${baseUrl}/api/sms/create-sms`, {
     method: "POST",
     body: JSON.stringify(sms),
     headers: {

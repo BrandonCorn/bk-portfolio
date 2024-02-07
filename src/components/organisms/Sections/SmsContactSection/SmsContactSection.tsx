@@ -2,9 +2,7 @@
 
 import GeneralForm from "@/components/molecules/Forms/GeneralForm/GeneralForm";
 import DescriptionText from "@/components/atoms/Texts/DescriptionText/DescriptionText";
-import GeneralInput, {
-  GeneralInputProps,
-} from "@/components/atoms/Inputs/GeneralInput";
+import GeneralInput from "@/components/atoms/Inputs/GeneralInput";
 import React, {
   useState,
   FormEventHandler,

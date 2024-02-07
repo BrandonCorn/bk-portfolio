@@ -3,6 +3,7 @@ import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { persistReducer } from "redux-persist";
 import visitorReducer from "./slices/visitorSlice";
 import smsReducer from './slices/smsSlice';
+import postReducer from './slices/postSlice';
 import storage from "./customStorage";
 import logger from 'redux-logger';
 
@@ -17,9 +18,15 @@ const smsConfig = {
   storage,
 };
 
+const postConfig = {
+  key: 'posts',
+  storage,
+}
+
 const rootReducer = combineReducers({
   visitor: persistReducer(visitorConfig, visitorReducer),
-  sms: persistReducer(smsConfig, smsReducer)
+  sms: persistReducer(smsConfig, smsReducer),
+  posts: persistReducer(postConfig, postReducer),
 });
 
 
