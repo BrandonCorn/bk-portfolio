@@ -6,7 +6,8 @@ import PostModal from "@/components/molecules/Modals/PostModal/PostModal";
 import { useAppSelector } from "@/redux";
 import BasicTitle from "@/components/atoms/Titles/BasicTitle/BasicTitle";
 import clsx from "clsx";
-import { blogTitle } from "../page";
+
+const blogTitle = "Moments Unscripted: A Continual Blog";
 
 export default function Page({ params }: { params: { page: string } }) {
   const path = usePathname();
@@ -35,7 +36,7 @@ export default function Page({ params }: { params: { page: string } }) {
     );
   });
 
-  //
+  // New array for posts to be rendered on the current page
   const currentPagePosts = posts.slice((parsedNum - 1) * 3, parsedNum * 3);
 
   return (

@@ -27,6 +27,9 @@ const PostModal = ({
 
   const { status } = useSession();
 
+  /**
+   * Check if a user is logged in for allowing comments and posting
+   */
   useEffect(() => {
     if (status === "authenticated") {
       setIsUser(true);
