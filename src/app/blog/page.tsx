@@ -3,6 +3,9 @@ import IntroTitle from "@/components/atoms/Titles/IntroTitle/IntroTitle";
 import Image from "next/image";
 import { LayoutGroup, motion } from "framer-motion";
 import Link from "next/link";
+import { getInitialPosts } from "@/redux/slices/postSlice/postSlice";
+import { useEffect, useState } from "react";
+import { useAppDispatch } from "@/redux";
 
 const blogTitle = "Moments Unscripted: A Continual Blog";
 const author = "Brandon Corn";
@@ -42,6 +45,20 @@ const paragraphs = {
 };
 
 export default function Page() {
+  const dispatch = useAppDispatch();
+  const FIRST_PAGE = 1;
+  const [fetchPosts, setFetchPosts] = useState(false);
+
+  /**
+   * Retrieve initial blog posts in background for user
+   */
+  useEffect(() => {
+    if (!fetchPosts) {
+      dispatch(getInitialPosts());
+      setFetchPosts(true);
+    }
+  }, []);
+
   return (
     <LayoutGroup>
       <motion.div
@@ -60,8 +77,9 @@ export default function Page() {
           <p className="text-sm md:text-base mt-3"> {author} </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">{role}</p>
         </div>
-        <div id="blog-main-image-container" className="mt-8 rounded-xl">
+        <div id="blog-main-image-container" className="mt-8">
           <Image
+            className={`rounded-xl`}
             priority
             src="/blog/city.jpg"
             alt="blog city image"
@@ -71,8 +89,7 @@ export default function Page() {
         </div>
         <div className="flex flex-col w-full md:w-3/4 2xl:w-1/2  space-y-4 my-6 md:my-8 paragraph-spacing">
           <p className="text-md md:text-lg indent-4 md:indent-6 leading-relaxed md:leading-loose pl-4">
-            {" "}
-            {paragraphs.p1}{" "}
+            {paragraphs.p1}
           </p>
           <p className="text-md md:text-lg indent-4 md:indent-6 leading-relaxed md:leading-loose pl-4">
             {paragraphs.p2}
@@ -85,8 +102,8 @@ export default function Page() {
           <div className="my-6">
             <Link
               aria-label="posts link"
-              href="/blog"
-              className="bg-brand-secondary/20 rounded-full py-3 px-6 text-lg md:text-xl border border-solid hover:bg-brand-secondary dark:hover:bg-gray-700 transition duration-300"
+              href={`/blog/${FIRST_PAGE}`}
+              className="bg-brand-secondary/20 rounded-full py-3 px-6 text-lg md:text-xl border-2 border-solid hover:bg-gray-400 dark:hover:bg-gray-700 transition duration-300"
             >
               Posts in construction
             </Link>

@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";

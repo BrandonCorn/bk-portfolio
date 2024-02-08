@@ -2,9 +2,7 @@
 
 import GeneralForm from "@/components/molecules/Forms/GeneralForm/GeneralForm";
 import DescriptionText from "@/components/atoms/Texts/DescriptionText/DescriptionText";
-import GeneralInput, {
-  GeneralInputProps,
-} from "@/components/atoms/Inputs/GeneralInput";
+import GeneralInput from "@/components/atoms/Inputs/GeneralInput";
 import React, {
   useState,
   FormEventHandler,
@@ -19,8 +17,8 @@ import {
   createVisitor,
   getVisitorByEmail,
   updateVisitorSms,
-} from "@/redux/slices/visitorSlice";
-import { sendSms, createSms } from "@/redux/slices/smsSlice";
+} from "@/redux/slices/visitorSlice/visitorSlice";
+import { sendSms, createSms } from "@/redux/slices/smsSlice/smsSlice";
 import { MessageInstance } from "twilio/lib/rest/api/v2010/account/message";
 import LoadingButton, {
   LoadingButtonProps,
@@ -188,7 +186,7 @@ const SmsContactForm = () => {
   };
 
   const formInputClasses =
-    "bg-transparent border-teal-500 border-solid border-b-2 m-6 w-full outline-none";
+    "bg-transparent border-sky-500 border-solid border-b-2 m-6 w-full outline-none";
   const FormInputFields = [
     <GeneralInput
       className={formInputClasses}
@@ -252,7 +250,7 @@ const SmsContactForm = () => {
         FormButton={
           <LoadingButton
             className={
-              "h-10 w-40 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-4 rounded"
+              "h-10 w-40 bg-sky-500 hover:bg-sky-700 border-sky-500 hover:border-sky-700 hover:cursor-not-allowed text-sm border-4 text-white py-1 px-4 rounded"
             }
             isLoading={buttonProps.isLoading}
             text={buttonProps.text}

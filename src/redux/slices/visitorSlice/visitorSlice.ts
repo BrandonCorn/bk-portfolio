@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction, createAsyncThunk, ActionReducerMapBuilder } from '@reduxjs/toolkit';
-import { Sms } from './smsSlice';
+import { Sms } from '../smsSlice/smsSlice';
 import api from '@/lib/apiClient';
 import { LoadingState } from '@/types/common/type';
 import { CreateVisitorRequest, VisitorsWithSms } from '@/types/visitors/type';
-import { updateSmsSent } from "@/redux/slices/smsSlice";
+import { updateSmsSent } from "@/redux/slices/smsSlice/smsSlice";
 import { MessageInstance } from 'twilio/lib/rest/api/v2010/account/message';
 
 
@@ -25,12 +25,6 @@ export type VisitorState = {
   getVisitorRequestLoading: LoadingState | null,
   getVisitorRequestSuccess: any,
   getVisitorRequestFailure: any,
-}
-
-type CreateVisitor = {
-  name: string;
-  phoneNumber?: string;
-  email?: string;
 }
 
 
