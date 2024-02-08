@@ -6,12 +6,13 @@ import PostModal from "@/components/molecules/Modals/PostModal/PostModal";
 import { useAppSelector } from "@/redux";
 import BasicTitle from "@/components/atoms/Titles/BasicTitle/BasicTitle";
 import clsx from "clsx";
+import { blogTitle } from "../page";
 
 export default function Page({ params }: { params: { page: string } }) {
   const path = usePathname();
   const posts = useAppSelector(selectBlogPosts);
   const parsedNum = Number(params.page);
-  const pageNumbers = Math.ceil(posts.length / 3);
+  const pageNumbers = Math.ceil(13 / 3);
 
   /**
    * Constructs an Array of page number Links to navigate to each page of blogs posts
@@ -21,9 +22,9 @@ export default function Page({ params }: { params: { page: string } }) {
     const href = `${path.slice(0, -1)}${index + 1}`;
     const isActive = index + 1 === parsedNum ? true : false;
     const classes = clsx(
-      "px-3 cursor-pointer rounded-md hover:bg-slate-600 dark:hover:bg-slate-400",
+      "px-3 cursor-pointer rounded-md hover:bg-slate-300 dark:hover:bg-slate-400",
       {
-        "bg-slate-400 dark:bg-slate-500 font-extralight": isActive,
+        "border-b-2": isActive,
       }
     );
 
@@ -40,7 +41,7 @@ export default function Page({ params }: { params: { page: string } }) {
   return (
     <div className="flex flex-col min-h-screen items-center justify-start">
       <div>
-        <BasicTitle text={`Page ${params.page}`} />
+        <BasicTitle className="text-2xl" text={blogTitle} />
       </div>
       <div className="w-full max-w-2xl">
         {currentPagePosts &&
