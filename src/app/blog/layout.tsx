@@ -15,11 +15,7 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <section
-      className={
-        "bg-white text-black dark:bg-black dark:text-white overflow-x-hidden"
-      }
-    >
+    <section className="bg-white text-black dark:bg-black dark:text-white overflow-x-hidden">
       <ThemeProvider>
         <div className="min-h-screen flex justify-center items-center">
           <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5  max-w-screen-2xl p-4 transition-width">

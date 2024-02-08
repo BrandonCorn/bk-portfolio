@@ -25,13 +25,15 @@ export default function Page({ params }: { params: { page: string } }) {
   });
 
   return (
-    <div className="flex flex-col h-screen items-center justify-center">
-      {posts &&
-        posts.map((post, index) => (
-          <div key={`post-${index}`} id={`post-${index}`}>
-            <PostModal {...post} />
-          </div>
-        ))}
+    <div className="flex flex-col min-h-screen items-center justify-center">
+      <div className="w-full max-w-3xl">
+        {posts &&
+          posts.map((post, index) => (
+            <div key={`post-${index}`} id={`post-${index}`}>
+              <PostModal {...post} />
+            </div>
+          ))}
+      </div>
       <div className="flex items-center justify-center">{anchorArray}</div>
     </div>
   );
