@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { FaComment } from "react-icons/fa";
+import Link from "next/link";
+
 /**
  * Element for each blog post
  */
@@ -54,9 +56,11 @@ const PostModal = ({
     changeShowButtonText();
   };
 
+  /**
+   * Show comment box onclick if user is authenticated
+   */
   const handleShowCommentArea = () => {
     setShowCommentBox(true);
-    alert("what s up yo");
   };
 
   return (
@@ -80,18 +84,22 @@ const PostModal = ({
       </div>
       <div className={`pt-3 pl-2 border-t-2 w-full text-left hover:opacity-90`}>
         <div
-          className={`flex w-fit ${
-            isUser ? "hover:cursor-pointer" : "hover:cursor-not-allowed"
-          }`}
+          className={`flex w-fit hover:cursor-pointer`}
           onClick={handleShowCommentArea}
         >
           <FaComment className="text-purple-600 text-xl" />
-          <button
-            disabled={isUser ? false : true}
-            className={`text-purple-500 pl-2`}
-          >
-            Comment
-          </button>
+          {isUser ? (
+            <button className={`text-purple-500 pl-2`}>Comment</button>
+          ) : (
+            <Link
+              as="/auth/signin"
+              prefetch
+              className={`text-purple-500 pl-2`}
+              href="/auth/signin"
+            >
+              Comment
+            </Link>
+          )}
         </div>
       </div>
     </div>
