@@ -14,11 +14,15 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
+  const backgroundImage = { backgroundImage: `url(/public/blog/city.jpg)` };
   return (
-    <section className="bg-white text-black dark:bg-black dark:text-white overflow-x-hidden">
+    <section
+      style={backgroundImage}
+      className="bg-cover bg-center bg-no-repeat bg-white text-black dark:bg-black dark:text-white overflow-x-hidden"
+    >
       <ThemeProvider>
         <div className="min-h-screen flex justify-center items-center">
-          <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5  max-w-screen-2xl p-4 transition-width">
+          <div className="bg-zinc-100 dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5  max-w-screen-2xl p-4 transition-width">
             <div className="min-h-screen">
               <Header />
               {children}

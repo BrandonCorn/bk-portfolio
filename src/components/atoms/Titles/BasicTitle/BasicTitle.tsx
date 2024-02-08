@@ -10,7 +10,11 @@ const BasicTitle: React.FC<BasicTitle> = ({ text, ...rest }) => {
     "flex text-lg text-black dark:text-white",
     rest.className
   );
-  return <h1 className={classes}> {text} </h1>;
+  return (
+    <h1 className={classes} {...rest}>
+      {text}
+    </h1>
+  );
 };
 
 export default BasicTitle;
