@@ -1,4 +1,4 @@
-import { RootState, useAppSelector } from "@/redux";
+import { RootState } from "@/redux";
 import { createSelector } from "@reduxjs/toolkit";
 
 /**

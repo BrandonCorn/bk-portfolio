@@ -1,5 +1,5 @@
 "use client";
-import { selectBlogPosts } from "@/hooks/usePosts";
+import { selectBlogPosts } from "@/redux/slices/postSlice/postSelectors";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import PostModal from "@/components/molecules/Modals/PostModal/PostModal";

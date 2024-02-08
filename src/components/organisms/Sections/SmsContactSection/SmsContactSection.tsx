@@ -17,8 +17,8 @@ import {
   createVisitor,
   getVisitorByEmail,
   updateVisitorSms,
-} from "@/redux/slices/visitorSlice";
-import { sendSms, createSms } from "@/redux/slices/smsSlice";
+} from "@/redux/slices/visitorSlice/visitorSlice";
+import { sendSms, createSms } from "@/redux/slices/smsSlice/smsSlice";
 import { MessageInstance } from "twilio/lib/rest/api/v2010/account/message";
 import LoadingButton, {
   LoadingButtonProps,

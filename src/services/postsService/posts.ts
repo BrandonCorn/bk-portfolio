@@ -1,5 +1,5 @@
 import { Post } from "@prisma/client";
-import { PostType } from "@/redux/slices/postSlice";
+import { PostType } from "@/redux/slices/postSlice/postSlice";
 import prisma from "@/lib/prismaDb";
 import { DatabaseConnectionError } from "@/lib/errors/database-connection-error";
 import { CreatePostRequest } from "@/types/posts/type";

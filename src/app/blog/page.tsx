@@ -3,7 +3,7 @@ import IntroTitle from "@/components/atoms/Titles/IntroTitle/IntroTitle";
 import Image from "next/image";
 import { LayoutGroup, motion } from "framer-motion";
 import Link from "next/link";
-import { getInitialPosts } from "@/redux/slices/postSlice";
+import { getInitialPosts } from "@/redux/slices/postSlice/postSlice";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "@/redux";
 

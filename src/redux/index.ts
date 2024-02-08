@@ -1,10 +1,9 @@
-import { ThunkAction, combineReducers, configureStore } from "@reduxjs/toolkit";
+import { ThunkAction, combineReducers, configureStore, Action } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { persistReducer } from "redux-persist";
-
-import visitorReducer from "./slices/visitorSlice";
-import smsReducer from './slices/smsSlice';
-import postReducer from './slices/postSlice';
+import visitorReducer from "./slices/visitorSlice/visitorSlice";
+import smsReducer from './slices/smsSlice/smsSlice';
+import postReducer from './slices/postSlice/postSlice';
 import storage from "./customStorage";
 import logger from 'redux-logger';
 
@@ -41,6 +40,8 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type AppStore = typeof store;
+export type ReduxThunkAction<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action>
 
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
