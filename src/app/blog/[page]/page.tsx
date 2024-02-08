@@ -10,7 +10,7 @@ import clsx from "clsx";
 export default function Page({ params }: { params: { page: string } }) {
   const path = usePathname();
   const posts = useAppSelector(selectBlogPosts);
-
+  const parsedNum = Number(params.page);
   const pageNumbers = Math.ceil(posts.length / 3);
 
   /**
@@ -19,7 +19,7 @@ export default function Page({ params }: { params: { page: string } }) {
   const anchorArray = Array.from({ length: pageNumbers }, (_, index) => {
     // slice the page number from the path and replace it with the correct page number for Link
     const href = `${path.slice(0, -1)}${index + 1}`;
-    const isActive = index + 1 === Number(params.page) ? true : false;
+    const isActive = index + 1 === parsedNum ? true : false;
     const classes = clsx(
       "px-3 cursor-pointer rounded-md hover:bg-slate-600 dark:hover:bg-slate-400",
       {
@@ -33,7 +33,8 @@ export default function Page({ params }: { params: { page: string } }) {
       </Link>
     );
   });
-  const parsedNum = Number(params.page);
+
+  //
   const currentPagePosts = posts.slice((parsedNum - 1) * 3, parsedNum * 3);
 
   return (

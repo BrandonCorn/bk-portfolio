@@ -103,7 +103,7 @@ export default function Page() {
             <Link
               aria-label="posts link"
               href={`/blog/${FIRST_PAGE}`}
-              className="bg-brand-secondary/20 rounded-full py-3 px-6 text-lg md:text-xl border border-solid hover:bg-brand-secondary dark:hover:bg-gray-700 transition duration-300"
+              className="bg-brand-secondary/20 rounded-full py-3 px-6 text-lg md:text-xl border-2 border-solid hover:bg-gray-400 dark:hover:bg-gray-700 transition duration-300"
             >
               Posts in construction
             </Link>

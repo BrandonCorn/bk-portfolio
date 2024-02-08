@@ -17,8 +17,8 @@ export default async function Layout({
   const backgroundImage = { backgroundImage: `url(/public/blog/city.jpg)` };
   return (
     <section
-      style={backgroundImage}
       className="bg-cover bg-center bg-no-repeat bg-white text-black dark:bg-black dark:text-white overflow-x-hidden"
+      style={backgroundImage}
     >
       <ThemeProvider>
         <div className="min-h-screen flex justify-center items-center">
