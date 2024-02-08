@@ -2,7 +2,6 @@ import "../globals.css";
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components";
 import { Header } from "@/components";
-import ReduxProvider from "@/redux/ReduxProvider";
 
 export const metadata: Metadata = {
   title: "Brandon Corn Portfolio",

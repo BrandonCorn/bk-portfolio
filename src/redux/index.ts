@@ -32,6 +32,7 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducer,
+  devTools: true,
   middleware: (getDefaultMiddleware) =>
     process.env.NODE_ENV === 'development' ? getDefaultMiddleware({ serializableCheck: false }).concat(logger) 
     : getDefaultMiddleware({serializableCheck: false})

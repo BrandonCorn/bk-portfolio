@@ -23,10 +23,10 @@ export default async function RootLayout({
 }) {
   const session = await serverSession();
   return (
-    <NextAuthProvider session={session}>
-      <ReduxProvider>
-        <html lang="en">
-          <head></head>
+    <html lang="en" suppressHydrationWarning>
+      <head></head>
+      <NextAuthProvider session={session}>
+        <ReduxProvider>
           <body
             id="main-layout"
             className={`flex flex-col min-h-screen m-0 bg-white text-black dark:bg-black dark:text-white ${roboto.className}`}
@@ -34,8 +34,8 @@ export default async function RootLayout({
             {children}
             <Footer />
           </body>
-        </html>
-      </ReduxProvider>
-    </NextAuthProvider>
+        </ReduxProvider>
+      </NextAuthProvider>
+    </html>
   );
 }
