@@ -1,8 +1,9 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { ThunkAction, combineReducers, configureStore, Action } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { persistReducer } from "redux-persist";
-import visitorReducer from "./slices/visitorSlice";
-import smsReducer from './slices/smsSlice';
+import visitorReducer from "./slices/visitorSlice/visitorSlice";
+import smsReducer from './slices/smsSlice/smsSlice';
+import postReducer from './slices/postSlice/postSlice';
 import storage from "./customStorage";
 import logger from 'redux-logger';
 
@@ -17,21 +18,35 @@ const smsConfig = {
   storage,
 };
 
+const postConfig = {
+  key: 'posts',
+  storage,
+}
+
 const rootReducer = combineReducers({
   visitor: persistReducer(visitorConfig, visitorReducer),
-  sms: persistReducer(smsConfig, smsReducer)
+  sms: persistReducer(smsConfig, smsReducer),
+  posts: persistReducer(postConfig, postReducer),
 });
 
 
 export const store = configureStore({
   reducer: rootReducer,
+  devTools: true,
   middleware: (getDefaultMiddleware) =>
     process.env.NODE_ENV === 'development' ? getDefaultMiddleware({ serializableCheck: false }).concat(logger) 
     : getDefaultMiddleware({serializableCheck: false})
 });
 
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type AppStore = typeof store;
+export type ReduxThunkAction<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action>
+
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+
+

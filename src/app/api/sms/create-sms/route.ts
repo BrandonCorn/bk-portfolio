@@ -6,7 +6,6 @@ import { CreateSmsRequest } from "@/types/sms/type";
 export const POST = async (req: NextRequest) => {
   const data = await req.json();
 
-  const { ...smsData }: CreateSmsRequest = data;
   try{
     const created = await createSms(data);
     if (created) return NextResponse.json(created);
