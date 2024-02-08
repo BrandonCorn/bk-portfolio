@@ -250,7 +250,7 @@ const SmsContactForm = () => {
         FormButton={
           <LoadingButton
             className={
-              "h-10 w-40 bg-sky-500 hover:bg-sky-700 border-sky-500 hover:border-sky-700 text-sm border-4 text-white py-1 px-4 rounded"
+              "h-10 w-40 bg-sky-500 hover:bg-sky-700 border-sky-500 hover:border-sky-700 hover:cursor-not-allowed text-sm border-4 text-white py-1 px-4 rounded"
             }
             isLoading={buttonProps.isLoading}
             text={buttonProps.text}
