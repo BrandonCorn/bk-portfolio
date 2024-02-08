@@ -10,15 +10,20 @@ export default function Page({ params }: { params: { page: string } }) {
   const path = usePathname();
   const posts = useAppSelector(selectBlogPosts);
 
-  const pageNumbers = Math.ceil(posts.length / 3);
-  console.log("posts ", posts);
+  const pageNumbers = Math.ceil(13 / 3);
+
   /**
    * Constructs an Array of page number Links to navigate to each page of blogs posts
    */
   const anchorArray = Array.from({ length: pageNumbers }, (_, index) => {
-    const href = `${path}/${index + 1}`;
+    // slice the page number from the path and replace it with the correct page number for Link
+    const href = `${path.slice(0, -1)}${index + 1}`;
     return (
-      <Link key={index} className="px-2" href={href}>
+      <Link
+        key={index}
+        className="px-2 hover:bg-slate-600 cursor-auto"
+        href={href}
+      >
         {index + 1}
       </Link>
     );
@@ -34,7 +39,9 @@ export default function Page({ params }: { params: { page: string } }) {
             </div>
           ))}
       </div>
-      <div className="flex items-center justify-center">{anchorArray}</div>
+      <div className="flex border-solid border-2 border-emerald-500 rounded-xl px-4 py-2 items-center justify-center">
+        {anchorArray}
+      </div>
     </div>
   );
 }
