@@ -1,7 +1,8 @@
 import { Post } from "@prisma/client"
-import { createSlice, PayloadAction, createAsyncThunk, ActionReducerMapBuilder } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, createAsyncThunk, ActionReducerMapBuilder, AnyAction } from '@reduxjs/toolkit'
 import api from '@/lib/apiClient';
 import { LoadingState } from '@/types/common/type';
+import { HYDRATE } from "next-redux-wrapper";
 
 export type PostType = Pick<Post, 'title' | 'content' | 'published' | 'createdAt'>
 
@@ -26,11 +27,11 @@ export const getInitialPosts = createAsyncThunk('posts/getInitialPosts',
     // no skip, start from first post
     const skip = 0;
 
+    // make init request for blog posts
     const res = await api.posts.getPostsByPublishDate({ pageSize, skip, date: new Date()});
     if(res.success){
       const { data } = res;
       if(data){
-        console.log('got my data ', data);
         thunkApi.dispatch(setPosts(data));
         return data;
       }
@@ -67,6 +68,12 @@ const postsSlice = createSlice({
   },
   extraReducers: (builder) => {
     getInitialPostsBuilders(builder);
+    builder.addCase(HYDRATE, (state, action: AnyAction) => {
+      return {
+        ...state,
+        ...action.payload
+      }
+    })
   }
 });
 

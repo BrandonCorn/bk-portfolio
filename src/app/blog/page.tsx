@@ -4,7 +4,7 @@ import Image from "next/image";
 import { LayoutGroup, motion } from "framer-motion";
 import Link from "next/link";
 import { getInitialPosts } from "@/redux/slices/postSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "@/redux";
 
 const blogTitle = "Moments Unscripted: A Continual Blog";
@@ -46,12 +46,17 @@ const paragraphs = {
 
 export default function Page() {
   const dispatch = useAppDispatch();
+  const FIRST_PAGE = 1;
+  const [fetchPosts, setFetchPosts] = useState(false);
 
   /**
    * Retrieve initial blog posts in background for user
    */
   useEffect(() => {
-    dispatch(getInitialPosts());
+    if (!fetchPosts) {
+      dispatch(getInitialPosts());
+      setFetchPosts(true);
+    }
   }, []);
 
   return (
@@ -97,7 +102,7 @@ export default function Page() {
           <div className="my-6">
             <Link
               aria-label="posts link"
-              href="/blog/posts"
+              href={`/blog/${FIRST_PAGE}`}
               className="bg-brand-secondary/20 rounded-full py-3 px-6 text-lg md:text-xl border border-solid hover:bg-brand-secondary dark:hover:bg-gray-700 transition duration-300"
             >
               Posts in construction

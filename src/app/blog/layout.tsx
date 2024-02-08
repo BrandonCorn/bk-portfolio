@@ -11,10 +11,8 @@ export const metadata: Metadata = {
 
 export default async function Layout({
   children,
-  posts,
 }: {
   children: React.ReactNode;
-  posts: React.ReactNode;
 }) {
   return (
     <section
