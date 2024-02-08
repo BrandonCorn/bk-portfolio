@@ -15,7 +15,7 @@ interface NavLink {
 }
 
 const navStyles =
-  "flex px-2 py-3 cursor-pointer transition text-zinc-600 hover:text-teal-600 dark:text-zinc-400 dark:hover:text-teal-500";
+  "flex px-2 py-3 cursor-pointer transition text-zinc-600 hover:text-sky-600 dark:text-zinc-400 dark:hover:text-sky-500";
 
 function NavLink({ href, label }: NavLink) {
   return (
