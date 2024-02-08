@@ -186,7 +186,7 @@ const SmsContactForm = () => {
   };
 
   const formInputClasses =
-    "bg-transparent border-teal-500 border-solid border-b-2 m-6 w-full outline-none";
+    "bg-transparent border-sky-500 border-solid border-b-2 m-6 w-full outline-none";
   const FormInputFields = [
     <GeneralInput
       className={formInputClasses}
@@ -250,7 +250,7 @@ const SmsContactForm = () => {
         FormButton={
           <LoadingButton
             className={
-              "h-10 w-40 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-4 rounded"
+              "h-10 w-40 bg-sky-500 hover:bg-sky-700 border-sky-500 hover:border-sky-700 text-sm border-4 text-white py-1 px-4 rounded"
             }
             isLoading={buttonProps.isLoading}
             text={buttonProps.text}
