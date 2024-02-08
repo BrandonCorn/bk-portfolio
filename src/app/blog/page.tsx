@@ -7,7 +7,7 @@ import { getInitialPosts } from "@/redux/slices/postSlice/postSlice";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "@/redux";
 
-export const blogTitle = "Moments Unscripted: A Continual Blog";
+const blogTitle = "Moments Unscripted: A Continual Blog";
 const author = "Brandon Corn";
 const role = "User Interface Engineer II";
 
