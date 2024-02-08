@@ -1,8 +1,7 @@
 import { Post } from "@prisma/client"
-import { createSlice, PayloadAction, createAsyncThunk, ActionReducerMapBuilder, AnyAction } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, ActionReducerMapBuilder, AnyAction } from '@reduxjs/toolkit'
 import api from '@/lib/apiClient';
 import { LoadingState } from '@/types/common/type';
-import { HYDRATE } from "next-redux-wrapper";
 
 export type PostType = Pick<Post, 'title' | 'content' | 'published' | 'createdAt'>
 
@@ -68,12 +67,6 @@ const postsSlice = createSlice({
   },
   extraReducers: (builder) => {
     getInitialPostsBuilders(builder);
-    builder.addCase(HYDRATE, (state, action: AnyAction) => {
-      return {
-        ...state,
-        ...action.payload
-      }
-    })
   }
 });
 
