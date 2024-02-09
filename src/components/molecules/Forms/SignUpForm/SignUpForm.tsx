@@ -19,6 +19,10 @@ function SignUpForm() {
     setPassword("");
   };
 
+  /**
+   * Handles request to sign up user
+   * @param e
+   */
   const handleSubmit = async (
     e: React.FormEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>
   ) => {
@@ -129,7 +133,7 @@ function SignUpForm() {
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center">
           <div className="text-md text-blue-500 hover:text-blue-600 ">
-            <Link href="/api/auth/signin">Have an account?</Link>
+            <Link href="/auth/signin">Have an account?</Link>
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center">
