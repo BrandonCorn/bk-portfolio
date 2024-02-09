@@ -18,7 +18,7 @@ export default function MobileNavigation() {
   }, [status]);
 
   return (
-    <div className="fixed md:hidden rounded-md z-50">
+    <div className="relative md:hidden rounded-md z-50">
       <div className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
