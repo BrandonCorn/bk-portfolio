@@ -83,6 +83,7 @@ export default function Page() {
           <Image
             className={`rounded-xl`}
             priority={true}
+            loading="eager"
             src="/blog/city.jpg"
             alt="blog city image"
             width={900}
