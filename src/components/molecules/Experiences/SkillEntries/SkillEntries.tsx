@@ -2,7 +2,6 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import clsx from "clsx";
 import Image from "next/image";
 
 const iconVariants = {
@@ -29,7 +28,7 @@ const SkillEntries: React.FC<SkillEntriesProps> = ({ images }) => {
             whileHover={{
               scale: 1.4,
               transition: {
-                duration: 0.8,
+                duration: 0.2,
               },
             }}
             initial={{ opacity: 1, y: -20 }}
@@ -41,7 +40,7 @@ const SkillEntries: React.FC<SkillEntriesProps> = ({ images }) => {
           >
             <a href={img.href}>
               <Image src={img.src} alt={img.label} width={70} height={40} />
-              <p className="text-white dark:text-cyan-600"> {img.label} </p>
+              <p className="text-gray-700 dark:text-cyan-600"> {img.label} </p>
             </a>
           </motion.div>
         ))}

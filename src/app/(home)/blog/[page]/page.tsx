@@ -13,7 +13,7 @@ export default function Page({ params }: { params: { page: string } }) {
   const path = usePathname();
   const posts = useAppSelector(selectBlogPosts);
   const parsedNum = Number(params.page);
-  const pageNumbers = Math.ceil(13 / 3);
+  const pageNumbers = Math.ceil(posts.length / 3);
 
   /**
    * Constructs an Array of page number Links to navigate to each page of blogs posts
