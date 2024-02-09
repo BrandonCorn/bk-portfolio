@@ -14,6 +14,7 @@ export default function Header() {
     <header className="grid grid-cols-3 items-center justify-between p-6 bg-black-500 text-white w-full">
       <div className="flex items-center justify-start">
         <Image
+          priority
           src={"/personal-logo.jpeg"}
           alt="Personal Logo"
           width={50}

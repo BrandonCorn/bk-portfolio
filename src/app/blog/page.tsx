@@ -82,11 +82,12 @@ export default function Page() {
         <div id="blog-main-image-container" className="mt-8">
           <Image
             className={`rounded-xl`}
-            priority
+            priority={true}
             src="/blog/city.jpg"
             alt="blog city image"
             width={900}
             height={650}
+            style={{ width: "auto", height: "auto" }}
           />
         </div>
         <div className="flex flex-col w-full md:w-3/4 2xl:w-1/2  space-y-4 my-6 md:my-8 paragraph-spacing">
