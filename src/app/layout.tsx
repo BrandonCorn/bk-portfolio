@@ -1,11 +1,9 @@
 import "./globals.css";
 import NextAuthProvider from "@/components/atoms/Providers/SessionProvider/SessionProvider";
-import Footer from "@/components/molecules/Footers/Footer/Footer";
 import ReduxProvider from "@/redux/ReduxProvider";
 import { serverSession } from "@/app/api/auth/[...nextauth]/options";
 import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@/components";
-import { Header } from "@/components";
 
 const roboto = Roboto({
   weight: "400",

@@ -5,7 +5,8 @@ import { LayoutGroup, motion } from "framer-motion";
 import Link from "next/link";
 import { getInitialPosts } from "@/redux/slices/postSlice/postSlice";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "@/redux";
+import { useAppDispatch, useAppSelector } from "@/redux";
+import { selectBlogPosts } from "@/redux/slices/postSlice/postSelectors";
 
 const blogTitle = "Moments Unscripted: A Continual Blog";
 const author = "Brandon Corn";
@@ -48,17 +49,14 @@ const FIRST_PAGE = 1;
 
 export default function Page() {
   const dispatch = useAppDispatch();
-  const [fetchPosts, setFetchPosts] = useState(false);
+  const posts = useAppSelector(selectBlogPosts);
 
   /**
    * Retrieve initial blog posts in background for user
    */
   useEffect(() => {
-    if (fetchPosts === false) {
-      console.log("what is happening", fetchPosts);
-
-      // dispatch(getInitialPosts());
-      setFetchPosts(true);
+    if (!posts || posts.length === 0) {
+      dispatch(getInitialPosts());
     }
   }, []);
 
