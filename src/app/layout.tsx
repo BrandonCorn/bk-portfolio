@@ -1,6 +1,5 @@
 import "./globals.css";
 import NextAuthProvider from "@/components/atoms/Providers/SessionProvider/SessionProvider";
-import Footer from "@/components/molecules/Footers/Footer/Footer";
 import ReduxProvider from "@/redux/ReduxProvider";
 import { serverSession } from "@/app/api/auth/[...nextauth]/options";
 import { Roboto } from "next/font/google";
@@ -31,13 +30,8 @@ export default async function RootLayout({
       <head></head>
       <NextAuthProvider session={session}>
         <ReduxProvider>
-          <body
-            id="main-layout"
-            className={`flex flex-col min-h-screen m-0 bg-white text-black dark:bg-black dark:text-white ${roboto.className}`}
-          >
+          <body id="main-layout" className={` ${roboto.className}`}>
             <ThemeProvider>{children}</ThemeProvider>
-
-            <Footer />
           </body>
         </ReduxProvider>
       </NextAuthProvider>

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { providersList } from "@/app/api/auth/[...nextauth]/options";
 import { ClientSafeProvider } from "next-auth/react";
@@ -51,7 +51,9 @@ const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
     e: React.MouseEvent<HTMLButtonElement>,
     providerName: string
   ) => {
-    const result = await signIn(providerName);
+    signIn(providerName, {
+      callbackUrl: process.env.VERCEL_URL || "http://localhost:3000",
+    });
   };
 
   return (

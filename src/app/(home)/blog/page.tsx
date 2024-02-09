@@ -5,7 +5,8 @@ import { LayoutGroup, motion } from "framer-motion";
 import Link from "next/link";
 import { getInitialPosts } from "@/redux/slices/postSlice/postSlice";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "@/redux";
+import { useAppDispatch, useAppSelector } from "@/redux";
+import { selectBlogPosts } from "@/redux/slices/postSlice/postSelectors";
 
 const blogTitle = "Moments Unscripted: A Continual Blog";
 const author = "Brandon Corn";
@@ -44,18 +45,18 @@ const paragraphs = {
   this journey together. 🎭✨`,
 };
 
+const FIRST_PAGE = 1;
+
 export default function Page() {
   const dispatch = useAppDispatch();
-  const FIRST_PAGE = 1;
-  const [fetchPosts, setFetchPosts] = useState(false);
+  const posts = useAppSelector(selectBlogPosts);
 
   /**
    * Retrieve initial blog posts in background for user
    */
   useEffect(() => {
-    if (!fetchPosts) {
+    if (!posts || posts.length === 0) {
       dispatch(getInitialPosts());
-      setFetchPosts(true);
     }
   }, []);
 
@@ -80,11 +81,13 @@ export default function Page() {
         <div id="blog-main-image-container" className="mt-8">
           <Image
             className={`rounded-xl`}
-            priority
+            priority={true}
+            loading="eager"
             src="/blog/city.jpg"
             alt="blog city image"
             width={900}
             height={650}
+            style={{ width: "auto", height: "auto" }}
           />
         </div>
         <div className="flex flex-col w-full md:w-3/4 2xl:w-1/2  space-y-4 my-6 md:my-8 paragraph-spacing">
@@ -103,7 +106,7 @@ export default function Page() {
             <Link
               aria-label="posts link"
               href={`/blog/${FIRST_PAGE}`}
-              className="bg-brand-secondary/20 rounded-full py-3 px-6 text-lg md:text-xl border-2 border-solid hover:bg-gray-400 dark:hover:bg-gray-700 transition duration-300"
+              className="bg-brand-secondary/20 rounded-full py-3 px-6 text-lg md:text-xl border-2 border-solid hover:bg-gray-400 dark:hover:bg-gray-700 transition duration-300 cursor-not-allowed pointer-events-none"
             >
               Posts in construction
             </Link>

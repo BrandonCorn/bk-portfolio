@@ -8,7 +8,6 @@ import TwilioSpeaker from "/public/about-me/twilio-speaker.jpeg";
 import Mom from "/public/about-me/brandon-mom.jpeg";
 import TestimonialsSection from "@/components/organisms/Sections/TestimonialsSection/TestimonialsSection";
 import HomeIntro from "@/components/molecules/Cards/HomeIntroCard/HomeIntro";
-import { Header } from "@/components";
 import SmsContactSection from "@/components/organisms/Sections/SmsContactSection/SmsContactSection";
 import { LayoutGroup } from "framer-motion";
 
@@ -18,7 +17,6 @@ function Home() {
   return (
     <LayoutGroup>
       <main className="flex min-h-screen flex-col items-center justify-between">
-        <Header />
         <div className="w-full max-w-5xl items-center justify-center font-mono text-sm lg:flex">
           <div className="flex flex-col w-full">
             <HomeIntro />
