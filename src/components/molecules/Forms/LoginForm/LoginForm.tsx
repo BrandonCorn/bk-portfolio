@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { providersList } from "@/app/api/auth/[...nextauth]/options";
 import { ClientSafeProvider } from "next-auth/react";
@@ -60,7 +60,7 @@ const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.6 }}
-      className=" max-w-sm space-y-8 bg-white shadow-lg rounded-lg border p-24"
+      className=" max-w-sm space-y-8 bg-white shadow-lg rounded-lg border p-24 text-black"
     >
       <div>
         <h2 className="mt-3 text-center text-3xl font-bold text-grey-800">
@@ -70,12 +70,12 @@ const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
       <div>
         {providers &&
           providers.map((provider: any, index: number) => {
-            if (provider.id === "credentials") return null;
+            if (provider.id === "credentials") return <div key={index} />;
             const providerData = providersList[provider.id];
             return (
               <div
                 key={index}
-                className="flex justify-center w-full border border-gray-400 my-2 rounded-lg"
+                className="flex justify-center w-full border border-gray-400 my-2 rounded-lg hover:bg-zinc-300"
               >
                 <button
                   onClick={(e) => handleProviderSignIn(e, provider.id)}
@@ -99,7 +99,7 @@ const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
               type="text"
               autoComplete="username"
               required
-              className="appearance-none rounded-t-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-zinc-800 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none bg-white rounded-t-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-zinc-800 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Username"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
@@ -115,7 +115,7 @@ const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
               type="password"
               autoComplete="current-password"
               required
-              className="appearance-none rounded-b-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-zinc-800 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none bg-white rounded-b-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-zinc-800 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}

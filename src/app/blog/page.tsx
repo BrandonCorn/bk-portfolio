@@ -72,7 +72,7 @@ export default function Page() {
           <IntroTitle
             text={blogTitle}
             id={"blog-title"}
-            className="text-4xl text-wrap"
+            className="text-2xl md:text-4xl text-wrap"
           />
           <p className="text-sm md:text-base mt-3"> {author} </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">{role}</p>
