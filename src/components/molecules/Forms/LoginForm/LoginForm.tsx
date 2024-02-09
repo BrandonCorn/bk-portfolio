@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { providersList } from "@/app/api/auth/[...nextauth]/options";
 import { ClientSafeProvider } from "next-auth/react";
