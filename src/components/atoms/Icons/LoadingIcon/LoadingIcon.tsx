@@ -18,5 +18,3 @@ const LoadingIcon: React.FC<LoadingIconProps> = ({ isShowing, ...rest }) => {
 };
 
 export default LoadingIcon;
-
-//inset-0 z-50

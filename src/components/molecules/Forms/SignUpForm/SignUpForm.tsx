@@ -19,6 +19,10 @@ function SignUpForm() {
     setPassword("");
   };
 
+  /**
+   * Handles request to sign up user
+   * @param e
+   */
   const handleSubmit = async (
     e: React.FormEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>
   ) => {
@@ -59,7 +63,7 @@ function SignUpForm() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.6 }}
-      className=" max-w-sm space-y-8 bg-white shadow-lg rounded-lg border p-24"
+      className=" max-w-sm space-y-8 bg-white shadow-lg rounded-lg border p-24 text-black"
     >
       <div>
         <h2 className="mt-3 text-center text-3xl font-bold text-grey-800">
@@ -78,7 +82,7 @@ function SignUpForm() {
               type="text"
               autoComplete="name"
               required
-              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-zinc-800 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none bg-white rounded-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-zinc-800 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -94,7 +98,7 @@ function SignUpForm() {
               type="email"
               autoComplete="email"
               required
-              className="appearance-none rounded-md rounded-t-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-zinc-800 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none bg-white rounded-md rounded-t-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-zinc-800 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -110,7 +114,7 @@ function SignUpForm() {
               type="password"
               autoComplete="current-password"
               required
-              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-zinc-800 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none bg-white rounded-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-zinc-800 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -129,7 +133,7 @@ function SignUpForm() {
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center">
           <div className="text-md text-blue-500 hover:text-blue-600 ">
-            <Link href="/api/auth/signin">Have an account?</Link>
+            <Link href="/auth/signin">Have an account?</Link>
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center">
