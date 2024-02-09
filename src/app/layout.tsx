@@ -5,6 +5,7 @@ import ReduxProvider from "@/redux/ReduxProvider";
 import { serverSession } from "@/app/api/auth/[...nextauth]/options";
 import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@/components";
+import { Header } from "@/components";
 
 const roboto = Roboto({
   weight: "400",
@@ -35,9 +36,16 @@ export default async function RootLayout({
             id="main-layout"
             className={`flex flex-col min-h-screen m-0 bg-white text-black dark:bg-black dark:text-white ${roboto.className}`}
           >
-            <ThemeProvider>{children}</ThemeProvider>
+            <ThemeProvider>
+              <div className="min-h-screen flex justify-center items-center">
+                <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5 max-w-screen-xl p-4 transition-width">
+                  <Header />
 
-            <Footer />
+                  {children}
+                </div>
+              </div>
+              <Footer />
+            </ThemeProvider>
           </body>
         </ReduxProvider>
       </NextAuthProvider>
