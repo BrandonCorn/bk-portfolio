@@ -44,9 +44,10 @@ const paragraphs = {
   this journey together. 🎭✨`,
 };
 
+const FIRST_PAGE = 1;
+
 export default function Page() {
   const dispatch = useAppDispatch();
-  const FIRST_PAGE = 1;
   const [fetchPosts, setFetchPosts] = useState(false);
 
   /**
@@ -59,7 +60,7 @@ export default function Page() {
       // dispatch(getInitialPosts());
       setFetchPosts(true);
     }
-  }, [fetchPosts]);
+  }, []);
 
   return (
     <LayoutGroup>
