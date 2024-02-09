@@ -39,17 +39,8 @@ const SkillEntries: React.FC<SkillEntriesProps> = ({ images }) => {
             key={index}
           >
             <a href={img.href}>
-              <Image
-                src={img.src}
-                alt={img.label}
-                // style={{
-                //   width: "100%",
-                //   height: "auto",
-                // }}
-                width={70}
-                height={40}
-              />
-              <p className="text-white dark:text-cyan-600"> {img.label} </p>
+              <Image src={img.src} alt={img.label} width={70} height={40} />
+              <p className="text-gray-700 dark:text-cyan-600"> {img.label} </p>
             </a>
           </motion.div>
         ))}
