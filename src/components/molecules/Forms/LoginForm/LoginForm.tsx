@@ -75,7 +75,7 @@ const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
             return (
               <div
                 key={index}
-                className="flex justify-center w-full border border-gray-400 my-2 rounded-lg"
+                className="flex justify-center w-full border border-gray-400 my-2 rounded-lg hover:bg-zinc-300"
               >
                 <button
                   onClick={(e) => handleProviderSignIn(e, provider.id)}
