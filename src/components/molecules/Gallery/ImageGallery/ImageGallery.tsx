@@ -20,7 +20,6 @@ const ImageGallery = ({ images }: { images: StaticImageData[] }) => {
           <div className="w-56 h-56 md:w-72 md:h-72 mx-4 " key={index}>
             <Image
               priority
-              loading="eager"
               key={index}
               className={clsx(
                 "w-full h-full object-cover tilt-left border rounded-xl border-transparent shadow mx-4",

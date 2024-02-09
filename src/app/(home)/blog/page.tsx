@@ -81,8 +81,7 @@ export default function Page() {
         <div id="blog-main-image-container" className="mt-8">
           <Image
             className={`rounded-xl`}
-            priority={true}
-            loading="eager"
+            priority
             src="/blog/city.jpg"
             alt="blog city image"
             width={900}
