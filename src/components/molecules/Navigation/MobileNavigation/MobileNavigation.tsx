@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaBars } from "react-icons/fa";
 import { headerNavigation, getAuthLinks } from "../navigationItems";
-import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 export default function MobileNavigation() {

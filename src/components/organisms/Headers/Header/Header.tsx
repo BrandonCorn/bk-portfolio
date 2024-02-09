@@ -1,22 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { ModeToggle } from "@/components";
 import { usePathname } from "next/navigation";
 import MobileNavigation from "../../../molecules/Navigation/MobileNavigation/MobileNavigation";
 import DesktopNavigation from "../../../molecules/Navigation/DesktopNavigation/DesktopNavigation";
 
-export function Header() {
-  const [mounted, setHasMounted] = useState(false);
+export default function Header() {
   const path = usePathname();
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
-
-  if (!mounted) return null;
 
   return (
     <header className="grid grid-cols-3 items-center justify-between p-6 bg-black-500 text-white w-full">

@@ -53,11 +53,13 @@ export default function Page() {
    * Retrieve initial blog posts in background for user
    */
   useEffect(() => {
-    if (!fetchPosts) {
-      dispatch(getInitialPosts());
+    if (fetchPosts === false) {
+      console.log("what is happening", fetchPosts);
+
+      // dispatch(getInitialPosts());
       setFetchPosts(true);
     }
-  }, []);
+  }, [fetchPosts]);
 
   return (
     <LayoutGroup>
