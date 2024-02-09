@@ -51,7 +51,9 @@ const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
     e: React.MouseEvent<HTMLButtonElement>,
     providerName: string
   ) => {
-    const result = await signIn(providerName);
+    signIn(providerName, {
+      callbackUrl: process.env.VERCEL_URL || "http://localhost:3000",
+    });
   };
 
   return (

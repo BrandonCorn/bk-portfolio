@@ -5,11 +5,13 @@ import Link from "next/link";
 import { FaBars } from "react-icons/fa";
 import { headerNavigation, getAuthLinks } from "../navigationItems";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function MobileNavigation() {
   const { status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [authLinks, setAuthLinks] = useState(getAuthLinks(status));
+  const router = useRouter();
 
   useEffect(() => {
     const updatedLinks = getAuthLinks(status);
@@ -39,7 +41,7 @@ export default function MobileNavigation() {
                     <div
                       key={item.name}
                       className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-300 cursor-pointer"
-                      onClick={() => (window.location.href = item.href)}
+                      onClick={() => router.push(item.href)}
                     >
                       <div>
                         <Link
