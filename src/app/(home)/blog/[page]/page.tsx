@@ -7,6 +7,7 @@ import BasicTitle from "@/components/atoms/Titles/BasicTitle/BasicTitle";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
 import BlogPost from "@/components/organisms/BlogPost/BlogPost";
+import { Suspense } from "react";
 
 const blogTitle = "Moments Unscripted: A Continual Blog";
 

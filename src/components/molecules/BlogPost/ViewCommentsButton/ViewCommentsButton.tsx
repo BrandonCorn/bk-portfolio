@@ -49,7 +49,6 @@ const ViewCommentsButton = ({
         </BasicButton>
       ) : (
         <Link
-          as="/auth/signin"
           prefetch
           className={`text-purple-500 hover:text-purple-700 pl-2`}
           href="/auth/signin"
