@@ -22,7 +22,7 @@ const PostModal = ({
     useState<ShowButtonText>("show more");
   const [isUser, setIsUser] = useState(false);
   const [showCommentBox, setShowCommentBox] = useState(false);
-  const [commentContent, setCommentContent] = useState('');
+  const [commentContent, setCommentContent] = useState("");
 
   const { status } = useSession();
 
@@ -56,7 +56,6 @@ const PostModal = ({
   const handleShowCommentArea = () => {
     setShowCommentBox(true);
   };
-
 
   // const handleCommentKe
 
@@ -106,12 +105,15 @@ const PostModal = ({
           )}
         </div>
         <form>
-          <textarea placeholder="Make a comment here" onChange={(e) => setCommentContent(e.target.value)} onKeyDown={() => } />
+          <textarea
+            placeholder="Make a comment here"
+            onChange={(e) => setCommentContent(e.target.value)}
+            onKeyDown={() => null}
+          />
           <button className="text-black" type="submit">
             Post
           </button>
         </form>
-        <div>here place comment stuff</div>
       </div>
     </div>
   );
