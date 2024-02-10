@@ -17,13 +17,12 @@ const PostModal = ({
   createdAt: Date;
 }) => {
   type ShowButtonText = "show more" | "show less";
-  const formattedPost =
-    content.length > 500 ? `${content.slice(0, 500)}...` : content;
-  const [contentChanges, setContentChanges] = useState(formattedPost);
+
   const [showButtonText, setShowButtonText] =
     useState<ShowButtonText>("show more");
   const [isUser, setIsUser] = useState(false);
   const [showCommentBox, setShowCommentBox] = useState(false);
+  const [commentContent, setCommentContent] = useState("");
 
   const { status } = useSession();
 
@@ -37,13 +36,6 @@ const PostModal = ({
   }, [status]);
 
   /**
-   * Based on what the button text is, decide whether to show the whole blog post or less of it's text
-   */
-  const changeContentWordCount = () => {
-    if (showButtonText === "show more") setContentChanges(content);
-    else setContentChanges(formattedPost);
-  };
-  /**
    * Change button text to opposite of current value
    */
   const changeShowButtonText = () => {
@@ -55,7 +47,6 @@ const PostModal = ({
    * Handler function for showing all or less of blog post content
    */
   const handleShowContent = () => {
-    changeContentWordCount();
     changeShowButtonText();
   };
 
@@ -66,6 +57,8 @@ const PostModal = ({
     setShowCommentBox(true);
   };
 
+  // const handleCommentKe
+
   return (
     <div className="bg-white shadow-lg rounded-lg w-full mx-auto mb-8 pt-4 pb-8">
       <div className="px-4 py-2">
@@ -74,25 +67,32 @@ const PostModal = ({
           published: {new Date(createdAt).toLocaleDateString()}
         </p>
       </div>
-      <article className="px-4 py-2 text-wrap">
-        <p className=" text-gray-700 text-md">{contentChanges}</p>
+      <article
+        className="px-4 py-2 overflow-hidden transition-max-h duration-500 ease-in-out"
+        style={
+          showButtonText === "show more"
+            ? { maxHeight: "12rem" }
+            : { maxHeight: "60rem" }
+        }
+      >
+        <p className=" text-gray-700 text-md">{content}</p>
       </article>
       <div className="py-2 text-center">
         <button
-          className="text-purple-500  font-light hover:opacity-90"
+          className="text-purple-500 font-light hover:opacity-90"
           onClick={handleShowContent}
         >
           {showButtonText}
         </button>
       </div>
-      <div className={`pt-3 pl-2 border-t-2 w-full text-left hover:opacity-90`}>
+      <div className={`pt-3 pl-2 border-t-2 text-left hover:opacity-90`}>
         <div
           className={`flex w-fit hover:cursor-pointer`}
           onClick={handleShowCommentArea}
         >
           <FaComment className="text-purple-600 text-xl" />
           {isUser ? (
-            <button className={`text-purple-500 pl-2`}>Comment</button>
+            <button className={`text-purple-500 pl-2`}>View Comments</button>
           ) : (
             <Link
               as="/auth/signin"
@@ -100,10 +100,20 @@ const PostModal = ({
               className={`text-purple-500 pl-2`}
               href="/auth/signin"
             >
-              Comment
+              View Comments
             </Link>
           )}
         </div>
+        <form>
+          <textarea
+            placeholder="Make a comment here"
+            onChange={(e) => setCommentContent(e.target.value)}
+            onKeyDown={() => null}
+          />
+          <button className="text-black" type="submit">
+            Post
+          </button>
+        </form>
       </div>
     </div>
   );

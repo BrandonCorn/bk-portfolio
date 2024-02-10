@@ -20,7 +20,6 @@ export default function Header() {
       >
         <Image
           priority
-          loading="eager"
           src={"/personal-logo.jpeg"}
           alt="Personal Logo"
           width={50}
