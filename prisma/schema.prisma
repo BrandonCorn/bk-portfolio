@@ -47,6 +47,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   posts         Post[]
+  comments      Comment[]
 }
 
 model VerificationToken {
@@ -107,4 +108,14 @@ model Post {
   updatedAt DateTime @updatedAt
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  author    User     @relation(fields: [authorEmail], references: [email])
+  authorEmail  String
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
 }

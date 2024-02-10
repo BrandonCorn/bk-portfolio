@@ -4,10 +4,12 @@ import BasicTextArea from "@/components/atoms/Inputs/BasicTextArea/BasicTextArea
 type PostCommentFormProps = {
   commentContent: string;
   handleCommentChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handlePostComment: () => void;
 };
 
 /**
  * PostCommentForm provides a form for typing a comment on a blog post and posting it
+ * @component
  * @param props - props for PostCommentForm
  * @param {string} props.commentContent - The comment content of the textarea
  * @param {} props.handleCommentChange - handler function for text area element onChange which updates state of Comment text
@@ -16,9 +18,21 @@ type PostCommentFormProps = {
 const BlogPostCommentForm = ({
   commentContent,
   handleCommentChange,
+  handlePostComment,
 }: PostCommentFormProps) => {
+  const handleCommentRequest = (
+    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+  ) => {
+    e.preventDefault();
+    // grab the user, format the comment, call the handlePostComment
+    handlePostComment();
+  };
+
   return (
-    <form className="flex flex-grow items-center mx-2">
+    <form
+      className="flex flex-grow items-center mx-2"
+      onSubmit={handleCommentRequest}
+    >
       <BasicTextArea
         name="user-comment"
         aria-label="Enter your comment"
@@ -33,6 +47,7 @@ const BlogPostCommentForm = ({
         type="submit"
         name="post-comment-button"
         aria-label="Post comment"
+        onClick={handleCommentRequest}
       >
         Post
       </BasicButton>

@@ -4,6 +4,7 @@ import BlogPostCommentForm from "@/components/molecules/Forms/BlogPostCommentFor
 import ViewCommentsButton from "@/components/molecules/BlogPost/ViewCommentsButton/ViewCommentsButton";
 import BasicButton from "@/components/atoms/Buttons/BasicButton/BasicButton";
 import BlogPostTitle from "@/components/molecules/BlogPost/BlogPostTitle/BlogPostTitle";
+import { useSession } from "next-auth/react";
 
 type BlogPostProps = {
   title: string;
@@ -26,6 +27,7 @@ const BlogPost = ({ title, content, createdAt }: BlogPostProps) => {
     useState<ShowButtonText>("show more");
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [commentContent, setCommentContent] = useState("");
+  const { data: session, status } = useSession();
 
   /**
    * Change button text to opposite of current value
@@ -55,6 +57,19 @@ const BlogPost = ({ title, content, createdAt }: BlogPostProps) => {
    */
   const handleCommentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCommentContent(e.target.value);
+  };
+
+  /**
+   * Submits a request to the api to save a comment made by a user
+   */
+  const handlePostComment = () => {
+    if (!session) return false;
+    const { user } = session;
+    const formatComment = {
+      content: commentContent,
+      authorEmail: user.email,
+      postId: "",
+    };
   };
 
   return (
@@ -91,6 +106,7 @@ const BlogPost = ({ title, content, createdAt }: BlogPostProps) => {
           <BlogPostCommentForm
             commentContent={commentContent}
             handleCommentChange={handleCommentChange}
+            handlePostComment={handlePostComment}
           />
         </div>
         <ViewCommentsButton handleShowCommentArea={handleShowCommentArea} />
