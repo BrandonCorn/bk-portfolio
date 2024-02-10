@@ -1,24 +1,29 @@
 "use client";
 import { useState, ChangeEvent } from "react";
-import PostCommentForm from "../../Forms/BlogPostCommentForm/BlogPostCommentForm";
-import ViewCommentsButton from "../../BlogPost/ViewCommentsButton/ViewCommentsButton";
+import BlogPostCommentForm from "@/components/molecules/Forms/BlogPostCommentForm/BlogPostCommentForm";
+import ViewCommentsButton from "@/components/molecules/BlogPost/ViewCommentsButton/ViewCommentsButton";
 import BasicButton from "@/components/atoms/Buttons/BasicButton/BasicButton";
-import BlogPostTitle from "../../BlogPost/BlogPostTitle/BlogPostTitle";
+import BlogPostTitle from "@/components/molecules/BlogPost/BlogPostTitle/BlogPostTitle";
 
-type PostModalProps = {
+type BlogPostProps = {
   title: string;
   content: string;
   createdAt: Date;
 };
-/**
- * Element for each blog post
- */
-const PostModal = ({ title, content, createdAt }: PostModalProps) => {
-  type ShowButtonText = "show more" | "show less";
 
+type ShowButtonText = "show more" | "show less";
+
+/**
+ * Container for blog post content including the post and it's info, comments on the post, and the ability to add comments by users
+ * @param props
+ * @param {} props.title - title of the blog post
+ * @param {} props.content - content of the blog post
+ * @param {} props.createdAt - The date and time when the blog post was created
+ * @returns
+ */
+const BlogPost = ({ title, content, createdAt }: BlogPostProps) => {
   const [showButtonText, setShowButtonText] =
     useState<ShowButtonText>("show more");
-  const [isUser, setIsUser] = useState(false);
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [commentContent, setCommentContent] = useState("");
 
@@ -83,7 +88,7 @@ const PostModal = ({ title, content, createdAt }: PostModalProps) => {
       </div>
       <div className="pt-3 pl-2 border-t-2 text-left hover:opacity-90">
         <div className="flex">
-          <PostCommentForm
+          <BlogPostCommentForm
             commentContent={commentContent}
             handleCommentChange={handleCommentChange}
           />
@@ -94,4 +99,4 @@ const PostModal = ({ title, content, createdAt }: PostModalProps) => {
   );
 };
 
-export default PostModal;
+export default BlogPost;

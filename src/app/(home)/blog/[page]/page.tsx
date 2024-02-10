@@ -7,6 +7,7 @@ import { useAppSelector } from "@/redux";
 import BasicTitle from "@/components/atoms/Titles/BasicTitle/BasicTitle";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
+import BlogPost from "@/components/organisms/BlogPost/BlogPost";
 
 const blogTitle = "Moments Unscripted: A Continual Blog";
 
@@ -48,7 +49,11 @@ export default function Page({ params }: { params: { page: string } }) {
   return (
     <div>
       {!isClient ? (
-        <div></div>
+        <div className="flex flex-col min-h-screen items-center justify-start">
+          <div>
+            <BasicTitle className="text-2xl" text={blogTitle} />
+          </div>
+        </div>
       ) : (
         <div className="flex flex-col min-h-screen items-center justify-start">
           <div>
@@ -62,7 +67,7 @@ export default function Page({ params }: { params: { page: string } }) {
                   id={`post-${index}`}
                   className="my-4 md:my-16"
                 >
-                  <PostModal {...post} />
+                  <BlogPost {...post} />
                 </div>
               ))}
           </div>
