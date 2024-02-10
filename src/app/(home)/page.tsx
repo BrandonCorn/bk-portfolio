@@ -25,7 +25,7 @@ function Home() {
               <ImageGallery images={homeImages} />
             </div>
 
-            <div className="flex flex-col lg:flex-row my-16 space-x-10 ">
+            <div className="flex flex-col lg:flex-row my-16 space-x-10">
               <div className="bg-transparent p-4 flex-1 flex-col sm:flex">
                 <SmsContactSection />
               </div>

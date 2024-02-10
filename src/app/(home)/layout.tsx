@@ -14,7 +14,7 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex flex-col min-h-screen m-0 bg-white text-black dark:bg-black dark:text-white">
+    <section className="flex flex-col min-h-screen m-0 bg-white text-black dark:bg-black dark:text-white overflow-hidden">
       <div className="min-h-screen flex justify-center items-center">
         <div className="bg-white dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5 max-w-screen-xl p-4 transition-width">
           <Header />
