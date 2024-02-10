@@ -4,7 +4,7 @@ import SkillsSection from "@/components/organisms/Sections/SkillSection/SkillSec
 const Experience = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="flex flex-row items-center justify-center">
+      <div className="flex flex-row justify-center">
         <SkillsSection />
       </div>
       <div className="flex flex-row">

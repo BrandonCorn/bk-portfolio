@@ -65,7 +65,7 @@ const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
       className=" max-w-sm space-y-8 bg-white shadow-lg rounded-lg border p-24 text-black"
     >
       <div>
-        <h2 className="mt-3 text-center text-3xl font-bold text-grey-800">
+        <h2 className="mt-3 text-center text-2xl md:text-3xl font-bold text-grey-800">
           Sign in to your account
         </h2>
       </div>

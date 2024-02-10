@@ -30,9 +30,11 @@ export default async function RootLayout({
       <head></head>
       <NextAuthProvider session={session}>
         <ReduxProvider>
-          <body id="main-layout" className={` ${roboto.className}`}>
-            <ThemeProvider>{children}</ThemeProvider>
-          </body>
+          <ThemeProvider>
+            <body id="main-layout" className={` ${roboto.className}`}>
+              {children}
+            </body>
+          </ThemeProvider>
         </ReduxProvider>
       </NextAuthProvider>
     </html>

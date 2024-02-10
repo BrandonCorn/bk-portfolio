@@ -13,7 +13,7 @@ export default function Header() {
   const router = useRouter();
 
   return (
-    <header className="grid grid-cols-3 items-center justify-between p-6 bg-black-500 text-white w-full">
+    <header className="grid grid-cols-3 p-6 bg-black-500 text-white w-full">
       <div
         className="flex items-center justify-start cursor-pointer w-fit"
         onClick={() => router.push("/")}
