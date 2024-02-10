@@ -27,16 +27,13 @@ export default async function RootLayout({
   const session = await serverSession();
   return (
     <html lang="en" suppressHydrationWarning>
-      <head></head>
-      <NextAuthProvider session={session}>
-        <ReduxProvider>
-          <ThemeProvider>
-            <body id="main-layout" className={` ${roboto.className}`}>
-              {children}
-            </body>
-          </ThemeProvider>
-        </ReduxProvider>
-      </NextAuthProvider>
+      <body id="main-layout" className={` ${roboto.className}`}>
+        <NextAuthProvider session={session}>
+          <ReduxProvider>
+            <ThemeProvider>{children}</ThemeProvider>
+          </ReduxProvider>
+        </NextAuthProvider>
+      </body>
     </html>
   );
 }

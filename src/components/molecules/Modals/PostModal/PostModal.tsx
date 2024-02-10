@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, KeyboardEvent, ChangeEvent } from "react";
 import { useSession } from "next-auth/react";
 import { FaComment } from "react-icons/fa";
 import Link from "next/link";
@@ -57,18 +57,40 @@ const PostModal = ({
     setShowCommentBox(true);
   };
 
-  // const handleCommentKe
+  /**
+   * Handles setting the
+   * @param e ChangeEvent<HTMLTextAreaElement> event from comment text area
+   */
+  const handleCommentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setCommentContent(e.target.value);
+  };
+
+  /**
+   * Handles submission of request to post comment
+   * @param e KeyboardEvent<HTMLTextAreaElement> keyboard event from text area
+   */
+  const handleCommentKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    e.preventDefault();
+    if (e.key === "Enter" && !e.shiftKey) {
+      console.log("handle post comment");
+    } else if (e.key === "Backspace") {
+      console.log("key ", e.key);
+      setCommentContent((prevState) => prevState.slice(0, -1));
+    } else {
+      setCommentContent((prevState) => prevState + e.key);
+    }
+  };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg w-full mx-auto mb-8 pt-4 pb-8">
+    <article className="bg-white shadow-lg rounded-lg w-full mx-auto mb-8 pt-4 pb-8">
       <div className="px-4 py-2">
         <h2 className="my-4 h-6 text-2xl font-bold text-gray-800">{title}</h2>
         <p className="my-4 h-4 text-gray-600 text-sm">
           published: {new Date(createdAt).toLocaleDateString()}
         </p>
       </div>
-      <article
-        className="px-4 py-2 overflow-hidden transition-max-h duration-500 ease-in-out"
+      <div
+        className="px-4 py-2 overflow-hidden transition-max-h duration-300 ease-in-out"
         style={
           showButtonText === "show more"
             ? { maxHeight: "12rem" }
@@ -76,8 +98,8 @@ const PostModal = ({
         }
       >
         <p className=" text-gray-700 text-md">{content}</p>
-      </article>
-      <div className="py-2 text-center">
+      </div>
+      <div className="py-2 text-center mt-2">
         <button
           className="text-purple-500 font-light hover:opacity-90"
           onClick={handleShowContent}
@@ -86,8 +108,24 @@ const PostModal = ({
         </button>
       </div>
       <div className={`pt-3 pl-2 border-t-2 text-left hover:opacity-90`}>
+        <div className="flex">
+          <form className="flex flex-grow items-center mx-2">
+            <textarea
+              className="flex-grow border-2 rounded-lg text-black bg-white h-full p-4"
+              placeholder="Make a comment here"
+              value={commentContent}
+              onChange={handleCommentChange}
+            />
+            <button
+              className="text-black border-2 rounded-lg px-6 h-full "
+              type="submit"
+            >
+              Post
+            </button>
+          </form>
+        </div>
         <div
-          className={`flex w-fit hover:cursor-pointer`}
+          className={`flex hover:cursor-pointer justify-end pr-12 mt-8`}
           onClick={handleShowCommentArea}
         >
           <FaComment className="text-purple-600 text-xl" />
@@ -104,18 +142,8 @@ const PostModal = ({
             </Link>
           )}
         </div>
-        <form>
-          <textarea
-            placeholder="Make a comment here"
-            onChange={(e) => setCommentContent(e.target.value)}
-            onKeyDown={() => null}
-          />
-          <button className="text-black" type="submit">
-            Post
-          </button>
-        </form>
       </div>
-    </div>
+    </article>
   );
 };
 
