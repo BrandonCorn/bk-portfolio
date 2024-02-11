@@ -7,6 +7,7 @@ import BasicTitle from "@/components/atoms/Titles/BasicTitle/BasicTitle";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
 import BlogPost from "@/components/organisms/BlogPost/BlogPost";
+import { motion } from "framer-motion";
 
 const blogTitle = "Moments Unscripted: A Continual Blog";
 
@@ -49,7 +50,12 @@ export default function Page({ params }: { params: { page: string } }) {
   );
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.6 }}
+    >
       {!isClient ? (
         <div className="flex flex-col min-h-screen items-center justify-start">
           <div>
@@ -78,6 +84,6 @@ export default function Page({ params }: { params: { page: string } }) {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
