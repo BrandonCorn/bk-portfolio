@@ -24,7 +24,6 @@ const BlogPostCommentForm = ({
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-    // grab the user, format the comment, call the handlePostComment
     handlePostComment();
   };
 

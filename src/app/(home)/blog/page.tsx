@@ -7,6 +7,7 @@ import { getInitialPosts } from "@/redux/slices/postSlice/postSlice";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import { selectBlogPosts } from "@/redux/slices/postSlice/postSelectors";
+import api from "@/lib/apiClient";
 
 const blogTitle = "Moments Unscripted: A Continual Blog";
 const author = "Brandon Corn";

@@ -5,8 +5,10 @@ import ViewCommentsButton from "@/components/molecules/BlogPost/ViewCommentsButt
 import BasicButton from "@/components/atoms/Buttons/BasicButton/BasicButton";
 import BlogPostTitle from "@/components/molecules/BlogPost/BlogPostTitle/BlogPostTitle";
 import { useSession } from "next-auth/react";
+import api from "@/lib/apiClient";
 
 type BlogPostProps = {
+  id: number;
   title: string;
   content: string;
   createdAt: Date;
@@ -22,7 +24,7 @@ type ShowButtonText = "show more" | "show less";
  * @param {} props.createdAt - The date and time when the blog post was created
  * @returns
  */
-const BlogPost = ({ title, content, createdAt }: BlogPostProps) => {
+const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
   const [showButtonText, setShowButtonText] =
     useState<ShowButtonText>("show more");
   const [showCommentBox, setShowCommentBox] = useState(false);
@@ -62,14 +64,22 @@ const BlogPost = ({ title, content, createdAt }: BlogPostProps) => {
   /**
    * Submits a request to the api to save a comment made by a user
    */
-  const handlePostComment = () => {
+  const handlePostComment = async () => {
     if (!session) return false;
     const { user } = session;
     const formatComment = {
       content: commentContent,
       authorEmail: user.email,
-      postId: "",
+      authorName: user.name,
+      postId: id,
     };
+
+    const res = await api.comments.createComment(formatComment);
+    if (res.success) {
+      console.log("res data ", res.data);
+    } else {
+      console.log(res.error);
+    }
   };
 
   return (

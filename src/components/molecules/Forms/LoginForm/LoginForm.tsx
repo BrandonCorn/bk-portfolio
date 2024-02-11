@@ -47,10 +47,7 @@ const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
    * @param e Button element Mouse event
    * @param providerName we supply the provider.id here because that's the syntax we need to redirect correctly
    */
-  const handleProviderSignIn = async (
-    e: React.MouseEvent<HTMLButtonElement>,
-    providerName: string
-  ) => {
+  const handleProviderSignIn = async (providerName: string) => {
     signIn(providerName, {
       callbackUrl: process.env.VERCEL_URL || "http://localhost:3000",
     });
@@ -80,7 +77,7 @@ const LoginForm = ({ providers }: NextAuthLoginFormProps) => {
                 className="flex justify-center w-full border border-gray-400 my-2 rounded-lg hover:bg-zinc-300"
               >
                 <button
-                  onClick={(e) => handleProviderSignIn(e, provider.id)}
+                  onClick={() => handleProviderSignIn(provider.id)}
                   className="py-2"
                 >
                   Sign in with {providerData.name}

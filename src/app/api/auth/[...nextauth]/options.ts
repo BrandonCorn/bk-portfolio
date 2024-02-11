@@ -52,28 +52,15 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  pages: {
+    signIn: '/auth/signin',
+  },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session }){
 
       return session;
     },
-    async signIn({
-      user, account
-    }){
-      if(account?.type !== 'credentials'){
-        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/accounts/get-account?providerAccountId=${account?.providerAccountId}`);
-        if(res.ok){
-          return true;
-        }
-        else{
-          return '/auth/signin';
-        }
-      }
-      else{
-        return true;
-      }
-    }
   }, 
   session: {
     strategy: 'jwt'

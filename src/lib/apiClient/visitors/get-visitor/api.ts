@@ -1,6 +1,5 @@
 import { GetVisitorByEmailRequest, GetVisitorByEmailResponse } from "@/types/visitors/type";
 import { formatResponse } from "@/services/utilService/utils";
-import { baseUrl } from "../..";
 
 /**
  * Find a visitor by their email address

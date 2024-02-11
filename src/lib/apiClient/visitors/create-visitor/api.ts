@@ -1,6 +1,5 @@
 import { CreateVisitorRequest, CreateVisitorResponse } from "@/types/visitors/type";
 import { formatResponse } from "@/services/utilService/utils";
-import { baseUrl } from "../..";
 
 /**
  * Create a visitor in the database
