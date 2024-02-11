@@ -1,5 +1,7 @@
 import { formatResponse } from "@/services/utilService/utils";
 import { CreateCommentRequestData } from "@/types/comments/type";
+import { CustomResponse } from "@/types/common/type";
+import { Comment } from "@prisma/client";
 
 /**
  * Client side function for request to api that creates a comment to a blog post
@@ -10,7 +12,7 @@ import { CreateCommentRequestData } from "@/types/comments/type";
  * @param comment.postId - The id of the post being commented on
  * @returns return response with result of api request
  */
-export const createComment = (comment: CreateCommentRequestData) => {
+export const createComment = (comment: CreateCommentRequestData): Promise<CustomResponse<Comment>> => {
   return fetch(`/api/comments/create-comment`, {
     method: 'POST',
     body: JSON.stringify(comment),

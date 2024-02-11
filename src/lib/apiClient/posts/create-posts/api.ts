@@ -1,5 +1,7 @@
 import { formatResponse } from "@/services/utilService/utils";
 import { CreatePostRequest } from "@/types/posts/type";
+import { CustomResponse } from "@/types/common/type";
+import { Post } from "@prisma/client";
 
 /**
  * Client side function for request to api that creates a blog post
@@ -10,7 +12,7 @@ import { CreatePostRequest } from "@/types/posts/type";
  * @param post.authorId - id of the author creating the blog post
  * @returns return response with result of api request
  */
-export const createPost = (post: CreatePostRequest) => {
+export const createPost = (post: CreatePostRequest): Promise<CustomResponse<Post>> => {
   return fetch(`/api/posts/create-post`, {
     method: 'POST',
     body: JSON.stringify(post),
