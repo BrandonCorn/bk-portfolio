@@ -7,8 +7,11 @@ import { useState, useEffect } from "react";
 import BasicButton from "@/components/atoms/Buttons/BasicButton/BasicButton";
 
 type ViewCommentsButtonProps = {
+  showComments: boolean;
   handleShowCommentArea: () => void;
 };
+
+type ShowCommentsLabel = "View Comments" | "Hide Comments";
 
 /** ViewCommentsButton displays a button or link based on whether a user is signed in to show comments or navigate to sign in
  * @component
@@ -17,10 +20,21 @@ type ViewCommentsButtonProps = {
  * @returns
  */
 const ViewCommentsButton = ({
+  showComments,
   handleShowCommentArea,
 }: ViewCommentsButtonProps) => {
   const [isUser, setIsUser] = useState(false);
   const { status } = useSession();
+  const [commentsLabel, setCommentsLabel] =
+    useState<ShowCommentsLabel>("View Comments");
+
+  useEffect(() => {
+    if (showComments) {
+      setCommentsLabel("View Comments");
+    } else {
+      setCommentsLabel("Hide Comments");
+    }
+  }, [showComments]);
 
   /**
    * Check if a user is logged in for allowing comments and posting
@@ -45,7 +59,7 @@ const ViewCommentsButton = ({
           className={`text-purple-500 hover:text-purple-700 pl-2`}
           aria-label="View comments"
         >
-          View Comments
+          {commentsLabel}
         </BasicButton>
       ) : (
         <Link
@@ -54,7 +68,7 @@ const ViewCommentsButton = ({
           href="/auth/signin"
           aria-label="Sign in to view comments"
         >
-          View Comments
+          {commentsLabel}
         </Link>
       )}
     </div>
