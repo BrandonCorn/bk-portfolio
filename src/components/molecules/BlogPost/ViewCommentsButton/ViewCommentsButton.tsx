@@ -29,7 +29,7 @@ const ViewCommentsButton = ({
     useState<ShowCommentsLabel>("View Comments");
 
   useEffect(() => {
-    if (showComments) {
+    if (!showComments) {
       setCommentsLabel("View Comments");
     } else {
       setCommentsLabel("Hide Comments");
