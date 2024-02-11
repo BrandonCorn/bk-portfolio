@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk, ActionReducerMapBuilder, AnyAction } fro
 import api from '@/lib/apiClient';
 import { LoadingState } from '@/types/common/type';
 
-export type PostType = Pick<Post, 'title' | 'content' | 'published' | 'createdAt'>
+export type PostType = Pick<Post, 'id' | 'title' | 'content' | 'published' | 'createdAt'>
 
 export type PostState = {
   posts: PostType[],

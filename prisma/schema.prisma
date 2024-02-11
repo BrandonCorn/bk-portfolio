@@ -47,6 +47,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   posts         Post[]
+  comments      Comment[]
 }
 
 model VerificationToken {
@@ -58,16 +59,16 @@ model VerificationToken {
 }
 
 model Visitors {
-  id           String      @id @unique @default(uuid())
-  name         String      @default(uuid())
-  email        String?     @unique
-  phoneNumber  String?     
-  visitCount   Int?
-  lastVisit    DateTime?
-  createdAt    DateTime    @default(now())
-  Questions    Questions[]
-  Answers      Answers[]
-  Sms          Sms[]
+  id          String      @id @unique @default(uuid())
+  name        String      @default(uuid())
+  email       String?     @unique
+  phoneNumber String?
+  visitCount  Int?
+  lastVisit   DateTime?
+  createdAt   DateTime    @default(now())
+  Questions   Questions[]
+  Answers     Answers[]
+  Sms         Sms[]
 }
 
 model Questions {
@@ -99,12 +100,24 @@ model Sms {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   title     String
-  content   String   @db.LongText
-  published Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  author    User     @relation(fields: [authorId], references: [id])
+  content   String    @db.LongText
+  published Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  author    User      @relation(fields: [authorId], references: [id])
   authorId  String
+  Comment   Comment[]
+}
+
+model Comment {
+  id          Int      @id @default(autoincrement())
+  content     String
+  createdAt   DateTime @default(now())
+  author      User     @relation(fields: [authorEmail], references: [email])
+  authorEmail String
+  authorName  String
+  post        Post     @relation(fields: [postId], references: [id])
+  postId      Int
 }
