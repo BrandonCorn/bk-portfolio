@@ -33,7 +33,7 @@ const ViewCommentsButton = ({
 
   return (
     <div
-      className={`flex hover:cursor-pointer justify-end pr-12 mt-8`}
+      className={`flex hover:cursor-pointer w-fit justify-end pr-12 mt-2`}
       onClick={handleShowCommentArea}
       aria-label="toggle comments"
     >

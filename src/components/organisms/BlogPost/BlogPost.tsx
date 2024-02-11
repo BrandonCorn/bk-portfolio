@@ -29,6 +29,9 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
     useState<ShowButtonText>("show more");
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [commentContent, setCommentContent] = useState("");
+  const [postCommentError, setPostCommentError] = useState<String | null>(
+    "Something went wrong"
+  );
   const { data: session, status } = useSession();
 
   /**
@@ -62,6 +65,13 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
   };
 
   /**
+   * Resets the comment text value to be empty
+   */
+  const resetCommentForm = () => {
+    setCommentContent("");
+  };
+
+  /**
    * Submits a request to the api to save a comment made by a user
    */
   const handlePostComment = async () => {
@@ -76,9 +86,8 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
 
     const res = await api.comments.createComment(formatComment);
     if (res.success) {
-      console.log("res data ", res.data);
+      resetCommentForm();
     } else {
-      console.log(res.error);
     }
   };
 
@@ -111,7 +120,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
           {showButtonText}
         </BasicButton>
       </div>
-      <div className="pt-3 pl-2 border-t-2 text-left hover:opacity-90">
+      <div className="pt-3 pl-2 border-t-2 text-left">
         <div className="flex">
           <BlogPostCommentForm
             commentContent={commentContent}
@@ -119,6 +128,11 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
             handlePostComment={handlePostComment}
           />
         </div>
+        {postCommentError && (
+          <div>
+            <p className="text-red text-md"> {postCommentError} </p>
+          </div>
+        )}
         <ViewCommentsButton handleShowCommentArea={handleShowCommentArea} />
       </div>
     </article>

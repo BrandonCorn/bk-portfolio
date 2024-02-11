@@ -11,8 +11,9 @@ type PostCommentFormProps = {
  * PostCommentForm provides a form for typing a comment on a blog post and posting it
  * @component
  * @param props - props for PostCommentForm
- * @param {string} props.commentContent - The comment content of the textarea
- * @param {} props.handleCommentChange - handler function for text area element onChange which updates state of Comment text
+ * @param props.commentContent - The comment content of the textarea
+ * @param props.handleCommentChange - handler function for text area element onChange which updates state of Comment text
+ * @param props.handlePostComment - function called to make api request posting comment
  * @returns
  */
 const BlogPostCommentForm = ({
