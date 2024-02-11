@@ -29,9 +29,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
     useState<ShowButtonText>("show more");
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [commentContent, setCommentContent] = useState("");
-  const [postCommentError, setPostCommentError] = useState<String | null>(
-    "Something went wrong"
-  );
+  const [postCommentError, setPostCommentError] = useState<String | null>(null);
   const { data: session, status } = useSession();
 
   /**
@@ -88,6 +86,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
     if (res.success) {
       resetCommentForm();
     } else {
+      setPostCommentError(res.error.message);
     }
   };
 
@@ -120,7 +119,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
           {showButtonText}
         </BasicButton>
       </div>
-      <div className="pt-3 pl-2 border-t-2 text-left">
+      <div className="pt-3 pl-2 border-t-2">
         <div className="flex">
           <BlogPostCommentForm
             commentContent={commentContent}
@@ -128,12 +127,17 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
             handlePostComment={handlePostComment}
           />
         </div>
-        {postCommentError && (
-          <div>
-            <p className="text-red text-md"> {postCommentError} </p>
+        <div className="flex mt-6 items-center justify-between">
+          <div className="flex w-1/3">
+            <ViewCommentsButton handleShowCommentArea={handleShowCommentArea} />
           </div>
-        )}
-        <ViewCommentsButton handleShowCommentArea={handleShowCommentArea} />
+          {postCommentError && (
+            <div className="flex w-1/3 justify-center">
+              <p className="text-red-500 text-md"> {postCommentError} </p>
+            </div>
+          )}
+          <div className="flex w-1/3"></div>
+        </div>
       </div>
     </article>
   );
