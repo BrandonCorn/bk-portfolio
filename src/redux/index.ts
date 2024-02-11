@@ -4,6 +4,7 @@ import { persistReducer } from "redux-persist";
 import visitorReducer from "./slices/visitorSlice/visitorSlice";
 import smsReducer from './slices/smsSlice/smsSlice';
 import postReducer from './slices/postSlice/postSlice';
+import commentReducer from './slices/commentSlice/commentSlice';
 import storage from "./customStorage";
 import logger from 'redux-logger';
 
@@ -23,10 +24,16 @@ const postConfig = {
   storage,
 }
 
+const commentConfig = {
+  key: 'comments',
+  storage
+}
+
 const rootReducer = combineReducers({
   visitor: persistReducer(visitorConfig, visitorReducer),
   sms: persistReducer(smsConfig, smsReducer),
   posts: persistReducer(postConfig, postReducer),
+  comments: persistReducer(commentConfig, commentReducer),
 });
 
 

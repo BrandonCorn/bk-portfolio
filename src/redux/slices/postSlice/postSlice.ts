@@ -3,6 +3,9 @@ import { createSlice, createAsyncThunk, ActionReducerMapBuilder, AnyAction } fro
 import api from '@/lib/apiClient';
 import { LoadingState } from '@/types/common/type';
 
+// page size is actually 3 posts, but we want 9 pages, so 3 * 9
+const PAGE_SIZE = 27;
+
 export type PostType = Pick<Post, 'id' | 'title' | 'content' | 'published' | 'createdAt'>
 
 export type PostState = {
@@ -21,13 +24,11 @@ const initialState: PostState = {
 
 export const getInitialPosts = createAsyncThunk('posts/getInitialPosts', 
   async (_, thunkApi) => {
-    // take number of page size from db
-    const pageSize = 27;
     // no skip, start from first post
     const skip = 0;
 
     // make init request for blog posts
-    const res = await api.posts.getPostsByPublishDate({ pageSize, skip, date: new Date()});
+    const res = await api.posts.getPostsByPublishDate({ pageSize: PAGE_SIZE, skip, date: new Date()});
     if(res.success){
       const { data } = res;
       if(data){
@@ -46,21 +47,22 @@ const getInitialPostsBuilders = (builder: ActionReducerMapBuilder<PostState>) =>
     state.getInitialPostsRequesLoading = 'loading';
     state.getInitialPostRequestsFailure = null;
     state.getInitialPostsRequestSuccess = null;
-  })
+  });
   builder.addCase(getInitialPosts.fulfilled, (state, action) => {
     state.getInitialPostsRequesLoading = 'success';
     state.getInitialPostsRequestSuccess = action.payload;
-  })
+  });
   builder.addCase(getInitialPosts.rejected, (state, action) => {
     state.getInitialPostsRequesLoading = 'error';
     state.getInitialPostRequestsFailure = action.payload;
-  })
+  });
 }
 
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
+    // sets posts on initial fetch
     setPosts: (state, action) => {
       state.posts = action.payload;
     }
