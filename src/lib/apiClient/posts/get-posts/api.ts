@@ -1,6 +1,8 @@
 
 import { GetPostsByPublishDateRequest } from "@/types/posts/type";
 import { formatResponse } from "@/services/utilService/utils";
+import { Post } from "@prisma/client";
+import { CustomResponse } from "@/types/common/type";
 
 /**
  * Client side function for request to api to fetch blog posts by page and date
@@ -10,7 +12,7 @@ import { formatResponse } from "@/services/utilService/utils";
  * @param data.date - The most recent date we want to retrieve blog posts from
  * @returns response with blog post data or error
  */
-export const getPostsByPublishDate = (data: GetPostsByPublishDateRequest) => {
+export const getPostsByPublishDate = (data: GetPostsByPublishDateRequest): Promise<CustomResponse<Post[]>> => {
   const { pageSize, skip, date } = data;
   
   return fetch(`/api/posts/get-posts?pageSize=${pageSize}&skip=${skip}&date=${date}`, {

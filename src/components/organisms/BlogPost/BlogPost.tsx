@@ -27,7 +27,7 @@ type ShowButtonText = "show more" | "show less";
 const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
   const [showButtonText, setShowButtonText] =
     useState<ShowButtonText>("show more");
-  const [showCommentBox, setShowCommentBox] = useState(false);
+  const [showComments, setShowComments] = useState(false);
   const [commentContent, setCommentContent] = useState("");
   const [postCommentError, setPostCommentError] = useState<String | null>(null);
   const { data: session, status } = useSession();
@@ -51,7 +51,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
    * Show comment box onclick if user is authenticated
    */
   const handleShowCommentArea = () => {
-    setShowCommentBox(true);
+    setShowComments(!showComments);
   };
 
   /**
@@ -129,7 +129,10 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
         </div>
         <div className="flex mt-6 items-center justify-between">
           <div className="flex w-1/3">
-            <ViewCommentsButton handleShowCommentArea={handleShowCommentArea} />
+            <ViewCommentsButton
+              showComments={showComments}
+              handleShowCommentArea={handleShowCommentArea}
+            />
           </div>
           {postCommentError && (
             <div className="flex w-1/3 justify-center">

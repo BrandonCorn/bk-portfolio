@@ -4,11 +4,11 @@ import Image from "next/image";
 import { LayoutGroup, motion } from "framer-motion";
 import Link from "next/link";
 import { getInitialPosts } from "@/redux/slices/postSlice/postSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import { selectBlogPosts } from "@/redux/slices/postSlice/postSelectors";
-import api from "@/lib/apiClient";
-
+import { getInitialComments } from "@/redux/slices/commentSlice/commentSlice";
+import { isFulfilled } from "@reduxjs/toolkit";
 const blogTitle = "Moments Unscripted: A Continual Blog";
 const author = "Brandon Corn";
 const role = "User Interface Engineer II";
@@ -57,7 +57,15 @@ export default function Page() {
    */
   useEffect(() => {
     if (!posts || posts.length === 0) {
-      dispatch(getInitialPosts());
+      const initBlogData = async () => {
+        const postData = await dispatch(getInitialPosts());
+        if (isFulfilled(postData)) {
+          const postIds = postData.payload.map((post) => post.id);
+          await dispatch(getInitialComments(postIds));
+        }
+      };
+
+      initBlogData();
     }
   }, []);
 

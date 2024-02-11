@@ -26,7 +26,28 @@ export const createComment = async ({content, authorEmail, authorName, postId}: 
     return comment || null;
   }
   catch(error){
-    console.log('what went wrong', error);
+    throw new DatabaseConnectionError(error as string);
+  }
+}
+
+/**
+ * Retrieve comments from database for given postIds
+ * @param postIds Array of postId to retrieve comments for
+ * @returns array of comments found
+ */
+export const getCommentByPostIds = async (postIds: number[]) => {
+  try{
+    const comments = await prisma.comment.findMany({
+      where: {
+        postId: {
+          in: postIds
+        }
+      }
+    });
+
+    return comments || null;
+  }
+  catch(error){
     throw new DatabaseConnectionError(error as string);
   }
 }
