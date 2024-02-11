@@ -2,6 +2,8 @@ import { LoadingState } from "@/types/common/type";
 import { Comment } from "@prisma/client";
 import { createSlice, createAsyncThunk, ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import api from "@/lib/apiClient";
+import { CustomResponse  } from "@/types/common/type";
+import { ErrorResponse } from "@/types/errors/type";
 
 /**
  * This object uses postId from comments as the key so that comments are pushed to the array which is the value
@@ -24,10 +26,17 @@ const INITIAL_STATE: CommentState = {
   getInitialCommentsRequestFailure: null,
 }
 
-export const getInitialComments = createAsyncThunk('comments/getInitialComments', 
-(_, thunkApi) => {
-  // we're retrieving comments for specified posts
-  // considerations, how can we efficiently grab all comments for a Post, how can we maintain 
+export const getInitialComments = createAsyncThunk<Comment[], number[], {rejectValue: ErrorResponse}>('comments/getInitialComments', 
+async (postIds: number[], thunkApi) => {
+  const res: CustomResponse<Comment[]> = await api.comments.getCommentsByPostIds(postIds);
+  if(res.success){
+    const { data } = res;
+    thunkApi.dispatch(setComments(data));
+    return data;
+  }
+  else{
+    return thunkApi.rejectWithValue(res.error);
+  }
 });
 
 const getInitialCommentsBuilders = (builder: ActionReducerMapBuilder<CommentState>) => {

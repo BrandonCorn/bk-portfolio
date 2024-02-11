@@ -2,6 +2,8 @@ import { Post } from "@prisma/client"
 import { createSlice, createAsyncThunk, ActionReducerMapBuilder, AnyAction } from '@reduxjs/toolkit'
 import api from '@/lib/apiClient';
 import { LoadingState } from '@/types/common/type';
+import { CustomResponse } from "@/types/common/type";
+import { ErrorResponse } from "@/types/errors/type";
 
 // page size is actually 3 posts, but we want 9 pages, so 3 * 9
 const PAGE_SIZE = 27;
@@ -22,22 +24,20 @@ const initialState: PostState = {
   getInitialPostRequestsFailure: null,
 }
 
-export const getInitialPosts = createAsyncThunk('posts/getInitialPosts', 
+export const getInitialPosts = createAsyncThunk<Post[], void, {rejectValue: ErrorResponse}>('posts/getInitialPosts', 
   async (_, thunkApi) => {
     // no skip, start from first post
     const skip = 0;
 
     // make init request for blog posts
-    const res = await api.posts.getPostsByPublishDate({ pageSize: PAGE_SIZE, skip, date: new Date()});
+    const res: CustomResponse<Post[]> = await api.posts.getPostsByPublishDate({ pageSize: PAGE_SIZE, skip, date: new Date()});
     if(res.success){
       const { data } = res;
-      if(data){
         thunkApi.dispatch(setPosts(data));
         return data;
-      }
     }
     else{
-      return thunkApi.rejectWithValue(res);
+      return thunkApi.rejectWithValue(res.error);
     }
   }
 )

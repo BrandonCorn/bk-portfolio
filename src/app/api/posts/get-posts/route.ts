@@ -1,6 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
 import { getPostsByPublishDate } from "@/services/postsService/posts";
-import { DatabaseConnectionError } from "@/lib/errors/database-connection-error";
 import { NotFoundError } from "@/lib/errors/not-found-error";
 import { BadRequestError } from "@/lib/errors/bad-request-error";
 
@@ -18,9 +17,7 @@ export async function GET(req: NextRequest, res: NextResponse){
 
   let posts;
   try{
-    if(pageSize && skip && date){
       posts = await getPostsByPublishDate(parseInt(pageSize), parseInt(skip), new Date(date));
-    }
   }
   catch(error){
     return NextResponse.json( { error: 'Something went wrong' }, { status: 500 });
