@@ -21,7 +21,7 @@ const HomeIntroCard = () => {
       <div className="mx-auto w-full max-w-7xl tracking-tighter font-sans">
         <div className="mb-8">
           <Image
-            loading="eager"
+            priority
             src={"/personal-logo.jpeg"}
             alt="Personal Logo"
             width={80}
