@@ -1,6 +1,5 @@
 import { CreateSmsRequest, CreateSmsResponse } from "@/types/sms/type";
 import { formatResponse } from "@/services/utilService/utils";
-import { baseUrl } from "../..";
 
 /**
  * Create an Sms in the db

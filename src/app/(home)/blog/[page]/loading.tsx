@@ -1,4 +1,4 @@
-import PostModalSkeleton from "@/components/molecules/Modals/PostModal/Skeleton/PostModalSkeleton";
+import BlogPostSkeleton from "@/components/organisms/BlogPost/Skeleton/BlogPostSkeleton";
 
 export default function Loading() {
   const tempPosts = Array(3).fill({});
@@ -7,7 +7,7 @@ export default function Loading() {
     <div className="min-h-screen flex items-center justify-center">
       <div className="w-full max-w-md">
         {tempPosts.map((post, index) => (
-          <PostModalSkeleton key={index} />
+          <BlogPostSkeleton key={index} />
         ))}
       </div>
     </div>
