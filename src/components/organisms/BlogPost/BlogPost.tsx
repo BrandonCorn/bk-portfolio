@@ -7,6 +7,7 @@ import BlogPostTitle from "@/components/molecules/BlogPost/BlogPostTitle/BlogPos
 import CommentList from "@/components/molecules/BlogPost/CommentList/CommentList";
 import { useSession } from "next-auth/react";
 import api from "@/lib/apiClient";
+import { useRouter } from "next/navigation";
 
 type BlogPostProps = {
   id: number;
@@ -32,6 +33,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
   const [commentContent, setCommentContent] = useState("");
   const [postCommentError, setPostCommentError] = useState<String | null>(null);
   const { data: session } = useSession();
+  const router = useRouter();
 
   /**
    * Change button text to opposite of current value
@@ -74,7 +76,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
    * Submits a request to the api to save a comment made by a user
    */
   const handlePostComment = async () => {
-    if (!session) return false;
+    if (!session) return router.push("/auth/signin");
     const { user } = session;
     const formatComment = {
       content: commentContent,
