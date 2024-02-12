@@ -1,6 +1,6 @@
 import { LoadingState } from "@/types/common/type";
 import { Comment } from "@prisma/client";
-import { createSlice, createAsyncThunk, ActionReducerMapBuilder } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, ActionReducerMapBuilder, Action, PayloadAction } from "@reduxjs/toolkit";
 import api from "@/lib/apiClient";
 import { CustomResponse  } from "@/types/common/type";
 import { ErrorResponse } from "@/types/errors/type";
@@ -73,7 +73,7 @@ const commentsSlice = createSlice({
       })
     },
     // new comments go to the front of the array as they're the newest
-    addNewComment: (state, action) => {
+    addNewComment: (state, action: PayloadAction<Comment>) => {
       const comment: Comment = action.payload;
       const key = comment.postId;
       if(state.comments[key]){
@@ -84,8 +84,8 @@ const commentsSlice = createSlice({
       }
     },
     // use updateComments when comments are fetched to update the existing comments
-    updateComments: (state, action) => {
-      const comments: Comment[] = action.payload;
+    updateComments: (state, action: PayloadAction<Comment[]>) => {
+      const comments = action.payload;
       comments.forEach(comment => {
         const key = comment.postId;
         if(state.comments[key]){

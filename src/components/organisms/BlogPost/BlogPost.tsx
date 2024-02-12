@@ -1,11 +1,17 @@
 "use client";
-import { useState, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import BlogPostCommentForm from "@/components/molecules/Forms/BlogPostCommentForm/BlogPostCommentForm";
 import ViewCommentsButton from "@/components/molecules/BlogPost/ViewCommentsButton/ViewCommentsButton";
 import BasicButton from "@/components/atoms/Buttons/BasicButton/BasicButton";
 import BlogPostTitle from "@/components/molecules/BlogPost/BlogPostTitle/BlogPostTitle";
+import CommentList from "@/components/molecules/BlogPost/CommentList/CommentList";
 import { useSession } from "next-auth/react";
 import api from "@/lib/apiClient";
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/redux";
+import { addNewComment } from "@/redux/slices/commentSlice/commentSlice";
+import { Comment } from "@prisma/client";
+import { motion } from "framer-motion";
 
 type BlogPostProps = {
   id: number;
@@ -30,14 +36,21 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
   const [showComments, setShowComments] = useState(false);
   const [commentContent, setCommentContent] = useState("");
   const [postCommentError, setPostCommentError] = useState<String | null>(null);
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
+  const router = useRouter();
+  const dispatch = useAppDispatch();
 
   /**
    * Change button text to opposite of current value
    */
   const changeShowButtonText = () => {
-    if (showButtonText === "show more") setShowButtonText("show less");
-    else setShowButtonText("show more");
+    if (showButtonText === "show more") {
+      setShowButtonText("show less");
+    } else {
+      setShowButtonText("show more");
+      const titleElement = document.getElementById(`blog-post-${title}`);
+      if (titleElement) titleElement.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   /**
@@ -69,11 +82,15 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
     setCommentContent("");
   };
 
+  const updateComment = (comment: Comment) => {
+    dispatch(addNewComment(comment));
+  };
+
   /**
    * Submits a request to the api to save a comment made by a user
    */
   const handlePostComment = async () => {
-    if (!session) return false;
+    if (!session) return router.push("/auth/signin");
     const { user } = session;
     const formatComment = {
       content: commentContent,
@@ -85,6 +102,8 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
     const res = await api.comments.createComment(formatComment);
     if (res.success) {
       resetCommentForm();
+      const comment = res.data;
+      updateComment(comment);
     } else {
       setPostCommentError(res.error.message);
     }
@@ -92,15 +111,17 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
 
   return (
     <article
+      id={`blog-post-${id}`}
       role="article"
       className="bg-white shadow-lg rounded-lg w-full mx-auto mb-8 pt-4 pb-8"
     >
       <BlogPostTitle title={title} createdAt={createdAt} />
       <div
-        className="px-4 py-2 overflow-hidden transition-max-h duration-300 ease-in-out"
+        id={`blog-post-content-${id}`}
+        className="px-4 py-2 overflow-hidden transition-max-h duration-500 ease-in-out"
         style={
           showButtonText === "show more"
-            ? { maxHeight: "12rem" }
+            ? { maxHeight: "12.5rem" }
             : { maxHeight: "60rem" }
         }
       >
@@ -142,6 +163,16 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
           <div className="flex w-1/3"></div>
         </div>
       </div>
+      <motion.div
+        initial={{ maxHeight: 0 }}
+        animate={{ maxHeight: showComments ? "60rem" : 0 }}
+        transition={{ duration: 0.2 }}
+        className={`flex mt-4`}
+      >
+        {showComments && (
+          <CommentList postId={id} showComments={showComments} />
+        )}
+      </motion.div>
     </article>
   );
 };

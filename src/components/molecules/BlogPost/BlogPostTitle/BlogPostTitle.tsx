@@ -12,7 +12,7 @@ type BlogPostTitleProps = {
  */
 const BlogPostTitle = ({ title, createdAt }: BlogPostTitleProps) => {
   return (
-    <div className="px-4 py-2">
+    <div id={`blog-post-${title}`} className="px-4 py-2" role={"title"}>
       <h2 className="my-4 h-6 text-2xl font-bold text-gray-800">{title}</h2>
       <p className="my-4 h-4 text-gray-600 text-sm">
         published: {new Date(createdAt).toLocaleDateString()}
