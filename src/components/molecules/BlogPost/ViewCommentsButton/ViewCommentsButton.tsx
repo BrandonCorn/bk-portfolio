@@ -52,25 +52,15 @@ const ViewCommentsButton = ({
       aria-label="toggle comments"
     >
       <FaComment className="text-purple-500 hover:text-purple-700 text-xl" />
-      {isUser ? (
-        <BasicButton
-          name="view-comments-button"
-          type="submit"
-          className={`text-purple-500 hover:text-purple-700 pl-2`}
-          aria-label="View comments"
-        >
-          {commentsLabel}
-        </BasicButton>
-      ) : (
-        <Link
-          prefetch
-          className={`text-purple-500 hover:text-purple-700 pl-2`}
-          href="/auth/signin"
-          aria-label="Sign in to view comments"
-        >
-          {commentsLabel}
-        </Link>
-      )}
+
+      <BasicButton
+        name="view-comments-button"
+        type="submit"
+        className={`text-purple-500 hover:text-purple-700 pl-2`}
+        aria-label="View comments"
+      >
+        {commentsLabel}
+      </BasicButton>
     </div>
   );
 };

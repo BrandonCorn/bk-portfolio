@@ -17,3 +17,11 @@ export const getBlogPostCommentsRequestStates = createSelector(commentSelector, 
  * @returns all blog post comments
  */
 export const selectBlogPostComments = createSelector(commentSelector, (state) => state.comments);
+
+
+/**
+ * Selector for all blog post comments based on postId
+ * @param postId The ID of the post to filter comments for
+ * @returns Comments for the specified post
+ */
+export const selectCommentsByPostId = (postId: number) => createSelector(commentSelector, (state) => state.comments[postId]);

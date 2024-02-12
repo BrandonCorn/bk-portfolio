@@ -4,6 +4,7 @@ import BlogPostCommentForm from "@/components/molecules/Forms/BlogPostCommentFor
 import ViewCommentsButton from "@/components/molecules/BlogPost/ViewCommentsButton/ViewCommentsButton";
 import BasicButton from "@/components/atoms/Buttons/BasicButton/BasicButton";
 import BlogPostTitle from "@/components/molecules/BlogPost/BlogPostTitle/BlogPostTitle";
+import CommentList from "@/components/molecules/BlogPost/CommentList/CommentList";
 import { useSession } from "next-auth/react";
 import api from "@/lib/apiClient";
 
@@ -30,7 +31,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
   const [showComments, setShowComments] = useState(false);
   const [commentContent, setCommentContent] = useState("");
   const [postCommentError, setPostCommentError] = useState<String | null>(null);
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   /**
    * Change button text to opposite of current value
@@ -141,6 +142,9 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
           )}
           <div className="flex w-1/3"></div>
         </div>
+      </div>
+      <div className="flex mt-4">
+        {showComments && <CommentList postId={id} />}
       </div>
     </article>
   );
