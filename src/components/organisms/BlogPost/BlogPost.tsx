@@ -1,5 +1,5 @@
 "use client";
-import { useState, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import BlogPostCommentForm from "@/components/molecules/Forms/BlogPostCommentForm/BlogPostCommentForm";
 import ViewCommentsButton from "@/components/molecules/BlogPost/ViewCommentsButton/ViewCommentsButton";
 import BasicButton from "@/components/atoms/Buttons/BasicButton/BasicButton";
@@ -8,6 +8,9 @@ import CommentList from "@/components/molecules/BlogPost/CommentList/CommentList
 import { useSession } from "next-auth/react";
 import api from "@/lib/apiClient";
 import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/redux";
+import { addNewComment } from "@/redux/slices/commentSlice/commentSlice";
+import { Comment } from "@prisma/client";
 
 type BlogPostProps = {
   id: number;
@@ -34,6 +37,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
   const [postCommentError, setPostCommentError] = useState<String | null>(null);
   const { data: session } = useSession();
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   /**
    * Change button text to opposite of current value
@@ -72,6 +76,10 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
     setCommentContent("");
   };
 
+  const updateComment = (comment: Comment) => {
+    dispatch(addNewComment(comment));
+  };
+
   /**
    * Submits a request to the api to save a comment made by a user
    */
@@ -88,6 +96,8 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
     const res = await api.comments.createComment(formatComment);
     if (res.success) {
       resetCommentForm();
+      const comment = res.data;
+      updateComment(comment);
     } else {
       setPostCommentError(res.error.message);
     }
