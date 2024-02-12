@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/redux";
 import { addNewComment } from "@/redux/slices/commentSlice/commentSlice";
 import { Comment } from "@prisma/client";
+import { motion } from "framer-motion";
 
 type BlogPostProps = {
   id: number;
@@ -43,8 +44,13 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
    * Change button text to opposite of current value
    */
   const changeShowButtonText = () => {
-    if (showButtonText === "show more") setShowButtonText("show less");
-    else setShowButtonText("show more");
+    if (showButtonText === "show more") {
+      setShowButtonText("show less");
+    } else {
+      setShowButtonText("show more");
+      const titleElement = document.getElementById(`blog-post-${title}`);
+      if (titleElement) titleElement.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   /**
@@ -105,15 +111,17 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
 
   return (
     <article
+      id={`blog-post-${id}`}
       role="article"
       className="bg-white shadow-lg rounded-lg w-full mx-auto mb-8 pt-4 pb-8"
     >
       <BlogPostTitle title={title} createdAt={createdAt} />
       <div
-        className="px-4 py-2 overflow-hidden transition-max-h duration-300 ease-in-out"
+        id={`blog-post-content-${id}`}
+        className="px-4 py-2 overflow-hidden transition-max-h duration-500 ease-in-out"
         style={
           showButtonText === "show more"
-            ? { maxHeight: "12rem" }
+            ? { maxHeight: "12.5rem" }
             : { maxHeight: "60rem" }
         }
       >
@@ -155,9 +163,16 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
           <div className="flex w-1/3"></div>
         </div>
       </div>
-      <div className="flex mt-4">
-        {showComments && <CommentList postId={id} />}
-      </div>
+      <motion.div
+        initial={{ maxHeight: 0 }}
+        animate={{ maxHeight: showComments ? "60rem" : 0 }}
+        transition={{ duration: 0.2 }}
+        className={`flex mt-4`}
+      >
+        {showComments && (
+          <CommentList postId={id} showComments={showComments} />
+        )}
+      </motion.div>
     </article>
   );
 };

@@ -1,17 +1,25 @@
 "use client";
 import { useAppSelector } from "@/redux";
 import { selectCommentsByPostId } from "@/redux/slices/commentSlice/commentSelectors";
+import { motion } from "framer-motion";
 
 type CommentListProps = {
   postId: number;
+  showComments: boolean;
 };
 
-const CommentList = ({ postId }: CommentListProps) => {
+const CommentList = ({ postId, showComments }: CommentListProps) => {
   const comments = useAppSelector(selectCommentsByPostId(postId));
 
   return (
-    <div className="max-w-lg mx-auto">
-      <div className="bg-gray-100 rounded-lg shadow-md overflow-hidden">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      className="max-w-lg mx-auto"
+    >
+      <div className="bg-gray-100 rounded-lg shadow-md">
         <div className="px-4 py-3 border-b border-gray-200 bg-gray-200 text-gray-800 font-bold text-lg">
           Comments
         </div>
@@ -29,7 +37,7 @@ const CommentList = ({ postId }: CommentListProps) => {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
