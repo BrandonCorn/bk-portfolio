@@ -33,7 +33,7 @@ type ModalInfo = {
   message: string;
 };
 
-const SmsContactForm = () => {
+const ContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -293,4 +293,4 @@ const SmsContactForm = () => {
   );
 };
 
-export default SmsContactForm;
+export default ContactForm;
