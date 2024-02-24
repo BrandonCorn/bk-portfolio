@@ -3,7 +3,7 @@ import { ActionReducerMapBuilder, createAsyncThunk, createSlice, PayloadAction }
 import { LoadingState } from '@/types/common/type';
 import { CreateSmsRequest } from '@/types/sms/type';
 import api from '@/lib/apiClient';
-import { Sms as DbSms } from '@prisma/client';
+import { Messages } from '@prisma/client';
 import { SendMessageRequest } from '@/types/email/type';
 
 export type Message = {
@@ -15,7 +15,7 @@ export type Message = {
 }
 
 export type MessageState = {
-  sms: Message[];
+  messages: Message[];
   sendMessageRequestLoading: LoadingState | null;
   sendMessageRequestSuccess: any;
   sendMessageRequestFailure: any;
@@ -25,7 +25,7 @@ export type MessageState = {
 }
 
 const initialState: MessageState = {
-  sms: [],
+  messages: [],
   sendMessageRequestLoading: null,
   sendMessageRequestSuccess: null,
   sendMessageRequestFailure: null,
@@ -34,7 +34,7 @@ const initialState: MessageState = {
   createMessageRequestFailure: null,
 };
 
-export const sendMessage = createAsyncThunk('email/send-email', 
+export const sendMessage = createAsyncThunk('messages/sendMessage', 
   async (msgData: SendMessageRequest, thunkApi) => {
     try{
       const response = await api.email.sendEmail(msgData);
@@ -49,7 +49,7 @@ export const sendMessage = createAsyncThunk('email/send-email',
     }
   })
 
-  const sendSmsBuilders = (builder: ActionReducerMapBuilder<MessageState>) => {
+  const sendMessageBuilders = (builder: ActionReducerMapBuilder<MessageState>) => {
     builder.addCase(sendMessage.pending, (state, action) => {
       state.sendMessageRequestLoading = 'loading';
       state.sendMessageRequestFailure = null;
@@ -67,10 +67,11 @@ export const sendMessage = createAsyncThunk('email/send-email',
     });
   }
 
-export const createMessage = createAsyncThunk('sms/createMessage', 
+  // still using legacy api.sms.createSms, needs refactor to generic createMessage service
+export const createMessage = createAsyncThunk('messages/createMessage', 
   async (msgData: CreateSmsRequest, thunkApi) => {
     try{
-      const response = await api.sms.createSms(msgData);
+      const response = await api.messages.createMessage(msgData);
       if(response.success){
         return response.data;
       }
@@ -81,7 +82,7 @@ export const createMessage = createAsyncThunk('sms/createMessage',
     }
   });
 
-const createSmsBuilders = (builder: ActionReducerMapBuilder<MessageState>) => {
+const createMessageBuilders = (builder: ActionReducerMapBuilder<MessageState>) => {
   builder.addCase(createMessage.pending, (state, action) => {
     state.createMessageRequestLoading = 'loading';
     state.createMessageRequestFailure = null;
@@ -97,21 +98,21 @@ const createSmsBuilders = (builder: ActionReducerMapBuilder<MessageState>) => {
   });  
 }
 
-const smsSlice = createSlice({
-  name: 'sms',
+const messageSlice = createSlice({
+  name: 'messages',
   initialState,
   reducers: {
-    updateSmsSent: (state, action: PayloadAction<DbSms[]>) => {
-      state.sms = [...state.sms, ...action.payload];
+    updateMessagesSent: (state, action: PayloadAction<Messages[]>) => {
+      state.messages = [...state.messages, ...action.payload];
     }
   },
   extraReducers: (builder) => {
-    sendSmsBuilders(builder);
-    createSmsBuilders(builder);
+    sendMessageBuilders(builder);
+    createMessageBuilders(builder);
   }
 });
 
-export const { updateSmsSent } = smsSlice.actions;
+export const { updateMessagesSent } = messageSlice.actions;
 
-export default smsSlice.reducer;
+export default messageSlice.reducer;
 

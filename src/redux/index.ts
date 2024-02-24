@@ -2,7 +2,7 @@ import { ThunkAction, combineReducers, configureStore, Action } from "@reduxjs/t
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { persistReducer } from "redux-persist";
 import visitorReducer from "./slices/visitorSlice/visitorSlice";
-import smsReducer from './slices/smsSlice/smsSlice';
+import messageReducer from './slices/messageSlice/messageSlice';
 import postReducer from './slices/postSlice/postSlice';
 import commentReducer from './slices/commentSlice/commentSlice';
 import storage from "./customStorage";
@@ -14,8 +14,8 @@ const visitorConfig = {
   storage,
 };
 
-const smsConfig = {
-  key: "sms",
+const messageConfig = {
+  key: "messages",
   storage,
 };
 
@@ -31,7 +31,7 @@ const commentConfig = {
 
 const rootReducer = combineReducers({
   visitor: persistReducer(visitorConfig, visitorReducer),
-  sms: persistReducer(smsConfig, smsReducer),
+  sms: persistReducer(messageConfig, messageReducer),
   posts: persistReducer(postConfig, postReducer),
   comments: persistReducer(commentConfig, commentReducer),
 });

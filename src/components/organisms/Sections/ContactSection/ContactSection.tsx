@@ -16,9 +16,12 @@ import { useAppDispatch, useAppSelector } from "@/redux";
 import {
   createVisitor,
   getVisitorByEmail,
-  updateVisitorSms,
+  updateVisitorMessages,
 } from "@/redux/slices/visitorSlice/visitorSlice";
-import { sendMessage, createMessage } from "@/redux/slices/smsSlice/smsSlice";
+import {
+  sendMessage,
+  createMessage,
+} from "@/redux/slices/messageSlice/messageSlice";
 import LoadingButton, {
   LoadingButtonProps,
 } from "../../../atoms/Buttons/LoadingButton/LoadingButton";
@@ -133,7 +136,7 @@ const ContactForm = () => {
     }
 
     //two conditions, we have visitor with sms cause we found them or we have a visitor without sms because we had to create them an sms array is empty and not included
-    if ("sms" in findVisitor && findVisitor.sms.length >= 2) {
+    if ("messages" in findVisitor && findVisitor.messages.length >= 2) {
       handleLoading(false);
       updateFailureModal({
         show: true,
@@ -160,12 +163,14 @@ const ContactForm = () => {
 
         let oneMsg = sentMessage.payload;
         if (findVisitor.id) {
-          // dispatch(
-          //   updateVisitorSms({ visitorId: findVisitor.id, ...oneMsg } as any)
-          // );
+          dispatch(
+            updateVisitorMessages({
+              visitorId: findVisitor.id,
+              ...oneMsg,
+            } as any)
+          );
           await dispatch(
             createMessage({
-              id: "",
               dateSent: new Date(Date.now()),
               content: message,
               visitorsId: findVisitor.id,

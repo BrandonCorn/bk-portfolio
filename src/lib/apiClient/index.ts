@@ -3,6 +3,7 @@ import * as email from '@/lib/apiClient/messages/email';
 import * as visitors from '@/lib/apiClient/visitors';
 import * as posts from '@/lib/apiClient/posts';
 import * as comments from '@/lib/apiClient/comments';
+import * as messages from '@/lib/apiClient/messages/api';
 
 const api = {
   sms: {
@@ -10,6 +11,9 @@ const api = {
   },
   email: {
     ...email 
+  },
+  messages: {
+    ...messages
   },
   visitors: {
     ...visitors

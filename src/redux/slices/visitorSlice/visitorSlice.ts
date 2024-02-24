@@ -1,10 +1,9 @@
 import { createSlice, PayloadAction, createAsyncThunk, ActionReducerMapBuilder } from '@reduxjs/toolkit';
-import { Message } from '../smsSlice/smsSlice';
+import { Message } from '../messageSlice/messageSlice';
 import api from '@/lib/apiClient';
 import { LoadingState } from '@/types/common/type';
-import { CreateVisitorRequest, VisitorsWithSms } from '@/types/visitors/type';
-import { updateSmsSent } from "@/redux/slices/smsSlice/smsSlice";
-import { MessageInstance } from 'twilio/lib/rest/api/v2010/account/message';
+import { CreateVisitorRequest } from '@/types/visitors/type';
+import { updateMessagesSent } from '../messageSlice/messageSlice';
 
 
 type Visitor = {
@@ -14,7 +13,7 @@ type Visitor = {
   email: string | null;
   visitCount: number;
   lastVisit: Date | null;
-  sms: Message[];
+  messages: Message[];
 }
 
 export type VisitorState = {
@@ -36,7 +35,7 @@ const initialState: VisitorState = {
     email: '',
     visitCount: 0,
     lastVisit: null,
-    sms: [],
+    messages: [],
   },
   createVisitorRequestLoading: null,
   createVisitorRequestSuccess: null,
@@ -54,7 +53,7 @@ export const getVisitorByEmail = createAsyncThunk('visitor/getVisitorByEmail',
         if (!response.data) return response.data;
         let data = response.data;
         thunkApi.dispatch(setVisitor(data));
-        thunkApi.dispatch(updateSmsSent(data.sms));
+        thunkApi.dispatch(updateMessagesSent(data.sms));
         return data;
       }
       else {
@@ -129,16 +128,15 @@ const visitorSlice = createSlice({
     setVisitor: (state, action) => {
       state.visitor = action.payload;
     },
-    updateVisitorSms: (state, action: PayloadAction<{id: string, dateCreated: Date, message: string, visitorId: string}>) => {
+    updateVisitorMessages: (state, action: PayloadAction<{id: string, dateCreated: Date, message: string, visitorId: string}>) => {
       let msg = action.payload;
       const message: Message = {
-        id: msg.id,
         dateSent: msg.dateCreated,
         content: msg.message,
         visitorId: msg.visitorId
       }
-      if (!state.visitor.sms) state.visitor.sms = [message];
-      else state.visitor.sms = [...state.visitor.sms, message]
+      if (!state.visitor.messages) state.visitor.messages = [message];
+      else state.visitor.messages = [...state.visitor.messages, message]
     }
   },
   extraReducers: (builder) => {
@@ -147,6 +145,6 @@ const visitorSlice = createSlice({
   }
 });
 
-export const { setVisitor, updateVisitorSms } = visitorSlice.actions;
+export const { setVisitor, updateVisitorMessages } = visitorSlice.actions;
 
 export default visitorSlice.reducer;

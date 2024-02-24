@@ -1,15 +1,15 @@
-import { CreateSmsRequest, CreateSmsResponse } from "@/types/sms/type";
 import { formatResponse } from "@/services/utilService/utils";
+import { CreateMessageRequest, CreateMessageResponse } from "@/types/email/type";
 
 /**
  * Create an Sms in the db
- * @param {CreateSmsRequest} sms 
- * @returns {CreateSmsResponse}
+ * @param {CreateMessageRequest} sms 
+ * @returns {CreateMessageResponse}
  */
-export const createSms = async (sms: CreateSmsRequest): CreateSmsResponse => {
+export const createMessage = async (msg: CreateMessageRequest): CreateMessageResponse => {
   return fetch(`/api/sms/create-sms`, {
     method: "POST",
-    body: JSON.stringify(sms),
+    body: JSON.stringify(msg),
     headers: {
       "Allow-Content-Type": "application/json",
     },
