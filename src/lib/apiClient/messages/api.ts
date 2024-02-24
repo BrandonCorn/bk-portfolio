@@ -7,7 +7,7 @@ import { CreateMessageRequest, CreateMessageResponse } from "@/types/email/type"
  * @returns {CreateMessageResponse}
  */
 export const createMessage = async (msg: CreateMessageRequest): CreateMessageResponse => {
-  return fetch(`/api/sms/create-sms`, {
+  return fetch(`/api/messages/create-message`, {
     method: "POST",
     body: JSON.stringify(msg),
     headers: {
