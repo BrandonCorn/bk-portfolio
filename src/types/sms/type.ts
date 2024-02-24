@@ -1,5 +1,4 @@
 import { Sms } from "@prisma/client";
-import { ErrorResponse } from "../errors/type";
 import { MessageInstance } from "twilio/lib/rest/api/v2010/account/message";
 import { CustomResponse } from "../common/type";
 

@@ -1,4 +1,4 @@
-import * as sms from '@/lib/apiClient/sms';
+import * as sms from '@/lib/apiClient/messages/sms';
 import * as visitors from '@/lib/apiClient/visitors';
 import * as posts from '@/lib/apiClient/posts';
 import * as comments from '@/lib/apiClient/comments';
