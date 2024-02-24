@@ -28,7 +28,7 @@ const LoadingButton: React.FC<LoadingButtonProps> = ({
   return (
     <button
       id={id || ""}
-      disabled={isLoading || true}
+      disabled={disabled || false}
       type={type || "button"}
       onClick={onClick}
       className={clsx(
