@@ -15,7 +15,7 @@ export type SendSmsRequest = {
 export type SendSmsResponse = Promise<CustomResponse<MessageInstance>>
 
 export type CreateSmsRequest = {
-  id: string;
+  id?: string;
   content: string;
   dateSent: Date;
   visitorsId: string;

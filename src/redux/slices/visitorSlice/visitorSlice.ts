@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk, ActionReducerMapBuilder } from '@reduxjs/toolkit';
-import { Sms } from '../smsSlice/smsSlice';
+import { Message } from '../smsSlice/smsSlice';
 import api from '@/lib/apiClient';
 import { LoadingState } from '@/types/common/type';
 import { CreateVisitorRequest, VisitorsWithSms } from '@/types/visitors/type';
@@ -14,7 +14,7 @@ type Visitor = {
   email: string | null;
   visitCount: number;
   lastVisit: Date | null;
-  sms: Sms[];
+  sms: Message[];
 }
 
 export type VisitorState = {
@@ -129,13 +129,13 @@ const visitorSlice = createSlice({
     setVisitor: (state, action) => {
       state.visitor = action.payload;
     },
-    updateVisitorSms: (state, action: PayloadAction<MessageInstance & {visitorId: string}>) => {
-      let twilioSms = action.payload;
-      const message: Sms = {
-        id: twilioSms.sid,
-        dateSent: twilioSms.dateCreated,
-        content: twilioSms.body,
-        visitorId: twilioSms.visitorId
+    updateVisitorSms: (state, action: PayloadAction<{id: string, dateCreated: Date, message: string, visitorId: string}>) => {
+      let msg = action.payload;
+      const message: Message = {
+        id: msg.id,
+        dateSent: msg.dateCreated,
+        content: msg.message,
+        visitorId: msg.visitorId
       }
       if (!state.visitor.sms) state.visitor.sms = [message];
       else state.visitor.sms = [...state.visitor.sms, message]

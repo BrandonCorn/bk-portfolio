@@ -1,11 +1,12 @@
 import { v4 } from 'uuid';
 import { ActionReducerMapBuilder, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LoadingState } from '@/types/common/type';
-import { CreateSmsRequest, SendSmsRequest } from '@/types/sms/type';
+import { CreateSmsRequest } from '@/types/sms/type';
 import api from '@/lib/apiClient';
 import { Sms as DbSms } from '@prisma/client';
+import { SendMessageRequest } from '@/types/email/type';
 
-export type Sms = {
+export type Message = {
   id?: string;
   content: string;
   dateSent?: Date;
@@ -13,30 +14,30 @@ export type Sms = {
   visitorId?: string;
 }
 
-export type SmsState = {
-  sms: Sms[];
-  sendSmsRequestLoading: LoadingState | null;
-  sendSmsRequestSuccess: any;
-  sendSmsRequestFailure: any;
-  createSmsRequestLoading: LoadingState | null;
-  createSmsRequestSuccess: any;
-  createSmsRequestFailure: any;
+export type MessageState = {
+  sms: Message[];
+  sendMessageRequestLoading: LoadingState | null;
+  sendMessageRequestSuccess: any;
+  sendMessageRequestFailure: any;
+  createMessageRequestLoading: LoadingState | null;
+  createMessageRequestSuccess: any;
+  createMessageRequestFailure: any;
 }
 
-const initialState: SmsState = {
+const initialState: MessageState = {
   sms: [],
-  sendSmsRequestLoading: null,
-  sendSmsRequestSuccess: null,
-  sendSmsRequestFailure: null,
-  createSmsRequestLoading: null,
-  createSmsRequestSuccess: null,
-  createSmsRequestFailure: null,
+  sendMessageRequestLoading: null,
+  sendMessageRequestSuccess: null,
+  sendMessageRequestFailure: null,
+  createMessageRequestLoading: null,
+  createMessageRequestSuccess: null,
+  createMessageRequestFailure: null,
 };
 
-export const sendSms = createAsyncThunk('sms/sendSms', 
-  async (smsData: SendSmsRequest, thunkApi) => {
+export const sendMessage = createAsyncThunk('email/send-email', 
+  async (msgData: SendMessageRequest, thunkApi) => {
     try{
-      const response = await api.sms.sendSms(smsData);
+      const response = await api.email.sendEmail(msgData);
       if(response.success){
         const message = response.data;
         return message;
@@ -48,28 +49,28 @@ export const sendSms = createAsyncThunk('sms/sendSms',
     }
   })
 
-  const sendSmsBuilders = (builder: ActionReducerMapBuilder<SmsState>) => {
-    builder.addCase(sendSms.pending, (state, action) => {
-      state.sendSmsRequestLoading = 'loading';
-      state.sendSmsRequestFailure = null;
-      state.sendSmsRequestSuccess = null;
+  const sendSmsBuilders = (builder: ActionReducerMapBuilder<MessageState>) => {
+    builder.addCase(sendMessage.pending, (state, action) => {
+      state.sendMessageRequestLoading = 'loading';
+      state.sendMessageRequestFailure = null;
+      state.sendMessageRequestSuccess = null;
     });
-    builder.addCase(sendSms.fulfilled, (state, action) => {
+    builder.addCase(sendMessage.fulfilled, (state, action) => {
       let message = action.payload;
-      state.sendSmsRequestLoading = 'success';
-      state.sendSmsRequestSuccess = action.payload;
-      state.sms.push({id: message.sid, content: message.body, dateSent: message.dateCreated})
+      state.sendMessageRequestLoading = 'success';
+      state.sendMessageRequestSuccess = action.payload;
+      // state.sms.push({id: message.sid, content: message.body, dateSent: message.headers.date})
     });
-    builder.addCase(sendSms.rejected, (state, action) => {
-      state.sendSmsRequestLoading = 'error';
-      state.sendSmsRequestFailure = action.payload;
+    builder.addCase(sendMessage.rejected, (state, action) => {
+      state.sendMessageRequestLoading = 'error';
+      state.sendMessageRequestFailure = action.payload;
     });
   }
 
-export const createSms = createAsyncThunk('sms/createSms', 
-  async (smsData: CreateSmsRequest, thunkApi) => {
+export const createMessage = createAsyncThunk('sms/createMessage', 
+  async (msgData: CreateSmsRequest, thunkApi) => {
     try{
-      const response = await api.sms.createSms(smsData);
+      const response = await api.sms.createSms(msgData);
       if(response.success){
         return response.data;
       }
@@ -80,19 +81,19 @@ export const createSms = createAsyncThunk('sms/createSms',
     }
   });
 
-const createSmsBuilders = (builder: ActionReducerMapBuilder<SmsState>) => {
-  builder.addCase(createSms.pending, (state, action) => {
-    state.createSmsRequestLoading = 'loading';
-    state.createSmsRequestFailure = null;
-    state.sendSmsRequestSuccess = null;
+const createSmsBuilders = (builder: ActionReducerMapBuilder<MessageState>) => {
+  builder.addCase(createMessage.pending, (state, action) => {
+    state.createMessageRequestLoading = 'loading';
+    state.createMessageRequestFailure = null;
+    state.sendMessageRequestSuccess = null;
   });
-  builder.addCase(createSms.fulfilled, (state, action) => {
-    state.createSmsRequestLoading = 'success';
-    state.createSmsRequestSuccess = action.payload;
+  builder.addCase(createMessage.fulfilled, (state, action) => {
+    state.createMessageRequestLoading = 'success';
+    state.createMessageRequestSuccess = action.payload;
   });
-  builder.addCase(createSms.rejected, (state, action) => {
-    state.createSmsRequestLoading = 'error';
-    state.createSmsRequestFailure = action.payload;
+  builder.addCase(createMessage.rejected, (state, action) => {
+    state.createMessageRequestLoading = 'error';
+    state.createMessageRequestFailure = action.payload;
   });  
 }
 

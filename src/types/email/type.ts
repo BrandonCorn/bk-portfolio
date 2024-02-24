@@ -1,5 +1,6 @@
 import { Sms } from "@prisma/client";
 import { CustomResponse } from "../common/type";
+import { CreateSmsRequest } from "../sms/type";
 
 export type SendMessage = {
   email?: string;
@@ -22,3 +23,7 @@ export type MessageDetails = {
   phoneNumber?: string;
   message: string;
 }
+
+export type CreateMessageRequest = CreateSmsRequest;
+
+export type CreateMessageResponse = Promise<CustomResponse<Sms | false>>

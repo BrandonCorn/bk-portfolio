@@ -18,8 +18,7 @@ import {
   getVisitorByEmail,
   updateVisitorSms,
 } from "@/redux/slices/visitorSlice/visitorSlice";
-import { sendSms, createSms } from "@/redux/slices/smsSlice/smsSlice";
-import { MessageInstance } from "twilio/lib/rest/api/v2010/account/message";
+import { sendMessage, createMessage } from "@/redux/slices/smsSlice/smsSlice";
 import LoadingButton, {
   LoadingButtonProps,
 } from "../../../atoms/Buttons/LoadingButton/LoadingButton";
@@ -145,12 +144,12 @@ const ContactForm = () => {
     } else {
       const data = {
         name: findVisitor.name,
-        email: findVisitor.email,
-        phoneNumber: findVisitor.phoneNumber,
+        email: findVisitor.email || email,
+        phoneNumber: findVisitor.phoneNumber || phoneNumber,
         message,
       };
-      const sentSms = await dispatch(sendSms(data));
-      if (sentSms.meta.requestStatus === "fulfilled") {
+      const sentMessage = await dispatch(sendMessage(data));
+      if (sentMessage.meta.requestStatus === "fulfilled") {
         setLoading(false);
         updateSuccesModal({
           show: true,
@@ -159,15 +158,15 @@ const ContactForm = () => {
             "Your message has been sent. I appreciate it and I'll reach out soon as I can!",
         });
 
-        let oneSms = sentSms.payload as MessageInstance;
+        let oneMsg = sentMessage.payload;
         if (findVisitor.id) {
-          dispatch(
-            updateVisitorSms({ visitorId: findVisitor.id, ...oneSms } as any)
-          );
+          // dispatch(
+          //   updateVisitorSms({ visitorId: findVisitor.id, ...oneMsg } as any)
+          // );
           await dispatch(
-            createSms({
-              id: oneSms.sid,
-              dateSent: oneSms.dateCreated,
+            createMessage({
+              id: "",
+              dateSent: new Date(Date.now()),
               content: message,
               visitorsId: findVisitor.id,
             })

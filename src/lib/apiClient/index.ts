@@ -1,4 +1,5 @@
 import * as sms from '@/lib/apiClient/messages/sms';
+import * as email from '@/lib/apiClient/messages/email';
 import * as visitors from '@/lib/apiClient/visitors';
 import * as posts from '@/lib/apiClient/posts';
 import * as comments from '@/lib/apiClient/comments';
@@ -6,6 +7,9 @@ import * as comments from '@/lib/apiClient/comments';
 const api = {
   sms: {
     ...sms
+  },
+  email: {
+    ...email 
   },
   visitors: {
     ...visitors
