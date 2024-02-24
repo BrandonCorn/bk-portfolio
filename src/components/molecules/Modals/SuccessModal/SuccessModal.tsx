@@ -8,6 +8,10 @@ import { motion } from "framer-motion";
 export interface SuccessModalProps extends BasicModalProps {
   title: string;
   message: string;
+  alt?: string;
+  imgSrc?: string;
+  height?: number;
+  width?: number;
 }
 
 const SuccessModal: React.FC<SuccessModalProps> = ({
@@ -17,6 +21,10 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
   onAfterOpen,
   title,
   message,
+  alt,
+  imgSrc,
+  height,
+  width,
 }) => {
   return (
     <BasicModal
@@ -29,10 +37,10 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
         <div className="rounded-lg text-center w-2/3 shadow-2xl p-16 m-16 space-y-4">
           <div className="flex justify-center items-center text-center">
             <Image
-              alt={"success cat"}
-              src="/cat-success.svg"
-              width={50}
-              height={50}
+              alt={alt || "success cat"}
+              src={imgSrc || "/cat-success.svg"}
+              width={width || 50}
+              height={height || 50}
             />
           </div>
           <div>

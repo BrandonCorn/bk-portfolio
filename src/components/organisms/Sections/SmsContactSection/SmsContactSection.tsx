@@ -191,7 +191,7 @@ const SmsContactForm = () => {
     <GeneralInput
       className={formInputClasses}
       key={`sms-input-1`}
-      placeholder={"name"}
+      placeholder={"Name"}
       value={name}
       type="text"
       onChange={handleNameChange}

@@ -25,6 +25,7 @@ type ShowButtonText = "show more" | "show less";
 /**
  * Container for blog post content including the post and it's info, comments on the post, and the ability to add comments by users
  * @param props
+ * @param {} props.id - id of the blog post
  * @param {} props.title - title of the blog post
  * @param {} props.content - content of the blog post
  * @param {} props.createdAt - The date and time when the blog post was created
