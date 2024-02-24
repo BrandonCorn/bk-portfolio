@@ -53,7 +53,7 @@ export const getVisitorByEmail = createAsyncThunk('visitor/getVisitorByEmail',
         if (!response.data) return response.data;
         let data = response.data;
         thunkApi.dispatch(setVisitor(data));
-        thunkApi.dispatch(updateMessagesSent(data.sms));
+        thunkApi.dispatch(updateMessagesSent(data.messages));
         return data;
       }
       else {
