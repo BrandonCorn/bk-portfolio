@@ -1,4 +1,4 @@
-import { Sms } from "@prisma/client";
+import { Messages } from "@prisma/client";
 import { CustomResponse } from "../common/type";
 import { CreateSmsRequest } from "../sms/type";
 
@@ -26,4 +26,4 @@ export type MessageDetails = {
 
 export type CreateMessageRequest = CreateSmsRequest;
 
-export type CreateMessageResponse = Promise<CustomResponse<Sms | false>>
+export type CreateMessageResponse = Promise<CustomResponse<Messages | false>>
