@@ -164,7 +164,7 @@ const ContactForm = () => {
             content: message,
             visitorsId: findVisitor.id,
           };
-          await dispatch(createMessage(msgData));
+          dispatch(createMessage(msgData));
           dispatch(updateVisitorMessages(msgData));
         }
       } else {
