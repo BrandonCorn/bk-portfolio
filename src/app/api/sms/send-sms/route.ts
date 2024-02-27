@@ -1,6 +1,6 @@
 import twilio from 'twilio';
 import { NextRequest, NextResponse } from 'next/server';
-import { formatSms } from '@/services/utilService/utils';
+import { formatMsg } from '@/services/utilService/utils';
 import { sendSms } from '@/services/twilioServices/sms/send-sms';
 import { BadRequestError } from '@/lib/errors/bad-request-error';
 import { SendSmsRequest } from '@/types/sms/type';
@@ -14,7 +14,7 @@ export const POST = async (req: NextRequest) => {
   if (process.env.MY_PHONE) from = process.env.MY_PHONE;
   try{
     if(to && from){
-      const formatMessage = formatSms(data);
+      const formatMessage = formatMsg(data);
       const msgData = {
         fromPhoneNumber: to,
         toPhoneNumber: from,

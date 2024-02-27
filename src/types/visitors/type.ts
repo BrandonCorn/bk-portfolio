@@ -1,4 +1,4 @@
-import { Prisma, Visitors, Sms } from "@prisma/client";
+import { Prisma, Visitors, Messages } from "@prisma/client";
 import { ErrorResponse } from "../errors/type";
 import { CustomResponse } from "../common/type";
 
@@ -18,7 +18,7 @@ export type CreateVisitorRequest = {
 }
 
 export type VisitorsWithSms = Visitors & {
-  sms: Sms[]
+  messages: Messages[]
 }
 
 export type CreateVisitorResponse = Promise<CustomResponse<Visitors | false>>

@@ -1,12 +1,13 @@
 import { CustomResponse } from "@/types/common/type";
 import { SmsDetails } from "@/types/sms/type"
+import { MessageDetails } from "@/types/email/type";
 
 /**
  * Formats the message sent to portfolio owner to format selected by them
- * @param {SmsDetails} smsInfo 
+ * @param {SmsDetails || MessageDetails} smsInfo 
  * @returns {string}
  */
-export function formatSms(smsInfo: SmsDetails){
+export function formatMsg(smsInfo: SmsDetails | MessageDetails){
   return `You have a new message from ${smsInfo.name} @ ${smsInfo.email || smsInfo.phoneNumber}\n\n${smsInfo.message}`
 }
 

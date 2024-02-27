@@ -8,7 +8,7 @@ import TwilioSpeaker from "/public/about-me/twilio-speaker.jpeg";
 import Mom from "/public/about-me/brandon-mom.jpeg";
 import TestimonialsSection from "@/components/organisms/Sections/TestimonialsSection/TestimonialsSection";
 import HomeIntro from "@/components/molecules/Cards/HomeIntroCard/HomeIntro";
-import SmsContactSection from "@/components/organisms/Sections/SmsContactSection/SmsContactSection";
+import ContactSection from "@/components/organisms/Sections/ContactSection/ContactSection";
 import { LayoutGroup } from "framer-motion";
 
 const homeImages = [MeowWolf, Disneyland, MeowWolf2, TwilioSpeaker, Mom];
@@ -27,7 +27,7 @@ function Home() {
 
             <div className="flex flex-col lg:flex-row my-16 space-x-10">
               <div className="bg-transparent p-4 flex-1 flex-col sm:flex">
-                <SmsContactSection />
+                <ContactSection />
               </div>
               <div className="flex flex-1 sm:flex my-4">
                 <TestimonialsSection />
