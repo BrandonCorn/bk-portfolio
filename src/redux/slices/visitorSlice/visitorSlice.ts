@@ -128,11 +128,11 @@ const visitorSlice = createSlice({
     setVisitor: (state, action) => {
       state.visitor = action.payload;
     },
-    updateVisitorMessages: (state, action: PayloadAction<{id: string, dateCreated: Date, message: string, visitorId: string}>) => {
+    updateVisitorMessages: (state, action: PayloadAction<Message>) => {
       let msg = action.payload;
       const message: Message = {
-        dateSent: msg.dateCreated,
-        content: msg.message,
+        dateSent: msg.dateSent,
+        content: msg.content,
         visitorId: msg.visitorId
       }
       if (!state.visitor.messages) state.visitor.messages = [message];

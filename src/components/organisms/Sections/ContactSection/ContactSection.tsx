@@ -25,6 +25,7 @@ import {
 import LoadingButton, {
   LoadingButtonProps,
 } from "../../../atoms/Buttons/LoadingButton/LoadingButton";
+import { Message } from "../../../../redux/slices/messageSlice/messageSlice";
 
 const formDescription =
   "Are you looking for a developer? Let's chat and see how we can work together!";
@@ -98,10 +99,6 @@ const ContactForm = () => {
     setFailureModalInfo((prev) => ({ ...prev, show: false }));
   };
 
-  // const autoCloseModal = () => {
-  //   setTimeout(() => {}, 3000);
-  // };
-
   //Send sms to visitor and save their info
   const handleSubmit: FormEventHandler<
     HTMLFormElement | HTMLButtonElement
@@ -135,7 +132,7 @@ const ContactForm = () => {
       findVisitor = visitor.visitor;
     }
 
-    //two conditions, we have visitor with sms cause we found them or we have a visitor without sms because we had to create them an sms array is empty and not included
+    //two conditions, we have visitor with messages cause we found them or we have a visitor without sms because we had to create them an sms array is empty and not included
     if ("messages" in findVisitor && findVisitor.messages.length >= 2) {
       handleLoading(false);
       updateFailureModal({
@@ -161,13 +158,15 @@ const ContactForm = () => {
             "Your message has been sent. I appreciate it and I'll reach out soon as I can!",
         });
 
-        let oneMsg = sentMessage.payload;
+        const sendMessageResponse = sentMessage.payload;
+        const date = sendMessageResponse[0].headers.date;
         if (findVisitor.id) {
           dispatch(
             updateVisitorMessages({
               visitorId: findVisitor.id,
-              ...oneMsg,
-            } as any)
+              content: message,
+              dateSent: date,
+            } as Message)
           );
           await dispatch(
             createMessage({

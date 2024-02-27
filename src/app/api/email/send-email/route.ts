@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { formatMsg } from '@/services/utilService/utils';
-import { sendSms } from '@/services/twilioServices/sms/send-sms';
 import { BadRequestError } from '@/lib/errors/bad-request-error';
 import { SendMessageRequest } from '@/types/email/type';
 import { sendEmail } from '@/services/twilioServices/email/send-email';
