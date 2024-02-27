@@ -16,13 +16,16 @@ import { useAppDispatch, useAppSelector } from "@/redux";
 import {
   createVisitor,
   getVisitorByEmail,
-  updateVisitorSms,
+  updateVisitorMessages,
 } from "@/redux/slices/visitorSlice/visitorSlice";
-import { sendSms, createSms } from "@/redux/slices/smsSlice/smsSlice";
-import { MessageInstance } from "twilio/lib/rest/api/v2010/account/message";
+import {
+  sendMessage,
+  createMessage,
+} from "@/redux/slices/messageSlice/messageSlice";
 import LoadingButton, {
   LoadingButtonProps,
 } from "../../../atoms/Buttons/LoadingButton/LoadingButton";
+import { Message } from "../../../../redux/slices/messageSlice/messageSlice";
 
 const formDescription =
   "Are you looking for a developer? Let's chat and see how we can work together!";
@@ -33,7 +36,7 @@ type ModalInfo = {
   message: string;
 };
 
-const SmsContactForm = () => {
+const ContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -96,10 +99,6 @@ const SmsContactForm = () => {
     setFailureModalInfo((prev) => ({ ...prev, show: false }));
   };
 
-  // const autoCloseModal = () => {
-  //   setTimeout(() => {}, 3000);
-  // };
-
   //Send sms to visitor and save their info
   const handleSubmit: FormEventHandler<
     HTMLFormElement | HTMLButtonElement
@@ -133,8 +132,8 @@ const SmsContactForm = () => {
       findVisitor = visitor.visitor;
     }
 
-    //two conditions, we have visitor with sms cause we found them or we have a visitor without sms because we had to create them an sms array is empty and not included
-    if ("sms" in findVisitor && findVisitor.sms.length >= 2) {
+    //two conditions, we have visitor with messages cause we found them or we have a visitor without sms because we had to create them an sms array is empty and not included
+    if ("messages" in findVisitor && findVisitor.messages.length >= 2) {
       handleLoading(false);
       updateFailureModal({
         show: true,
@@ -145,12 +144,12 @@ const SmsContactForm = () => {
     } else {
       const data = {
         name: findVisitor.name,
-        email: findVisitor.email,
-        phoneNumber: findVisitor.phoneNumber,
+        email: findVisitor.email || email,
+        phoneNumber: findVisitor.phoneNumber || phoneNumber,
         message,
       };
-      const sentSms = await dispatch(sendSms(data));
-      if (sentSms.meta.requestStatus === "fulfilled") {
+      const sentMessage = await dispatch(sendMessage(data));
+      if (sentMessage.meta.requestStatus === "fulfilled") {
         setLoading(false);
         updateSuccesModal({
           show: true,
@@ -159,19 +158,14 @@ const SmsContactForm = () => {
             "Your message has been sent. I appreciate it and I'll reach out soon as I can!",
         });
 
-        let oneSms = sentSms.payload as MessageInstance;
         if (findVisitor.id) {
-          dispatch(
-            updateVisitorSms({ visitorId: findVisitor.id, ...oneSms } as any)
-          );
-          await dispatch(
-            createSms({
-              id: oneSms.sid,
-              dateSent: oneSms.dateCreated,
-              content: message,
-              visitorsId: findVisitor.id,
-            })
-          );
+          const msgData = {
+            dateSent: new Date(Date.now()),
+            content: message,
+            visitorsId: findVisitor.id,
+          };
+          dispatch(createMessage(msgData));
+          dispatch(updateVisitorMessages(msgData));
         }
       } else {
         setLoading(false);
@@ -250,7 +244,7 @@ const SmsContactForm = () => {
         FormButton={
           <LoadingButton
             className={
-              "h-10 w-40 bg-sky-500 hover:bg-sky-700 border-sky-500 hover:border-sky-700 hover:cursor-not-allowed text-sm border-4 text-white py-1 px-4 rounded"
+              "h-10 w-40 bg-sky-500 hover:bg-sky-700 border-sky-500 hover:border-sky-700  text-sm border-4 text-white py-1 px-4 rounded"
             }
             isLoading={buttonProps.isLoading}
             text={buttonProps.text}
@@ -293,4 +287,4 @@ const SmsContactForm = () => {
   );
 };
 
-export default SmsContactForm;
+export default ContactForm;

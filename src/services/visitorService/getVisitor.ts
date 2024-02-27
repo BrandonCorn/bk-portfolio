@@ -15,12 +15,12 @@ export const getVisitorByEmail = async (email: GetVisitorByEmail): Promise<Visit
         email: extractEmail,
       },
       include: {
-        Sms: true
+        Messages: true
       }
     }); 
     if (foundVisitor) {
       return {
-        sms: foundVisitor.Sms,
+        messages: foundVisitor.Messages,
         ...foundVisitor
       }
     }

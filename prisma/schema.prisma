@@ -59,39 +59,18 @@ model VerificationToken {
 }
 
 model Visitors {
-  id          String      @id @unique @default(uuid())
+  id          String      @id @default(cuid())
   name        String      @default(uuid())
   email       String?     @unique
   phoneNumber String?
   visitCount  Int?
   lastVisit   DateTime?
   createdAt   DateTime    @default(now())
-  Questions   Questions[]
-  Answers     Answers[]
-  Sms         Sms[]
+  Messages    Messages[]
 }
 
-model Questions {
-  id         String   @id @unique @default(uuid())
-  content    String
-  answer     Answers?
-  visitor    Visitors @relation(fields: [visitorsId], references: [id])
-  createdAt  DateTime @default(now())
-  visitorsId String
-}
-
-model Answers {
-  id          String    @id @unique @default(uuid())
-  content     String
-  question    Questions @relation(fields: [questionsId], references: [id])
-  visitor     Visitors  @relation(fields: [visitorsId], references: [id])
-  createdAt   DateTime  @default(now())
-  questionsId String    @unique
-  visitorsId  String
-}
-
-model Sms {
-  id         String   @id @unique @default(uuid())
+model Messages {
+  id         String   @id @default(cuid())
   createdAt  DateTime @default(now())
   dateSent   DateTime
   content    String
