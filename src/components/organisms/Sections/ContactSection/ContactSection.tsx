@@ -211,8 +211,7 @@ const ContactForm = () => {
   ];
 
   const messageProps = {
-    placeholder:
-      "Temporarily disabled and awaiting phone number verification from Twilio. Sorry for the delay everyone!",
+    placeholder: formDescription,
     type: "text",
     value: message,
     onChange: handleMessageChange,
