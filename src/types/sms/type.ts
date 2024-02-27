@@ -1,13 +1,12 @@
-import { Sms } from "@prisma/client";
-import { ErrorResponse } from "../errors/type";
+import { Messages } from "@prisma/client";
 import { MessageInstance } from "twilio/lib/rest/api/v2010/account/message";
 import { CustomResponse } from "../common/type";
 
 //Requests
 export type SendSmsRequest = {
   name: string;
-  email: string | null;
-  phoneNumber: string | null;
+  email?: string;
+  phoneNumber?: string;
   message: string;
 }
 
@@ -16,13 +15,13 @@ export type SendSmsRequest = {
 export type SendSmsResponse = Promise<CustomResponse<MessageInstance>>
 
 export type CreateSmsRequest = {
-  id: string;
+  id?: string;
   content: string;
   dateSent: Date;
   visitorsId: string;
 }
 
-export type CreateSmsResponse = Promise<CustomResponse<Sms | false>>
+export type CreateSmsResponse = Promise<CustomResponse<Messages | false>>
 
 
 //SERVICES
@@ -37,7 +36,7 @@ export interface SendSms {
 //UTIL SERVICE FOR FORMATTING SMS MESSAGE
 export type SmsDetails = {
   name: string;
-  phoneNumber: string | null;
-  email: string | null;
+  phoneNumber?: string;
+  email?: string;
   message: string;
 }
