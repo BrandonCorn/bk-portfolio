@@ -5,6 +5,7 @@ import { CreateSmsRequest } from '@/types/sms/type';
 import api from '@/lib/apiClient';
 import { Messages } from '@prisma/client';
 import { SendMessageRequest } from '@/types/email/type';
+import { ErrorResponse } from '@/types/errors/type';
 
 export type Message = {
   id?: string;
@@ -67,19 +68,13 @@ export const sendMessage = createAsyncThunk('messages/sendMessage',
     });
   }
 
-  // still using legacy api.sms.createSms, needs refactor to generic createMessage service
-export const createMessage = createAsyncThunk('messages/createMessage', 
+export const createMessage = createAsyncThunk<Message, CreateSmsRequest, {rejectValue: ErrorResponse}>('messages/createMessage', 
   async (msgData: CreateSmsRequest, thunkApi) => {
-    try{
-      const response = await api.messages.createMessage(msgData);
-      if(response.success){
-        return response.data;
-      }
-      else return thunkApi.rejectWithValue(response);
+    const response = await api.messages.createMessage(msgData);
+    if(response.success){
+      return response.data as Message;
     }
-    catch(err){
-      return thunkApi.rejectWithValue(err);
-    }
+    else return thunkApi.rejectWithValue(response.error);
   });
 
 const createMessageBuilders = (builder: ActionReducerMapBuilder<MessageState>) => {

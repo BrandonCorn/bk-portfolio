@@ -158,23 +158,14 @@ const ContactForm = () => {
             "Your message has been sent. I appreciate it and I'll reach out soon as I can!",
         });
 
-        const sendMessageResponse = sentMessage.payload;
-        const date = sendMessageResponse[0].headers.date;
         if (findVisitor.id) {
-          dispatch(
-            updateVisitorMessages({
-              visitorId: findVisitor.id,
-              content: message,
-              dateSent: date,
-            } as Message)
-          );
-          await dispatch(
-            createMessage({
-              dateSent: new Date(Date.now()),
-              content: message,
-              visitorsId: findVisitor.id,
-            })
-          );
+          const msgData = {
+            dateSent: new Date(Date.now()),
+            content: message,
+            visitorsId: findVisitor.id,
+          };
+          await dispatch(createMessage(msgData));
+          dispatch(updateVisitorMessages(msgData));
         }
       } else {
         setLoading(false);
