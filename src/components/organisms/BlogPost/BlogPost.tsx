@@ -173,9 +173,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
         transition={{ duration: 0.2 }}
         className={`flex mt-4`}
       >
-        {showComments && (
-          <CommentList postId={id} showComments={showComments} />
-        )}
+        {showComments && <CommentList postId={id} />}
       </motion.div>
     </article>
   );
