@@ -3,7 +3,6 @@ import BasicModal, {
   BasicModalProps,
 } from "@/components/atoms/Modals/BasicModal";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 export interface SuccessModalProps extends BasicModalProps {
   title: string;

@@ -1,5 +1,6 @@
 import Modal from "react-modal";
-import { useEffect, useState } from "react";
+
+Modal.setAppElement("#main-layout");
 
 export type BasicModalProps = {
   id?: string;

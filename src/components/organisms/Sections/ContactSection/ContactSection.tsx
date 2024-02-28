@@ -3,8 +3,9 @@
 import GeneralForm from "@/components/molecules/Forms/GeneralForm/GeneralForm";
 import DescriptionText from "@/components/atoms/Texts/DescriptionText/DescriptionText";
 import GeneralInput from "@/components/atoms/Inputs/GeneralInput";
-import React, {
+import {
   useState,
+  useEffect,
   FormEventHandler,
   useCallback,
   ChangeEventHandler,
@@ -25,7 +26,6 @@ import {
 import LoadingButton, {
   LoadingButtonProps,
 } from "../../../atoms/Buttons/LoadingButton/LoadingButton";
-import { Message } from "../../../../redux/slices/messageSlice/messageSlice";
 
 const formDescription =
   "Are you looking for a developer? Let's chat and see how we can work together!";
@@ -267,22 +267,20 @@ const ContactForm = () => {
         />
       </GeneralForm>
       <p className="mt-8"> Pay kindness forward! </p>
-      {successModalInfo.show && (
-        <SuccessModal
-          title={successModalInfo.title}
-          message={successModalInfo.message}
-          isOpen={successModalInfo.show}
-          closeModal={closeModal}
-        />
-      )}
-      {failureModalInfo.show && (
-        <FailureModal
-          title={failureModalInfo.title}
-          message={failureModalInfo.message}
-          isOpen={failureModalInfo.show}
-          closeModal={closeModal}
-        />
-      )}
+
+      <SuccessModal
+        title={successModalInfo.title}
+        message={successModalInfo.message}
+        isOpen={successModalInfo.show}
+        closeModal={closeModal}
+      />
+
+      <FailureModal
+        title={failureModalInfo.title}
+        message={failureModalInfo.message}
+        isOpen={failureModalInfo.show}
+        closeModal={closeModal}
+      />
     </motion.div>
   );
 };
