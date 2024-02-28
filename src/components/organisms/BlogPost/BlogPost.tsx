@@ -70,7 +70,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
 
   /**
    * Handles setting the
-   * @param e ChangeEvent<HTMLTextAreaElement> event from comment text area
+   * @param {ChangeEvent<HTMLTextAreaElement>} e - event from comment text area
    */
   const handleCommentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCommentContent(e.target.value);

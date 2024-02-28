@@ -8,12 +8,15 @@ import FailureModal from "@/components/molecules/Modals/FailureModal/FailureModa
 import { saveNewPost } from "@/redux/slices/postSlice/postSlice";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { ErrorResponse } from "@/types/errors/type";
 
 const NewBlogPost = ({}) => {
   const [newPostModalOpen, setNewPostModalOpen] = useState(false);
-  const [newPostLoaded, setNewPostLoaded] = useState(false);
+  const [newPostSuccess, setNewPostSuccess] = useState(false);
+  const [newPostFailed, setNewPostFailed] = useState(false);
   const [requestMessage, setRequestMessage] = useState("");
   const [requestStatusTitle, setRequestStatusTitle] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const { data: session } = useSession();
   const router = useRouter();
@@ -27,8 +30,8 @@ const NewBlogPost = ({}) => {
   /**
    * Saves a new blog post to the database
    * @param data
-   * @param data.title - title of the blog post
-   * @param data.string - content of the blog post
+   * @param {string} data.title - title of the blog post
+   * @param {string} data.string - content of the blog post
    * @returns
    */
   const savePostRequest = async ({
@@ -47,15 +50,28 @@ const NewBlogPost = ({}) => {
       authorId: user.id,
     };
     //logic to save the blog post
+    setIsLoading(true);
     const postResponse = await dispatch(saveNewPost(post));
-    setRequestStatusTitle("Success, you did it!");
-    setRequestMessage("Post saved successfully");
+    setIsLoading(false);
+    if (postResponse.meta.requestStatus === "fulfilled") {
+      setRequestStatusTitle("You did it!!");
+      setRequestMessage("Your new post has been saved.");
+      setNewPostSuccess(true);
+    } else {
+      const error = postResponse.payload as ErrorResponse;
+      setRequestStatusTitle("Something Went Wrong");
+      // only admin is creating blog posts and therefore should get to see what the actual error is
+      setRequestMessage(error.message);
+      setNewPostFailed(true);
+    }
 
     handlerMakeNewPost();
-    setNewPostLoaded(true);
   };
 
-  const resetNewPostLoaded = () => setNewPostLoaded(!newPostLoaded);
+  const resetNewPostLoaded = () => {
+    setNewPostSuccess(false);
+    setNewPostFailed(false);
+  };
 
   return (
     <div id="new-blog-post">
@@ -71,17 +87,18 @@ const NewBlogPost = ({}) => {
         isOpen={newPostModalOpen}
         closeModalHandler={handlerMakeNewPost}
         savePostRequest={savePostRequest}
+        isLoading={isLoading}
       />
       <SuccessModal
         title={requestStatusTitle}
         message={requestMessage}
-        isOpen={newPostLoaded}
+        isOpen={newPostSuccess}
         closeModal={resetNewPostLoaded}
       />
       <FailureModal
         title={requestStatusTitle}
         message={requestMessage}
-        isOpen={newPostLoaded}
+        isOpen={newPostFailed}
         closeModal={resetNewPostLoaded}
       />
     </div>
