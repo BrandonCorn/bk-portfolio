@@ -4,7 +4,7 @@
 
 Welcome to my personal portfolio website! This dynamic and user-friendly site is designed to showcase my skills, experiences, and projects. It's built with a cutting-edge tech stack and features various tools and technologies. Here's what you need to know to get started:
 
-[See it here!](https://bk-portfolio-nu.vercel.app/)
+[See it here!](https://thatscornwithac.dev/)
 
 ## Technologies Used
 
@@ -45,7 +45,7 @@ If you'd like to contribute or provide feedback, please feel free to open an iss
 
 ## Author
 
-- [Brandon Corn](https://bk-portfolio-nu.vercel.app/)
+- [Brandon Corn](https://thatscornwithac.dev/)
 
 ## License
 
