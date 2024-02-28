@@ -38,7 +38,9 @@ const LoadingButton: React.FC<LoadingButtonProps> = ({
       )}
     >
       {!isLoading ? text : loadingText}
-      <LoadingIcon isShowing={isLoading} />
+      {isLoading && (
+        <div className="animate-spin rounded-full h-8 w-8 mx-2 border-t-2 border-b-2 border-white"></div>
+      )}
     </button>
   );
 };
