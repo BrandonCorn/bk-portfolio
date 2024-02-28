@@ -73,20 +73,15 @@ export default function Page({ params }: { params: { page: string } }) {
           </div>
           <div className="w-full max-w-3xl">
             {currentPagePosts.length ? (
-              <div>
-                {currentPagePosts.map((post, index) => (
-                  <div
-                    key={`post-${index}`}
-                    id={`post-${index}`}
-                    className="my-4 md:my-12"
-                  >
-                    <BlogPost {...post} />
-                  </div>
-                ))}
-                <div className="flex border-solid border-2 border-violet-500 rounded-xl px-4 py-2 items-center justify-center">
-                  {anchorArray}
+              currentPagePosts.map((post, index) => (
+                <div
+                  key={`post-${index}`}
+                  id={`post-${index}`}
+                  className="my-4 md:my-12"
+                >
+                  <BlogPost {...post} />
                 </div>
-              </div>
+              ))
             ) : (
               <div className="flex items-center justify-center text-center m-8">
                 <h1 className="text-xl">
@@ -95,6 +90,9 @@ export default function Page({ params }: { params: { page: string } }) {
                 </h1>
               </div>
             )}
+          </div>
+          <div className="flex border-solid border-2 border-violet-500 rounded-xl px-4 py-2 items-center justify-center">
+            {anchorArray}
           </div>
         </div>
       )}
