@@ -23,9 +23,10 @@ const testimonials: TestimonialProps[] = [
   },
   {
     name: "Krista Goralcyzk",
-    company: "Twilio",
-    jobTitle: "Senior Solutions Engineer",
-    quote: "You're the most technical person I know!",
+    company: "Vercel",
+    jobTitle: "Solutions Engineer",
+    quote:
+      "I greatly enjoyed working with Brandon at Twilio. He is a very sharp Solutions Engineer and strong programmer. Between his motivation to tinker with code and great communication skills, I highly recommend working with him!",
   },
 ];
 
