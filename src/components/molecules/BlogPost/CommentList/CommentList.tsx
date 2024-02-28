@@ -5,11 +5,17 @@ import { motion } from "framer-motion";
 
 type CommentListProps = {
   postId: number;
-  showComments: boolean;
 };
 
-const CommentList = ({ postId, showComments }: CommentListProps) => {
+const CommentList = ({ postId }: CommentListProps) => {
   const comments = useAppSelector(selectCommentsByPostId(postId));
+  if (!comments || comments.length === 0) {
+    return (
+      <div className="flex justify-center mx-4">
+        <p className="text-lg"> No Comments </p>
+      </div>
+    );
+  }
 
   return (
     <motion.div

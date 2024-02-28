@@ -8,6 +8,7 @@ import clsx from "clsx";
 import { useState, useEffect } from "react";
 import BlogPost from "@/components/organisms/BlogPost/BlogPost";
 import { motion } from "framer-motion";
+import NewBlogPost from "@/components/organisms/NewBlogPost/NewBlogPost";
 
 const blogTitle = "Moments Unscripted: A Continual Blog";
 
@@ -67,17 +68,28 @@ export default function Page({ params }: { params: { page: string } }) {
           <div>
             <BasicTitle className="text-2xl" text={blogTitle} />
           </div>
+          <div className="flex mt-6">
+            <NewBlogPost />
+          </div>
           <div className="w-full max-w-3xl">
-            {currentPagePosts &&
+            {currentPagePosts.length ? (
               currentPagePosts.map((post, index) => (
                 <div
                   key={`post-${index}`}
                   id={`post-${index}`}
-                  className="my-4 md:my-16"
+                  className="my-4 md:my-12"
                 >
                   <BlogPost {...post} />
                 </div>
-              ))}
+              ))
+            ) : (
+              <div className="flex items-center justify-center text-center m-8">
+                <h1 className="text-xl">
+                  {" "}
+                  There are no posts. Come back later{" "}
+                </h1>
+              </div>
+            )}
           </div>
           <div className="flex border-solid border-2 border-violet-500 rounded-xl px-4 py-2 items-center justify-center">
             {anchorArray}

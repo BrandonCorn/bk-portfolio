@@ -43,7 +43,7 @@ const BlogPostCommentForm = ({
       />
 
       <BasicButton
-        className="border-2 rounded-lg px-6 h-full bg-purple-500 hover:bg-purple-600"
+        className="border-2 rounded-lg px-6 h-full bg-purple-500 hover:bg-purple-600 text-zinc-300 dark:text-white"
         type="submit"
         name="post-comment-button"
         aria-label="Post comment"

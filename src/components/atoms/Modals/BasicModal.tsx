@@ -1,5 +1,6 @@
 import Modal from "react-modal";
-import { useEffect, useState } from "react";
+
+Modal.setAppElement("#main-layout");
 
 export type BasicModalProps = {
   id?: string;
@@ -25,6 +26,11 @@ const customOverlay = {
     transform: "translate(-50%, -50%)",
     border: "none",
     borderRadius: "0.75rem",
+    maxWidth: "90vw", // Set maximum width to 90% of viewport width
+    maxHeight: "90vh", // Set maximum height to 90% of viewport height
+    width: "auto", // Allow width to adjust based on content
+    height: "auto", // Allow height to adjust based on content
+    padding: "1rem", // Add padding for better readability
   },
 };
 
