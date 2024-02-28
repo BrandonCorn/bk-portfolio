@@ -41,14 +41,14 @@ export const getPostsByPublishDate = async (pageSize: number = 27, skip: number 
  * @param post.authorId - id of the author creating the blog post
  * @returns 
  */
-export const createPost = async ({title, content, published, authorId}: CreatePostRequest) => {
+export const createPost = async ({title, content, published, authorId }: CreatePostRequest) => {
   try{
     const post = await prisma.post.create({
       data: {
         title,
         content,
         published,
-        authorId
+        authorId: ''
       }
     });
 

@@ -114,7 +114,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
     <article
       id={`blog-post-${id}`}
       role="article"
-      className="bg-white shadow-lg rounded-lg w-full mx-auto mb-8 pt-4 pb-8"
+      className="bg-white shadow-2xl rounded-lg w-full mx-auto mb-8 pt-4 pb-8"
     >
       <BlogPostTitle title={title} createdAt={createdAt} />
       <div
