@@ -78,7 +78,7 @@ const NewBlogPost = ({}) => {
       <BasicButton
         type="button"
         onClick={handlerMakeNewPost}
-        className="border rounded-xl bg-purple-600 hover:bg-purple-700 p-2"
+        className="border rounded-xl bg-purple-600 hover:bg-purple-700 text-zinc-200 dark:text-white p-2"
         aria-label="Create new post"
       >
         {newPostTitle}
