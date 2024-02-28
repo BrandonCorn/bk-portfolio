@@ -12,6 +12,7 @@ import { useAppDispatch } from "@/redux";
 import { addNewComment } from "@/redux/slices/commentSlice/commentSlice";
 import { Comment } from "@prisma/client";
 import { motion } from "framer-motion";
+import useIsMobile from "@/hooks/useIsMobile";
 
 type BlogPostProps = {
   id: number;
@@ -40,6 +41,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
   const { data: session } = useSession();
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const isMobile = useIsMobile();
 
   /**
    * Change button text to opposite of current value
@@ -50,7 +52,8 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
     } else {
       setShowButtonText("show more");
       const titleElement = document.getElementById(`blog-post-${title}`);
-      if (titleElement) titleElement.scrollIntoView({ behavior: "smooth" });
+      if (titleElement && isMobile)
+        titleElement.scrollIntoView({ behavior: "smooth" });
     }
   };
 
