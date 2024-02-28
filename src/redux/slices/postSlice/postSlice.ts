@@ -1,9 +1,10 @@
 import { Post } from "@prisma/client"
-import { createSlice, createAsyncThunk, ActionReducerMapBuilder, AnyAction } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit'
 import api from '@/lib/apiClient';
 import { LoadingState } from '@/types/common/type';
 import { CustomResponse } from "@/types/common/type";
 import { ErrorResponse } from "@/types/errors/type";
+import { CreatePostRequest } from "@/types/posts/type";
 
 // page size is actually 3 posts, but we want 9 pages, so 3 * 9
 const PAGE_SIZE = 27;
@@ -58,13 +59,36 @@ const getInitialPostsBuilders = (builder: ActionReducerMapBuilder<PostState>) =>
   });
 }
 
+export const saveNewPost = createAsyncThunk<Post, CreatePostRequest, {rejectValue: ErrorResponse}>('post/saveNewPost',
+  async (post, thunkApi) => {
+    const res = await api.posts.createPost(post);
+    if(res.success){
+      const { data } = res;
+      thunkApi.dispatch(addNewPost(data));
+      return data;
+    }
+    else{
+      return thunkApi.rejectWithValue(res.error);
+    }
+  })
+
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
     // sets posts on initial fetch
-    setPosts: (state, action) => {
+    setPosts: (state, action: PayloadAction<Post[]>) => {
       state.posts = action.payload;
+    },
+    // adds new post to existing list of posts
+    addNewPost: (state, action: PayloadAction<Post>) => {
+      const post = action.payload;
+      if(!state.posts.length){
+        state.posts = [post];
+      }
+      else {
+        state.posts = [post, ...state.posts];
+      }
     }
   },
   extraReducers: (builder) => {
@@ -73,6 +97,6 @@ const postsSlice = createSlice({
 });
 
 
-export const { setPosts } = postsSlice.actions;
+export const { setPosts , addNewPost} = postsSlice.actions;
 
 export default postsSlice.reducer;

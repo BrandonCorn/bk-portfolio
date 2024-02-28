@@ -12,6 +12,7 @@ import { useAppDispatch } from "@/redux";
 import { addNewComment } from "@/redux/slices/commentSlice/commentSlice";
 import { Comment } from "@prisma/client";
 import { motion } from "framer-motion";
+import useIsMobile from "@/hooks/useIsMobile";
 
 type BlogPostProps = {
   id: number;
@@ -25,6 +26,7 @@ type ShowButtonText = "show more" | "show less";
 /**
  * Container for blog post content including the post and it's info, comments on the post, and the ability to add comments by users
  * @param props
+ * @param {} props.id - id of the blog post
  * @param {} props.title - title of the blog post
  * @param {} props.content - content of the blog post
  * @param {} props.createdAt - The date and time when the blog post was created
@@ -39,6 +41,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
   const { data: session } = useSession();
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const isMobile = useIsMobile();
 
   /**
    * Change button text to opposite of current value
@@ -49,7 +52,8 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
     } else {
       setShowButtonText("show more");
       const titleElement = document.getElementById(`blog-post-${title}`);
-      if (titleElement) titleElement.scrollIntoView({ behavior: "smooth" });
+      if (titleElement && isMobile)
+        titleElement.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -69,7 +73,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
 
   /**
    * Handles setting the
-   * @param e ChangeEvent<HTMLTextAreaElement> event from comment text area
+   * @param {ChangeEvent<HTMLTextAreaElement>} e - event from comment text area
    */
   const handleCommentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCommentContent(e.target.value);
@@ -113,7 +117,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
     <article
       id={`blog-post-${id}`}
       role="article"
-      className="bg-white shadow-lg rounded-lg w-full mx-auto mb-8 pt-4 pb-8"
+      className="bg-white shadow-2xl rounded-lg w-full mx-auto mb-8 pt-4 pb-8"
     >
       <BlogPostTitle title={title} createdAt={createdAt} />
       <div
@@ -169,9 +173,7 @@ const BlogPost = ({ id, title, content, createdAt }: BlogPostProps) => {
         transition={{ duration: 0.2 }}
         className={`flex mt-4`}
       >
-        {showComments && (
-          <CommentList postId={id} showComments={showComments} />
-        )}
+        {showComments && <CommentList postId={id} />}
       </motion.div>
     </article>
   );

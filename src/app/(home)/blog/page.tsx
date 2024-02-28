@@ -33,7 +33,7 @@ const paragraphs = {
   there are overlooked and under appreciated moments of great value. I
   owe it to myself and everyone involved to remember them anyway I
   can.`,
-  p3: `So this is my stomping ground, where we celebrate the drama, dissect
+  p3: `So this is my starting point, where we celebrate the drama, dissect
   (or overthink) the political theater, swoon in the corny interludes,
   and, of course, share a good laugh. This blog isn't a solo act, it's
   a shared experience. I'm a fan of some cheesiness, and want others
@@ -45,6 +45,8 @@ const paragraphs = {
   in the spotlight. Will you enjoy the moments with me? Let's take on
   this journey together. 🎭✨`,
 };
+
+const blogButtonTitle = "Enjoy My Blogging Journey!";
 
 const FIRST_PAGE = 1;
 
@@ -114,9 +116,9 @@ export default function Page() {
             <Link
               aria-label="posts link"
               href={`/blog/${FIRST_PAGE}`}
-              className="bg-brand-secondary/20 rounded-full py-3 px-6 text-lg md:text-xl border-2 border-solid hover:bg-gray-400 dark:hover:bg-gray-700 transition duration-300 cursor-not-allowed pointer-events-none"
+              className="bg-brand-secondary/20 rounded-full py-3 px-6 text-lg md:text-xl border-2 border-solid hover:bg-gray-400 dark:hover:bg-gray-700 transition duration-300"
             >
-              Posts in construction
+              {blogButtonTitle}
             </Link>
           </div>
         </div>
