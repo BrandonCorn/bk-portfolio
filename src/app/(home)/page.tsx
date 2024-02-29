@@ -1,7 +1,7 @@
 "use client";
 
 import ImageGallery from "@/components/molecules/Gallery/ImageGallery/ImageGallery";
-import Disneyland from "/public/about-me/brandon-kat-disneyland-2.jpg";
+import WithMarcus from "/public/about-me/brandon-marcus.jpeg";
 import MeowWolf from "/public/about-me/meow-wolf-1.jpeg";
 import MeowWolf2 from "/public/about-me/meow-wolf-2.jpeg";
 import TwilioSpeaker from "/public/about-me/twilio-speaker.jpeg";
@@ -11,7 +11,7 @@ import HomeIntro from "@/components/molecules/Cards/HomeIntroCard/HomeIntro";
 import ContactSection from "@/components/organisms/Sections/ContactSection/ContactSection";
 import { LayoutGroup } from "framer-motion";
 
-const homeImages = [MeowWolf, Disneyland, MeowWolf2, TwilioSpeaker, Mom];
+const homeImages = [MeowWolf, WithMarcus, MeowWolf2, TwilioSpeaker, Mom];
 
 function Home() {
   return (
