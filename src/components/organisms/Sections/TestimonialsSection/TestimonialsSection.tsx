@@ -8,6 +8,13 @@ import TestimonialCard, {
 
 const testimonials: TestimonialProps[] = [
   {
+    name: "Krista Goralcyzk",
+    company: "Vercel",
+    jobTitle: "Solutions Engineer",
+    quote:
+      "I greatly enjoyed working with Brandon at Twilio. He is a very sharp Solutions Engineer and strong programmer. Between his motivation to tinker with code and great communication skills, I highly recommend working with him!",
+  },
+  {
     name: "Will Helms",
     company: "Yum Brands!",
     jobTitle: "Staff Software Engineer",
@@ -20,13 +27,6 @@ const testimonials: TestimonialProps[] = [
     jobTitle: "Growth Specialist",
     quote:
       "You were one of the best SEs I have ever worked with. It was truly an honor to tag team sales calls and learn the technical side of Twilio from you",
-  },
-  {
-    name: "Krista Goralcyzk",
-    company: "Vercel",
-    jobTitle: "Solutions Engineer",
-    quote:
-      "I greatly enjoyed working with Brandon at Twilio. He is a very sharp Solutions Engineer and strong programmer. Between his motivation to tinker with code and great communication skills, I highly recommend working with him!",
   },
 ];
 
