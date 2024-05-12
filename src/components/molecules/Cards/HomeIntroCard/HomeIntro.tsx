@@ -6,7 +6,7 @@ import PersonalLogo from "../../../public/personal-logo.jpeg";
 import IntroText from "@/components/atoms/Texts/IntroText/IntroText";
 import IntroTitle from "../../../atoms/Titles/IntroTitle/IntroTitle";
 
-const introText = `I'm Brandon, a software engineer and entrepreneur based in Colorado Springs. I'm a lover of learning and imagining, whether that's at DragonCon, my projects, or DisneyWorld! I have great pride in my contributions, and am always excited to learn. Let's work together!`;
+const introText = `I'm Brandon, a software engineer and entrepreneur based in Columbus, Georiga. I'm a lover of learning and imagining, whether that's at DragonCon, my projects, or DisneyWorld! I have great pride in my contributions, and am always excited to learn. Let's work together!`;
 const introTitle = "Engineer, mentor, and imagineer";
 
 const HomeIntroCard = () => {
