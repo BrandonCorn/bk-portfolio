@@ -5,6 +5,7 @@ import { serverSession } from "@/app/api/auth/[...nextauth]/options";
 import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@/components";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const roboto = Roboto({
   weight: "400",
@@ -29,6 +30,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body id="main-layout" className={` ${roboto.className}`}>
+        <SpeedInsights />
         <Analytics />
         <NextAuthProvider session={session}>
           <ReduxProvider>
