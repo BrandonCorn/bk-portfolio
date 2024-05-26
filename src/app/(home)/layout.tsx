@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Header } from "@/components";
 import Footer from "@/components/molecules/Footers/Footer/Footer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Brandon Corn Portfolio",
@@ -15,6 +16,7 @@ export default async function Layout({
 }) {
   return (
     <section className="flex flex-col min-h-screen m-0 text-black dark:bg-black dark:text-white overflow-hidden">
+      <SpeedInsights />
       <div className="min-h-screen flex justify-center items-center">
         <div className=" dark:bg-zinc-900 w-full sm:w-full md:w-11/12 lg:w-11/12 xl:w-4/5 max-w-screen-xl p-4 transition-width">
           <Header />
