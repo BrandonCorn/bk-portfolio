@@ -115,8 +115,10 @@ export default function Page() {
           <div className="my-6">
             <Link
               aria-label="posts link"
-              href={`/blog/${FIRST_PAGE}`}
-              className="bg-brand-secondary/20 rounded-full py-3 px-6 text-lg md:text-xl border-2 border-solid hover:bg-gray-400 dark:hover:bg-gray-700 transition duration-300"
+              href={`#`}
+              onClick={(e) => e.preventDefault()}
+              className="bg-brand-secondary/20 rounded-full py-3 px-6 text-lg md:text-xl border-2 border-solid hover:bg-gray-400 
+                dark:hover:bg-gray-700 transition duration-300 cursor-not-allowed"
             >
               {blogButtonTitle}
             </Link>
